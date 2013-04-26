@@ -1,0 +1,7 @@
+OD Hub		
+FTPUSER: odhub@arcinfotec.com	
+FTPPASS: aCa6skgHs0rs	
+
+DATABASEUSER: arcinfo_odhub	
+DATABASENAME: arcinfo_odhub	
+DATABASEPASS: 3iAW57TcMOIn

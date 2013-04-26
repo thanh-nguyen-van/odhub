@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond $1 !^(index\.php|site|admin|upload|fckeditor|public|forum|Admin|robots\.txt|user_guide|info\.php)
+RewriteRule ^(.*)$ /odhub/index.php?/$1 [L]
