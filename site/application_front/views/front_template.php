@@ -59,9 +59,9 @@ function MM_swapImage() { //v3.0
     
 </head>
 <body>
-        <?php if(isset($header)) echo $header; ?>
-        <?php if(isset($leftmenu)) echo $leftmenu; ?>
-	<?php if(isset($content)) echo $content; ?>
-	<?php if(isset($footer)) echo $footer; ?>
+    <?php if(isset($header))	echo $header;	?>
+    <?php if(isset($leftmenu))	echo $leftmenu; ?>
+	<?php if(isset($content))	echo $content;	?>
+	<?php if(isset($footer))	echo $footer;	?>
 </body>
 </html>

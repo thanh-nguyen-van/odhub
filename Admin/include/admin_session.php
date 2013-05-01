@@ -1,5 +1,4 @@
-<?
-session_start();
+<?php
 if(($_SESSION['Usertype']!="Admin") || ($_SESSION['AdminId']==""))
 {
 	session_destroy();

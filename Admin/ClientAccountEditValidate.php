@@ -1,19 +1,18 @@
-<?
-session_start();
+<?php
 include('include/connect.php');
 
- $clientfirstname=$_REQUEST['clientfirstname'];
- $clientlastname=$_REQUEST['clientlastname'];
- $clientemail=$_REQUEST['clientemail'];
- $clientaddress=$_REQUEST['clientaddress'];
- $clientzipcode=$_REQUEST['clientzipcode'];
- $clientdescription=$_REQUEST['clientdescription'];
- $description=ereg_replace("\r\n\r\n|\n\n|\r\r","<p>",$clientdescription);
-$description=stripcslashes(ereg_replace("\r\n|\n|\r","<br/>",$description));
- $clientemail=$_REQUEST['clientemail'];
- $state=$_REQUEST['state'];
- $country=$_REQUEST['country'];
-  $clientid=$_REQUEST['clientid'];
+ $clientfirstname	= $_REQUEST['clientfirstname'];
+ $clientlastname	= $_REQUEST['clientlastname'];
+ $clientemail		= $_REQUEST['clientemail'];
+ $clientaddress		= $_REQUEST['clientaddress'];
+ $clientzipcode		= $_REQUEST['clientzipcode'];
+ $clientdescription	= $_REQUEST['clientdescription'];
+ $description		= @preg_replace("\r\n\r\n|\n\n|\r\r","<p>",$clientdescription);
+ $description		= stripcslashes(@preg_replace("\r\n|\n|\r","<br/>",$description));
+ $clientemail		= $_REQUEST['clientemail'];
+ $state				= $_REQUEST['state'];
+ $country			= $_REQUEST['country'];
+ $clientid			= $_REQUEST['clientid'];
 
 function username($strg)
 {
@@ -119,14 +118,14 @@ if(address($description)==false)
 	$set_for_correction=true;
 }
 
-if($set_for_correction=="true")
+if(isset($set_for_correction)=="true")
 {
 	$err_msg="<font color=red>Please check the enteries in red color</font>";
 	include('ClientAccountEdit.php');//?lawyerid=$lawyerid');
 }
 else
 {
-	echo $value1;
+	if(isset($value1))	echo $value1;
 	include('ClientAccountEditUpdate.php');
 }
 ?>

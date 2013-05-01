@@ -1,6 +1,6 @@
 <?php
-include('admin_session.php');
 include('setting.php');
+include('admin_session.php');
 require_once('class.image-resize.php');
 ?>
 <HTML>

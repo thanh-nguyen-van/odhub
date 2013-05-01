@@ -1,8 +1,10 @@
-<?include('include/adminheader.php');
+<?php
+include('include/adminheader.php');
 include('include/connect.php');
 
-$lawyerid=$_REQUEST['lawyerid'];
-$suslawyerid=$_REQUEST['suslawyerid'];
+isset($_REQUEST['lawyerid'])	? $lawyerid		= $_REQUEST['lawyerid']		: $lawyerid	 = '';
+isset($_REQUEST['suslawyerid'])	? $suslawyerid	= $_REQUEST['suslawyerid']	: $suslawyerid = '';
+
 if($lawyerid!="")
 {
 	$delete_query="UPDATE ".$table['professional_detail']." SET ProfessionalStatus=4 WHERE ProfessionalId=$lawyerid";

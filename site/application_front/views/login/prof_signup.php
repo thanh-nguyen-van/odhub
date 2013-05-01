@@ -20,6 +20,7 @@
              </div>
                 <div class="reg-2blue">
                 <form name="frmProfSignup" id="frmProfSignup" action="<?php echo $prof_signup_submit_link ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>">
                  <div>
                         
                 <p class="p-txt">Email Adress</p>

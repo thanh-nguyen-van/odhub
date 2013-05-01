@@ -1,6 +1,6 @@
 <?php
 
-if($_SERVER["HTTP_HOST"]=="localhost" || $_SERVER["HTTP_HOST"]=="192.168.1.61" ) // for local
+if($_SERVER["HTTP_HOST"]=="localhost" || $_SERVER["HTTP_HOST"]=="192.168.1.61" || $_SERVER["HTTP_HOST"]=="192.168.1.50") // for local
 {		
 
     $db='odhub';

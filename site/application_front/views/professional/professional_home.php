@@ -19,6 +19,7 @@
       <div class="editSection">
         <div class="editSec">
           <h1><a href="#">Edit Profile</a></h1>
+         
           <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
           <p>Address :	<span> rajajipuram </span></p>
           <p>Country :	<span> <?php if($country_data){ echo $country_data['Country']; } ?> </span></p>
@@ -26,8 +27,8 @@
           <p>Zip code : <span> <?php echo $prof_data['ProfessionalZipcode'] ?> </span></p>
         </div>
         <div class="editSec1">
-          <p>REFERRAL CODE: <span>SDF232t</span></p>
-          <p>Unique Referral Code Link : <span><a href="#">www.theodhub.com/sdf232</a></span> </p>
+          <p>REFERRAL CODE: <span><?php echo $prof_data['referral_code'];?></span></p>
+          <p>Unique Referral Code Link : <span><a href="<?php echo base_url("login/prof_signup/?code=".$prof_data['referral_code']);?>"><?php echo base_url("login/prof_signup/?code=".$prof_data['referral_code']);?></a></span> </p>
           <p>Upload Your W - 9 : <span>
             <input name="" type="file" >
             </span> </p>

@@ -49,7 +49,7 @@ $active_group = 'default';
 $active_record = TRUE;
 
 
-if($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "192.168.1.61")
+if($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "192.168.1.61" || $_SERVER['HTTP_HOST'] == "192.168.1.50")
 {
 	$db['default']['hostname'] = "localhost";
 	$db['default']['username'] = "root";

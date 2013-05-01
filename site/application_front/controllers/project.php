@@ -1,46 +1,58 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Search extends MY_Controller 
+class Project extends MY_Controller 
 {
-	public $request_data = array();
-    public $final_qry_str = 1;
+	public $request_data	= array();
+    public $final_qry_str	= 1;
 	function __construct()
 	{
 		parent::__construct();
-        $this->load->model('model_professional');
-        $this->load->model('model_searchcustom');
-		
+        $this->load->model('model_searchproject');
+        $this->load->model('model_project');
+        $this->load->model('model_all');
+        $this->initData();
+        
+        //$this->load->model('model_searchcustom');		
 	}
 	
-    function init(){
-           
-        
-    }
-
+	private function initData()
+	{
+		$this->middle_data['controller'] = 'project';
+	}
+	    
 	function index()
-	{     
-        
-             
-         $this->request_data = $this->input->post();
+	{    
+        $this->request_data = $this->input->post();
         
         $this->load->view('common/head',$this->header_data);
         $this->load->view('common/header',$this->header_data);
-        $this->load->view('search/index');
+        $this->load->view('project/index');
         $this->load->view('common/footer',$this->footer_data);
         $this->load->view('common/foot',$this->footer_data);
-        
-		
 	}  
      
-    function index_left(){ 
-    
-        $this->request_data = $this->input->post();
+    function index_left()
+	{
+       $final_qry_str = 1;
+       $this->request_data = $this->input->post();
         
+        //DebugBreak();
+        
+        
+        $final_qry_str = $this->model_all->project_search_rq($this->request_data);
          
+        
+        $data['category_details'] = $this->model_searchproject->getCategoryInfo($final_qry_str);
+        $data['projecttypeInfo'] =  $this->model_searchproject->getProjecttypeInfo($final_qry_str);
+        $data['projectstate'] =  $this->model_searchproject->getFilterState($final_qry_str);
+        
+        
+        
+        
         
         
 
-        
+     /*   
         if($this->request_data != NULL){
             $arr_cond_arr = array();
             
@@ -145,21 +157,34 @@ class Search extends MY_Controller
         $data['contractval_details'] = $this->model_searchcustom->getFiltercontractval($final_qry_str);
         
         
+      */
+      
         
         
      
-        $this->load->view('search/search_left',$data);  
+        $this->load->view('project/project_left',$data);  
     } 
     
-    function search_result(){  
+    function search_result()
+	{
+		$data = "";
+        
+      
+        
+         $this->request_data = $this->input->post();
+        
+        DebugBreak();
         
         
+         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
         
-        $this->request_data = $this->input->post();
+        
+         $data_result = $this->model_searchproject->getProjectDetails_short($final_qry_str);
+         $data['data_result'] = $data_result;
         
          
-        
-        
+         
+       /*          
 
         
         if($this->request_data != NULL){
@@ -256,14 +281,65 @@ class Search extends MY_Controller
         
         
         
-        
-        
-        
         $data_result = $this->model_professional->getAllProfessional($this->final_qry_str);
         $data['data_result'] = $data_result;
         
-        $this->load->view('search/search_result',$data);  
-    } 
+        */
+        
+        $this->load->view('project/project_content',$data);  
+    }
+	
+	public function details()
+	{
+		$this->request_data = $this->input->get('projectid');		
+		$this->middle_data['project_details']  = $this->model_project->get_project_data($this->request_data['projectid']);
+		
+		$this->load->view('common/head',			 $this->header_data);
+        $this->load->view('common/header',			 $this->header_data);
+        $this->load->view('project/project_details', $this->middle_data);
+        $this->load->view('common/footer',			 $this->footer_data);
+        $this->load->view('common/foot',			 $this->footer_data);
+	}
+	
+	public function post_project()
+	{
+		$this->middle_data['post_project_submit_link'] = base_url().$this->middle_data['controller'].'/post_project_submit';
+		
+		$errmsg = $this->nsession->userdata('errmsg');
+		if($errmsg != ''){
+			$this->middle_data['errmsg'] = $errmsg;
+			$this->nsession->set_userdata('errmsg', '');
+		}	
+		
+
+
+		$this->load->view('common/head',$this->header_data);
+        $this->load->view('common/header',$this->header_data);
+        $this->load->view('project/project_post',$this->header_data);
+        $this->load->view('common/footer',$this->footer_data);
+        $this->load->view('common/foot',$this->footer_data);
+	}	
+	public function post_project_submit()
+	{
+		$this->request_data = $this->input->post();
+		
+		foreach($this->request_data as $key=>$val)
+		  $this->form_validation->set_rules($key, str_replace('_',' ',$key), 'required');
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->post_project();
+		}
+		else
+		{
+			$this->model_project->insert_project_data();
+			
+			$this->template->write_view('header',  'common/header',			$this->header_data);
+			$this->template->write_view('content', 'project/project_post',	$this->middle_data); 
+			$this->template->write_view('footer',  'common/footer',			$this->footer_data);
+			$this->template->render();
+		}
+	}
     
                
 }

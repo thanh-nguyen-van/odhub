@@ -8,39 +8,58 @@ class Model_login extends CI_Model
 		parent::__construct();	
 	}
 	
+    public function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+        {
+            $str = '';
+            $count = strlen($charset);
+            while ($length--) {
+                $str .= $charset[mt_rand(0, $count-1)];
+            }
+            return $str;
+        }
+    
+    
 	public function insert_client_data()
 	{
-		$email = inputEscapeString($this->input->request('email'));
-		$passd = inputEscapeString($this->input->request('passd'));
-		$fname = inputEscapeString($this->input->request('fname'));
-		$lname = inputEscapeString($this->input->request('lname'));
-		$phone = inputEscapeString($this->input->request('phone'));
-		$zip   = inputEscapeString($this->input->request('zip'));
+        $email		= inputEscapeString($this->input->request('email'));
+		$username	= inputEscapeString($this->input->request('email'));
+		$passd		= inputEscapeString($this->input->request('passd'));
+		$fname		= inputEscapeString($this->input->request('fname'));
+		$lname		= inputEscapeString($this->input->request('lname'));
+		$phone		= inputEscapeString($this->input->request('phone'));
+		$zip		= inputEscapeString($this->input->request('zip'));
+       
 		
 		$data  = array(
 						 'ClientEmail'		=> $email ,
 						 'ClientPassword'	=> $passd ,
 						 'ClientFirstname'	=> $fname ,
 						 'ClientLastname'	=> $lname ,
-						 'ClientZipcode'	=> $zip   ,
+                         'ClientZipcode'    => $zip   ,
+						 'ClientUsername'	=> $username   ,
 						 'ClientJoinDate'	=> date("Y-m-d H:i:s")
 					  );
 		$this->db->insert('lm_clientdetail_tbl', $data); 
 	}
 	
 	public function insert_prof_data($img_file_name)
-	{
-		$email = inputEscapeString($this->input->request('email'));
-		$passd = inputEscapeString($this->input->request('passd'));
-		$fname = inputEscapeString($this->input->request('fname'));
-		$lname = inputEscapeString($this->input->request('lname'));
-		$addrs = inputEscapeString($this->input->request('addrs'));
-		$city  = inputEscapeString($this->input->request('city'));
-		$state = inputEscapeString($this->input->request('state'));
-		$zip   = inputEscapeString($this->input->request('zip'));
-		$wbsit = inputEscapeString($this->input->request('wbsit'));
-		$educn = inputEscapeString($this->input->request('educn'));
-		$credn = inputEscapeString($this->input->request('credn'));
+	{ 
+        $username	= inputEscapeString($this->input->request('email'));
+		$email		= inputEscapeString($this->input->request('email'));
+		$passd		= inputEscapeString($this->input->request('passd'));
+		$fname		= inputEscapeString($this->input->request('fname'));
+		$lname		= inputEscapeString($this->input->request('lname'));
+		$addrs		= inputEscapeString($this->input->request('addrs'));
+		$city		= inputEscapeString($this->input->request('city'));
+		$state		= inputEscapeString($this->input->request('state'));
+		$zip		= inputEscapeString($this->input->request('zip'));
+		$wbsit		= inputEscapeString($this->input->request('wbsit'));
+		$educn		= inputEscapeString($this->input->request('educn'));
+        $credn		= inputEscapeString($this->input->request('credn'));
+        $p_user		= inputEscapeString($this->input->request('referral_code'));
+		//$referral_code = inputEscapeString($this->input->request('referral_code'));
+        
+         $referral_code = $this->randString(8);    
 		
 		$data  = array(
 						 'ProfessionalEmail'		=> $email ,
@@ -55,8 +74,13 @@ class Model_login extends CI_Model
 						 'ProfessionalDegree'		=> $educn ,
 						 'ProfessionalAchievements'	=> $credn ,
 						 'ProfessionalImage'		=> $img_file_name ,
-						 'ProfessionalJoinDate'		=> date("Y-m-d H:i:s")
+						 'ProfessionalJoinDate'		=> date("Y-m-d H:i:s"),
+                         'referral_code'            => $referral_code,
+                         'ProfessionalUsername'     => $username,
+                         'p_user'                   => $p_user                         
 					  );
+                      
+                      
 		$this->db->insert('lm_professionaldetail_tbl', $data); 
 	}
 	
