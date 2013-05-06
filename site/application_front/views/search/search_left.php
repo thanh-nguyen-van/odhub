@@ -25,7 +25,7 @@
 
 foreach($state_details as $key=>$val){
 ?>
-<option value="<?php echo $val->ProfessionalState?>" <?php if($state_selected_state == $val->ProfessionalState){echo "selected";}?>><?php echo $val->ProfessionalState?></option><?php
+<option value="<?php echo $val->ProfessionalState?>" <?php if($state_selected_state == $val->ProfessionalState){echo "selected";}?>><?php echo $val->StateName?></option><?php
 }
 ?>
 </select></span>

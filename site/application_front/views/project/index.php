@@ -1,3 +1,11 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>         
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#mydate" ).datepicker();
+  });
+</script>
 <section class="container">
 
 <nav class="clearfix">
@@ -16,12 +24,12 @@
 
 <div class="Total-Div-Box-pro2">
 
-    <form action="<?php echo $this->config->base_url();?>project/index_left/" id="search_form" method="post">   
+   <form action="<?php echo $this->config->base_url();?>project/index_left/" id="search_form" method="post">   
    <div class="total-left-col" id="left_content">
     
    <?php
-//$this->index_left();   
-	Project::index_left(); 
+	  //$this->index_left();   
+	  Project::index_left(); 
 	?>
   
 </div>
@@ -37,7 +45,7 @@
 	?>
  
  </div>
- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>          
+ 
  
 <script>
 /* attach a submit handler to the form */
@@ -66,6 +74,7 @@ $("#search_form").submit(function(event) {
          data: param
          }).done(function( msg ) {
          $( "#left_content" ).empty().append( msg );  
+		 $( "#mydate" ).datepicker();
           });
 	  
         

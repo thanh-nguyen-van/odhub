@@ -8,12 +8,16 @@ class Model_login extends CI_Model
 		parent::__construct();	
 	}
 	
-    public function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+    public function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ',$charsetint = '0123456789')
         {
             $str = '';
             $count = strlen($charset);
+            $legth1 = $length;
             while ($length--) {
                 $str .= $charset[mt_rand(0, $count-1)];
+            }
+            while ($length1--) {
+                $str .= $charsetint[mt_rand(0, $count-1)];
             }
             return $str;
         }
@@ -59,7 +63,7 @@ class Model_login extends CI_Model
         $p_user		= inputEscapeString($this->input->request('referral_code'));
 		//$referral_code = inputEscapeString($this->input->request('referral_code'));
         
-         $referral_code = $this->randString(8);    
+         $referral_code = $fname.'-'.$this->randString(8);    
 		
 		$data  = array(
 						 'ProfessionalEmail'		=> $email ,

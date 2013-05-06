@@ -44,8 +44,8 @@ if($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1" 
 {
 
 $config['base_url']						= $PROTOCOL.$_SERVER['HTTP_HOST'].'/odhub/site/';//"http://production.worwis.com/sliceanddice/";
-$config['server_absolute_path'] 		= "c:/wamp/www/";  //"/home/worwis/public_html/projects/sliceanddice/";  
-$config['file_upload_absolute_path'] 	= "c:/wamp/www/odhub/upload";//"/home/worwis/public_html/projects/sliceanddice/upload";
+$config['server_absolute_path'] 		= "E:/xampp/htdocs/odhub/";  //"/home/worwis/public_html/projects/sliceanddice/";  
+$config['file_upload_absolute_path'] 	= "E:/xampp/htdocs/odhub/upload";//"/home/worwis/public_html/projects/sliceanddice/upload";
 
 $config['front_base_url']				= $PROTOCOL.$_SERVER['HTTP_HOST'].'/odhub/'; //"http://production.worwis.com/sliceanddice/"; 
 

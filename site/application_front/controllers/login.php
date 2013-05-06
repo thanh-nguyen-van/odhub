@@ -122,7 +122,10 @@ class Login extends MY_Controller
 		}
 		else
 		{
-			//--------- File Upload ------------------------
+			
+            DebugBreak();
+            
+            //--------- File Upload ------------------------
 			  $file_name = '';
 			  if(isset($_FILES['userimg']['name']) && $_FILES['userimg']['name'] <> "")
 			  {
@@ -135,8 +138,9 @@ class Login extends MY_Controller
 				  $config1['upload_path'] 	= file_upload_absolute_path().'userimages/';
 				  $config1['optional'] 		= true;
 				  $config1['max_size']		= '250';
-				  $config1['max_width']  	= '00';
-				  
+                  $config1['max_width']      = '00';
+				  $config1['max_size']  	= '3000';
+				                                        
 				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
 				  if($isUploaded)
 				  {

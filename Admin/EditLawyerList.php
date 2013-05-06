@@ -5,16 +5,27 @@ include('include/connect.php');
 
 $lawyerid=$_REQUEST['lawyerid'];
 
+
                   
 
 
 if(isset($_REQUEST['update'])=='Update'){
     $str_arr = array();
-    
+    //DebugBreak();
     foreach($_REQUEST as $key=>$val){
         if($key!='lawyerid' && $key!='update'){
 			if($key=='ProfessionalJoindate')
 				$str = "`".$key."`='".date("Y-m-d H:i:s", strtotime($val))."'";
+            elseif($key == 'professional_skill'){
+             $professional_skill = $_REQUEST['professional_skill'];   
+             $sql_delete_skill = "delete from `professional_skill_map` where `professional_id` = '".$lawyerid."'";
+             mysql_query($sql_delete_skill);
+             
+             foreach($professional_skill as $val){
+                 $sql_insert_skill = "insert into `professional_skill_map` set `professional_id`='".$lawyerid."',`skill_id`='".$val."'";
+                 mysql_query($sql_insert_skill);    
+             }   
+            }    
 			else
           		$str = "`".$key."`='".$val."'";
           array_push($str_arr,$str);  
@@ -23,9 +34,10 @@ if(isset($_REQUEST['update'])=='Update'){
    
    $update_str = implode(',',$str_arr);
    $update_sql = "update `".$table['professional_detail']."` set ".$update_str." where `ProfessionalId`='".$lawyerid."'";
-mysql_query($update_sql);   
+   mysql_query($update_sql);   
     
 }
+
 
 
 
@@ -169,7 +181,40 @@ if($lawyerid!="")
       <?php }elseif($key == 'p_user'){ ?>
       <td>P User</td>
       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
-      <?php }else{ ?>
+      <?php }
+      elseif($key == 'ProfessionalSpecialization'){
+          
+          $selected_skills = array();
+        $sql_get_skills = "select * from `professional_skill_map` where `professional_id` = '".$lawyerid."'";
+        $rs_skills = mysql_query($sql_get_skills);
+        
+        while($rr = mysql_fetch_array($rs_skills)){
+            $skill_id = $rr['skill_id'];
+            array_push($selected_skills,$skill_id);    
+            
+        }
+          
+          
+          $sql = "select * from `project_skill`";
+          $rs = mysql_query($sql);
+     ?>
+     <td><?=substr($key,12)?></td>
+     <td>
+     <select name="professional_skill[]" size="3" id="professional_skill" multiple="multiple">     
+      <?php  
+          while($rr = mysql_fetch_array($rs)){
+              $pr_skill_id = $rr['pr_skill_id'];
+              $pr_skill_name =  $rr['skill_name'];
+      ?>        
+      <option value="<?php echo $pr_skill_id;?>" <?php if(in_array($pr_skill_id,$selected_skills)){echo "selected";}?>><?php echo $pr_skill_name;?></option>
+      <?php        
+          }
+       ?>
+       </select>
+       </td>
+      <?php    
+      }
+      else{ ?>
       <td><?=substr($key,12)?></td>
       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
       <?php } ?> 

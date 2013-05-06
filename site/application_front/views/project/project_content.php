@@ -36,7 +36,13 @@ foreach($data_result as $result){
  
  <div class="cat">Category: <span><?php echo $result->project_category; ?></span></div>
  
- <div class="skills">Skills: <span>Microsoft Access Administration, MySQL Administration, PHP</span></div>
+ 
+ <?php
+ $skill_set = Project::getSkillInfo($result->project_id);
+ ?>
+ 
+ 
+ <div class="skills">Skills: <span><?php echo $skill_set;?></span></div>
  
  <div class="clear"></div>
  

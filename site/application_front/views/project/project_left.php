@@ -157,7 +157,7 @@ foreach($projecttypeInfo as $projecttype){
 
 
 <div class="cal">
- <input type="text" id="mydate" gldp-id="mydate" />
+ <input type="text" id="mydate" name="mydate" gldp-id="mydate" />
     <div gldp-el="mydate"
          style="width:260px; height:160px; position:absolute; top:70px; left:30px;">
     </div>

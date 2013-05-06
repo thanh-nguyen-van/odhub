@@ -11,6 +11,10 @@ class Model_searchcustom extends CI_Model
 	}
 	public function getFilterState($final_qry_str=1){
         $sql_getCountry = "select * from `".$this->table_name."` `lpt` where ".$final_qry_str." group by `ProfessionalCountry` ";
+        
+        $sql_getCountry = "select `lpt`.`ProfessionalState`,`lst`.`StateName` `StateName` from `".$this->table_name."` `lpt` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `lpt`.`ProfessionalState` !='' group by `lpt`.`ProfessionalState`";
+        
+        
         $result = $this->db->query($sql_getCountry);
           
         $data_result = $result->result();  

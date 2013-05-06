@@ -23,6 +23,18 @@ class Model_all extends CI_Model
                array_push($arr_cond_arr,$cond_str);
             }
             
+            
+            if(isset($this->request_data['mydate'])){
+                $mydate = $this->request_data['mydate'];
+                if($mydate!=""){
+                $mydate_arr = explode('/',$mydate);
+                $mydate_str = $mydate_arr[2].$mydate_arr[1].$mydate_arr[0];
+                $cond_str = "date_format(`post_date`,'%Y%m%d') >= '".$mydate_str."'";
+                array_push($arr_cond_arr,$cond_str);
+                }
+                
+            }
+            
             if(isset($this->request_data['projecttype'])){
                $tmp_str = implode(',',$this->request_data['projecttype']);
                $cond_str = "`pd`.`project_type_id` in(".$tmp_str.")";
@@ -44,7 +56,7 @@ class Model_all extends CI_Model
                 if(in_array("Fixed Price Job",$this->request_data['pricing_type'])){
                     $cond_str = "`pd`.`job_type` = 'Fixed Price Job' and `pd`.`start_price` between ".$this->request_data['min_contract']." and ".$this->request_data['max_contract'];
                     array_push($tmp_arr,$cond_str);
-                }
+                }     
                
                $tmp_str = implode(' or ',$tmp_arr);
                $cond_str = "(".$tmp_str.")";
