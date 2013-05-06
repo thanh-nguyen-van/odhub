@@ -53,7 +53,22 @@
                 
                 <div class="sm-inp">
                   <p class="p-txt">State</p>
-                  <div><input type="text" name="state" id="state" value="<?php echo set_value('state') ?>" class="input-r sm-wid" ><span>*</span>
+                  <div>
+                   <select name="state" id="state" class="input-r">
+                  <?php
+				  for($i=0;$i<count($state_data);$i++){
+				  ?>
+                 
+                  	<option value="<?php echo $state_data[$i]->StateId?>"><?php echo $state_data[$i]->StateName;?></option>
+                  
+                  <?php
+				  }
+				  ?>
+                  
+                  </select>
+                  
+                  
+                  <span>*</span>
                   <?php echo form_error('state') ?></div>
                   
                   <p class="p-txt">Website</p>

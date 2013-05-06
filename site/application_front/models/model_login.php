@@ -12,10 +12,11 @@ class Model_login extends CI_Model
         {
             $str = '';
             $count = strlen($charset);
-            $legth1 = $length;
+            $length1 = $length;
             while ($length--) {
                 $str .= $charset[mt_rand(0, $count-1)];
             }
+            $count = strlen($charsetint);     
             while ($length1--) {
                 $str .= $charsetint[mt_rand(0, $count-1)];
             }

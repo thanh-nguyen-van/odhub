@@ -10,6 +10,7 @@ class Login extends MY_Controller
 		$this->load->model('model_email');
 		$this->load->model('model_login');
 		$this->load->model('model_upload');
+        $this->load->model('model_project');  
         $this->initData();
 	}
 	
@@ -94,6 +95,9 @@ class Login extends MY_Controller
          
         $this->middle_data['prof_signup_submit_link'] = base_url().$this->middle_data['controller'].'/prof_signup_submit';
 		$this->middle_data['referral_code'] = $referral_code;
+        
+          $this->middle_data['state_data']        = $this->model_project->getAllState();   
+        
 		
 		$this->template->write_view('header',  'common/header',$this->header_data);
 		$this->template->write_view('content', 'login/prof_signup',$this->middle_data); 
@@ -123,7 +127,7 @@ class Login extends MY_Controller
 		else
 		{
 			
-            DebugBreak();
+           // DebugBreak();
             
             //--------- File Upload ------------------------
 			  $file_name = '';
