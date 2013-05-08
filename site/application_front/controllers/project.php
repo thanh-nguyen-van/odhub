@@ -25,7 +25,7 @@ class Project extends MY_Controller
        
        $method = $this->router->fetch_method();
        
-        if($method != 'post_project' && $method!='post_project_submit' && $method!= 'post_project_2'){
+        if($method != 'post_project' && $method!='post_project_submit' && $method!= 'post_project_2' && $method!= 'post_project_activate'){
         if(isset($_SESSION['user_session_type'])){
             if($_SESSION['user_session_type'] != 'Professional'){
                  redirect('/login/signin/', 'refresh');

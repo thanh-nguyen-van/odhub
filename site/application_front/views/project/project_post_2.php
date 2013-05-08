@@ -177,8 +177,6 @@ $(".account-d2").attr('id', '');
     </ul>
   </div>
   
-  <?php /* print_r($project_details); */ ?>
-  
   <div class="clear"></div>
   <div class="post-project-sub2">
     <h1>Preview and Post</h1>
@@ -201,20 +199,27 @@ $(".account-d2").attr('id', '');
         <div class="jobT">Job Type: </div> <div class="jobR"><?php echo $project_details[0]->price_type; ?></div>
         <div class="clear"></div>
       </div>
-      <div class="total-job-form">
-        <div class="jobT">Duration: </div> <div class="jobR"><?php echo $project_details[0]->job_type; ?></div>
+     <!-- <div class="total-job-form">
+        <div class="jobT">Duration: </div> <div class="jobR"><?php /*echo $project_details[0]->job_type;*/ ?></div>
+        <div class="clear"></div>
+      </div>-->
+	  <?php if($project_details[0]->price_type == 'Contract'){?>
+	  <div class="total-job-form">
+        <div class="jobT">Budget: </div> <div class="jobR"><?php echo $project_details[0]->start_price?></div> <!--Loss than $10 / hr-->
         <div class="clear"></div>
       </div>
+	 <?php }else{ ?>
       <div class="total-job-form">
-        <div class="jobT">Hourly Budget: </div> <div class="jobR"></div> <!--Loss than $10 / hr-->
+        <div class="jobT">Hourly Budget: </div> <div class="jobR"><?php echo $project_details[0]->start_price?></div> <!--Loss than $10 / hr-->
         <div class="clear"></div>
       </div>
+	  <?php } ?>
       <div class="total-job-form">
         <div class="jobT">Work View Tm: </div> <div class="jobR"> Enabled</div>
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
-        <div class="jobT">Category: </div> <div class="jobR"> IT &amp; Programming&gt; Mobile Applications</div>
+        <div class="jobT">Category: </div> <div class="jobR"><?php echo ($project_details[0]->project_category == 1?'Leadership Coaching':'Workshops')?></div>
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
@@ -223,26 +228,26 @@ $(".account-d2").attr('id', '');
         												   <?php } ?></div>
         <div class="clear"></div>
       </div>
-      <div class="total-job-form">
+      <!--<div class="total-job-form">
         <div class="jobT">Job Location: </div> <div class="jobR"> Freelancer can be located anywhere</div>
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
         <div class="jobT">Posting Period: </div> <div class="jobR"> 15 days</div>
         <div class="clear"></div>
-      </div>
+      </div>-->
       <div class="total-job-form">
-        <div class="jobT">Job Start Date: </div> <div class="jobR"><?php echo $project_details[0]->job_st_dt; ?></div>
+        <div class="jobT">Job Start Date: </div> <div class="jobR"><?php echo($project_details[0]->job_st_dt == ''?date('jS M Y',time()):$project_details[0]->job_st_dt); ?></div>
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
-        <div class="jobT">Job Posting Visilibity: </div> <div class="jobR"> Public</div>
+        <div class="jobT">Job Posting Visilibity: </div> <div class="jobR"><?php echo($project_details[0]->project_visibility == 'P'?'PUBLIC':'UPON INVITETION'); ?></div>
         <div class="clear"></div>
       </div>
-      <div class="total-job-form">
+     <!-- <div class="total-job-form">
         <div class="jobT">Posting Type: </div> <div class="jobR"> Lorem Ipsum</div>
         <div class="clear"></div>
-      </div>
+      </div>-->
       <div class="clear"></div>
       <div class="total-post-edit-btn">
       	<form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_activate_link ?>" method="post">

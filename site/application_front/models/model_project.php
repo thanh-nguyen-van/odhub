@@ -77,11 +77,8 @@ class Model_project extends CI_Model
 	}
 	public function activate_project_data()
 	{
-		echo $project_id		= $this->input->request('project_id');		
-        echo $project_status	= $this->input->request('project_status');
-		
-		exit();
-       
+		$project_id		= $this->input->request('project_id');		
+        $project_status	= $this->input->request('project_status');
 		
 		$data  = array('project_status' => $project_status);
 					  
