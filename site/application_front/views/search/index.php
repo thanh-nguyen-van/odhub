@@ -80,6 +80,12 @@ $("#search_form").submit(function(event) {
 
 });
 </script>
+<script language="javascript">
+function contact_professional(ProfessionalId){
+window.open("<?php echo $this->config->base_url();?>search/sendmessage/?ProfessionalId="+ProfessionalId,'sendmessage','height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+return false;
+}
+</script>
 
 
 

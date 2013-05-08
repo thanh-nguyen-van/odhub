@@ -9,8 +9,10 @@ class Project extends MY_Controller
 		parent::__construct();
         $this->load->model('model_searchproject');
         $this->load->model('model_project');
+		$this->load->model('model_upload');
         $this->load->model('model_all');
         $this->load->model('model_proposal');  
+        
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -18,11 +20,28 @@ class Project extends MY_Controller
 	
 	private function initData()
 	{
+        //DebugBreak();
+       
+       
+       $method = $this->router->fetch_method();
+       
+        if($method != 'post_project' && $method!='post_project_submit' && $method!= 'post_project_2'){
+        if(isset($_SESSION['user_session_type'])){
+            if($_SESSION['user_session_type'] != 'Professional'){
+                 redirect('/login/signin/', 'refresh');
+            }  
+        }
+        else{
+            redirect('/login/signin/', 'refresh');
+        }
+       } 
+        
 		$this->middle_data['controller'] = 'project';
 	}
 	    
 	function index()
 	{    
+
         $this->request_data = $this->input->post();
         
         $this->load->view('common/head',$this->header_data);
@@ -155,22 +174,21 @@ class Project extends MY_Controller
     
     
 	public function project_post_left()
-   {        
+    {        
       $this->middle_data = array();  
       $this->load->view('project/project_post_left', $this->middle_data);  
     }
 	public function project_post_right()
-   {        
+    {        
       $this->middle_data = array();  
       $this->load->view('project/project_post_right', $this->middle_data);  
-    }   
+    }
 	public function post_project()
 	{
-
 		$this->middle_data['post_project_submit_link']	= base_url().$this->middle_data['controller'].'/post_project_submit';
-        $this->middle_data['project_skills_data']        = $this->model_project->get_project_skills_data();
-        $this->middle_data['state_data']        = $this->model_project->getAllState();
-		$this->middle_data['projecttype']		= $this->model_project->getProjectType();
+        $this->middle_data['project_skills_data']       = $this->model_project->get_project_skills_data();
+        $this->middle_data['state_data']        		= $this->model_project->getAllState();
+		$this->middle_data['projecttype']				= $this->model_project->getProjectType();
 		
         
         
@@ -200,13 +218,47 @@ class Project extends MY_Controller
 		}
 		else
 		{
-			$this->model_project->insert_project_data();
+			//--------- File Upload ------------------------
+			  $file_name = '';
+			  if(isset($_FILES['atchmnt']['name']) && $_FILES['atchmnt']['name'] <> "")
+			  {
+				  $field							= 'atchmnt';
+				  $uploadFileData					= array();
+				  $uploadFileData[$field.'_err']	= '';
+				  
+				  $config1['allowed_types']	= 'gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|txt|doc|docx|xls|xlsx|ppt|pptx|pps|ppsx|rtf|pdf';
+				  $config1['upload_path'] 	= file_upload_absolute_path().'project_files/';
+				  $config1['optional'] 		= true;
+				  $config1['max_size']  	= '12000';
+				                                        
+				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
+				  if($isUploaded)
+				  {
+					  $file_name = $uploadFileData[$field];
+				  }
+			  }
+			//--------- File Upload ------------------------
 			
-			$this->template->write_view('header',  'common/header',				 $this->header_data);
-			$this->template->write_view('content', 'project/project_post_thank', $this->middle_data); 
-			$this->template->write_view('footer',  'common/footer',				 $this->footer_data);
+			$last_project_id = $this->model_project->insert_project_data($file_name);
+			$this->middle_data['project_id'] = $last_project_id;
+			
+			
+			$this->template->write_view('header',  'common/header',			 $this->header_data);
+			$this->template->write_view('content', 'project/project_post_1', $this->middle_data); 
+			$this->template->write_view('footer',  'common/footer',			 $this->footer_data);
 			$this->template->render();
 		}
+	}
+	
+	public function post_project_2()
+	{
+		$this->middle_data['project_details'] = $this->model_project->get_project_data($this->input->get('projectid'));
+		
+		$this->load->view('common/head',		 	$this->header_data);
+        $this->load->view('common/header',			$this->header_data);
+        $this->load->view('project/project_post_2', $this->middle_data);
+        $this->load->view('common/footer',		 	$this->footer_data);
+        $this->load->view('common/foot',		 	$this->footer_data);
 	}
     
                

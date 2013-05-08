@@ -1,4 +1,3 @@
-
 <aside class="rightCol">
 
 <div class="rightCol-Top">
@@ -9,8 +8,9 @@
 <div class="mid-cont">
 
 <?php
-//debugbreak();
 foreach($data_result as $key=>$val){
+	$ProfessionalId = $val->ProfessionalId;
+	
 ?>
 <div class="total-sec-Div">
     <div class="div-1">
@@ -31,7 +31,7 @@ foreach($data_result as $key=>$val){
     <div class="div-3">
         <div class="btnB"><a href="#">Realistic Preview</a></div>
         
-        <div class="btnC"><a href="#">Contact</a></div>
+        <div class="btnC"><a href="#" onclick="return contact_professional('<?php echo $ProfessionalId;?>');">Contact</a></div>
     
     
     </div>

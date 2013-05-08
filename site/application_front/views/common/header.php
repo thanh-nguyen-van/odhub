@@ -5,7 +5,22 @@
 	<div class="container">
         <div class="top-left-sign">
         <?php if(isset($_SESSION[USER_SESSION_ID]) and $_SESSION[USER_SESSION_ID] != ""){ ?>
-        	<span>Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?>, <a href="<?php echo site_url('client/show_home'); ?>">My Account</a></span>
+        	<?php
+				if(isset($_SESSION['user_session_type'])){
+					if($_SESSION['user_session_type'] == "Professional"){
+					?>
+                    <span>Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?>, <a href="<?php echo site_url('professional/show_home'); ?>">My Account</a></span>					
+					<?php	
+					}
+					if($_SESSION['user_session_type'] == "Client"){
+					?>	
+					<span>Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?>, <a href="<?php echo site_url('client/show_home'); ?>">My Account</a></span>                    
+					<?php	
+					}
+					
+				}
+			?>      
+        	
         <?php }else{ ?>
         	<span><a href="<?php echo site_url('login/signup'); ?>">Sign  up</a></span>  for  a  free  account  today
         <?php } ?>

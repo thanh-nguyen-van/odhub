@@ -12,7 +12,7 @@
         </section>
         <section class="icon-sec2-Total">
           <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon4.png" width="20" height="13" alt="" border="0"></div>
-          <div class="l-iconR">Budget: $<?=$project_details[0]->start_price?> - $<?=$project_details[0]->end_price?></div>
+          <div class="l-iconR">Budget: $<?=$project_details[0]->start_price?></div>
           <div class="clear"></div>
           <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon5.png" width="16" height="20" alt="" border="0"></div>
           <div class="l-iconR"><?=$project_details[0]->job_type;?></div>

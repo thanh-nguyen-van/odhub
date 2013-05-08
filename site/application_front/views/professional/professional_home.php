@@ -4,9 +4,9 @@
 <section class="container">
   <nav class="clearfix">
     <ul class="clearfix">
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Account</a></li>
-      <li><a href="#">Projects</a></li>
+      <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Profile</a></li>
+      <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
+      <li><a href="<?php echo $this->config->base_url();?>project/">Projects</a></li>
       <li class="last"><a href="#">Realistic Previews</a></li>
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
@@ -15,13 +15,13 @@
       <h1>MY ACCOUNT (PROFESSIONAL) <span><a href="#">D Hub Previews = # 45</a></span> </h1>
     </div>
     <div class="listingDiv">
-      <div class="pro-pic"><img src="<?php if($prof_data['ProfessionalImage']){ echo file_upload_base_url().'userimages/thumb/'.$prof_data['ProfessionalImage']; }else{ echo css_images_js_base_url().'images/pro-pic.png'; } ?>"   alt="" border="0"></div>
+      <div class="pro-pic"><img src="<?php if($prof_data['ProfessionalImage']){ echo file_upload_base_url().'userimages/'.$prof_data['ProfessionalImage']; }else{ echo css_images_js_base_url().'images/pro-pic.png'; } ?>"   alt="" border="0"></div>
       <div class="editSection">
         <div class="editSec">
           <h1><a href="#">Edit Profile</a></h1>
          
           <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
-          <p>Address :	<span> rajajipuram </span></p>
+          <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress'];?> </span></p>
           <p>Country :	<span> <?php if($country_data){ echo $country_data['Country']; } ?> </span></p>
           <p>State :	<span> <?php if($state_data != NULL){ echo $state_data['StateName']; } ?> </span></p>
           <p>Zip code : <span> <?php echo $prof_data['ProfessionalZipcode'] ?> </span></p>

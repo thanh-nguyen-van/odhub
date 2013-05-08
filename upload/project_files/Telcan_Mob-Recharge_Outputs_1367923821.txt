@@ -1,0 +1,242 @@
+https://api.callture.net/MobileTopupRecharge.asp?APIUsr=R015988&APIPwd=12730&PaymentId=0&LineNo=64739069&MobileOperatorID=50&Amount=1.71&ClientId=4652367&UserName=CR015988031&MobileTelNo=1234567890&ConfirmedOrder=0
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XML id='xmlRoot' name='xmlRoot'>
+
+<Result>
+  <LCost>0</LCost>
+
+  <MobilePaymentID>0</MobilePaymentID>
+
+  <MobileTelNo>1234567890</MobileTelNo>
+
+  <PostedCountry></PostedCountry>
+
+  <PostedCountryCode></PostedCountryCode>
+
+  <PostedOperator></PostedOperator>
+
+  <PostedOperatorTelNo></PostedOperatorTelNo>
+
+  <RateCode></RateCode>
+
+  <L_Balance>100</L_Balance>
+
+  <LineNo>64739069</LineNo>
+
+  <PostedOperatorCode></PostedOperatorCode>
+
+  <PostedAmount>0</PostedAmount>
+
+  <PostedTax>0</PostedTax>
+
+  <PostedCurrencyCode></PostedCurrencyCode>
+
+  <ResultStr>Invalid North American mobile telephone number</ResultStr>
+
+  <ResultId>30</ResultId>
+</Result>
+
+<Status>
+  <ID>1</ID>
+
+  <Description>Successful</Description>
+</Status>
+
+</XML>
+
+====================================================================================
+
+https://api.callture.net/MobileTopupRecharge.asp?APIUsr=R015988&APIPwd=12730&PaymentId=0&LineNo=64739069&MobileOperatorID=50&Amount=1.71&ClientId=4652367&UserName=CR015988031&MobileTelNo=9174070519&ConfirmedOrder=0
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XML id='xmlRoot' name='xmlRoot'>
+
+<Result>
+  <LCost>0</LCost>
+
+  <MobilePaymentID>0</MobilePaymentID>
+
+  <MobileTelNo>9174070519</MobileTelNo>
+
+  <PostedCountry>India</PostedCountry>
+
+  <PostedCountryCode>IN</PostedCountryCode>
+
+  <PostedOperator>Tata Indicom</PostedOperator>
+
+  <PostedOperatorTelNo></PostedOperatorTelNo>
+
+  <RateCode>INM-IND</RateCode>
+
+  <L_Balance>100</L_Balance>
+
+  <LineNo>64739069</LineNo>
+
+  <PostedOperatorCode></PostedOperatorCode>
+
+  <PostedAmount>0</PostedAmount>
+
+  <PostedTax>0</PostedTax>
+
+  <PostedCurrencyCode></PostedCurrencyCode>
+
+  <ResultStr>Mobile Tel number should be minimum 12 digits (+91 xxx-xxx-xxxx)</ResultStr>
+
+  <ResultId>30</ResultId>
+</Result>
+
+<Status>
+  <ID>1</ID>
+
+  <Description>Successful</Description>
+</Status>
+
+</XML>
+
+````````````````````````````````````````````````````````````````````````````````````````````````
+
+https://api.callture.net/MobileTopupRecharge.asp?APIUsr=R015988&APIPwd=12730&PaymentId=0&LineNo=64739069&MobileOperatorID=50&Amount=1.71&ClientId=4652367&UserName=CR015988031&MobileTelNo=9231690505&ConfirmedOrder=0
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XML id='xmlRoot' name='xmlRoot'>
+
+<Result>
+  <LCost>0.545</LCost>
+
+  <MobilePaymentID>0</MobilePaymentID>
+
+  <MobileTelNo>9231690505</MobileTelNo>
+
+  <PostedCountry></PostedCountry>
+
+  <PostedCountryCode></PostedCountryCode>
+
+  <PostedOperator></PostedOperator>
+
+  <PostedOperatorTelNo></PostedOperatorTelNo>
+
+  <RateCode>INM-IND</RateCode>
+
+  <L_Balance>100</L_Balance>
+
+  <LineNo>64739069</LineNo>
+
+  <PostedOperatorCode></PostedOperatorCode>
+
+  <PostedAmount>0</PostedAmount>
+
+  <PostedTax>0</PostedTax>
+
+  <PostedCurrencyCode></PostedCurrencyCode>
+
+  <ResultStr>This country or provider not supported. Check the mobile number and try again.</ResultStr>
+
+  <ResultId>30</ResultId>
+</Result>
+
+<Status>
+  <ID>1</ID>
+
+  <Description>Successful</Description>
+</Status>
+
+</XML>
+
+``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+https://api.callture.net/MobileTopupRecharge.asp?APIUsr=R015988&APIPwd=12730&PaymentId=0&LineNo=64739069&MobileOperatorID=50&Amount=1.71&ClientId=4652367&UserName=CR015988031&MobileTelNo=919231690505&ConfirmedOrder=0
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XML id='xmlRoot' name='xmlRoot'>
+
+<Result>
+  <LCost>1.8639</LCost>
+
+  <MobilePaymentID>1231645</MobilePaymentID>
+
+  <MobileTelNo>919231690505</MobileTelNo>
+
+  <PostedCountry>India</PostedCountry>
+
+  <PostedCountryCode>IN</PostedCountryCode>
+
+  <PostedOperator>Tata Indicom</PostedOperator>
+
+  <PostedOperatorTelNo></PostedOperatorTelNo>
+
+  <RateCode>INM-IND</RateCode>
+
+  <L_Balance>100</L_Balance>
+
+  <LineNo>64739069</LineNo>
+
+  <PostedOperatorCode>622</PostedOperatorCode>
+
+  <PostedAmount>50</PostedAmount>
+
+  <PostedTax>0</PostedTax>
+
+  <PostedCurrencyCode>INR</PostedCurrencyCode>
+
+  <ResultStr>Please click confirm to submit this transaction</ResultStr>
+
+  <ResultId>-1</ResultId>
+</Result>
+
+<Status>
+  <ID>1</ID>
+
+  <Description>Successful</Description>
+</Status>
+
+</XML>
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''  SUCCESS CASE ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+https://api.callture.net/MobileTopupRecharge.asp?APIUsr=R015988&APIPwd=12730&PaymentId=0&LineNo=64739069&MobileOperatorID=50&Amount=1.71&ClientId=4652367&UserName=CR015988031&MobileTelNo=919231690505&ConfirmedOrder=1
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<XML id='xmlRoot' name='xmlRoot'>
+
+<Result>
+  <LCost>1.8639</LCost>
+
+  <MobilePaymentID>1236512</MobilePaymentID>
+
+  <MobileTelNo>919231690505</MobileTelNo>
+
+  <PostedCountry>India</PostedCountry>
+
+  <PostedCountryCode>IN</PostedCountryCode>
+
+  <PostedOperator>Tata Indicom</PostedOperator>
+
+  <PostedOperatorTelNo></PostedOperatorTelNo>
+
+  <RateCode>INM-IND</RateCode>
+
+  <L_Balance>100</L_Balance>
+
+  <LineNo>64739069</LineNo>
+
+  <PostedOperatorCode>622</PostedOperatorCode>
+
+  <PostedAmount>50</PostedAmount>
+
+  <PostedTax>0</PostedTax>
+
+  <PostedCurrencyCode>INR</PostedCurrencyCode>
+
+  <ResultStr>Transaction Successful.Credit Posted is  50.(INR 50)</ResultStr>
+
+  <ResultId>1</ResultId>
+</Result>
+
+<Status>
+  <ID>1</ID>
+
+  <Description>Successful</Description>
+</Status>
+
+</XML>

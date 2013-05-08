@@ -9,16 +9,28 @@ class Search extends MY_Controller
 		parent::__construct();
         $this->load->model('model_professional');
         $this->load->model('model_searchcustom');
-		
+        $this->initData();
 	}
 	
-    function init(){
-           
+    public function initData(){
+       // DebugBreak();
+      
+       if(isset($_SESSION['user_session_type'])){
+            if($_SESSION['user_session_type'] != 'Client'){
+                 redirect('/login/signin/', 'refresh');
+            }  
+        }
+        else{
+            redirect('/login/signin/', 'refresh');
+        } 
+          
         
     }
 
 	function index()
 	{     
+        
+        
         
              
          $this->request_data = $this->input->post();
@@ -150,6 +162,46 @@ class Search extends MY_Controller
      
         $this->load->view('search/search_left',$data);  
     } 
+    
+    function sendmessage(){
+        
+        
+        
+       $get_arr = $this->input->get(); 
+       $post_data = $this->input->post();
+       
+       if(isset($post_data['send_message'])){
+           $subject = $post_data['subject'];
+           $to = $post_data['to'];
+           $content = $post_data['content'];
+           
+           
+           
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            // Additional headers
+            $headers .= 'To: '.$to . "\r\n";
+            $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
+            
+
+            // Mail it
+            @mail($to, $subject, $content, $headers);
+            
+            $data['mail_send'] = '1';
+           
+       }
+       
+       
+       $professional_id = $get_arr['ProfessionalId'];
+        
+       $professional_details = $this->model_professional->get_professional_data($professional_id);
+       
+       $data['professional_details'] = $professional_details;
+       
+        $this->load->view('search/send_message_prof',$data); 
+    }
+    
     
     function search_result(){  
         

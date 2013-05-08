@@ -3,8 +3,7 @@
 </header>
 
 <!-- -----------------------------------------------------------------------------------------------------------  --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 <script type="text/javascript">
 
 			function DropDown(el) {
@@ -172,21 +171,34 @@ $(".account-d2").attr('id', '');
 <section class="container">
   <div class="menu">
     <ul class="glossymenu">
-        <li class="active"><a>1. Create your job <span>&nbsp;</span></a></li>
-        <li><a>2. Select posting type <span>&nbsp;</span></a></li>
-        <li><a>3. Preview <span>&nbsp;</span></a></li>
+      <li><a>1. Create your job <span>&nbsp;</span></a></li>
+      <li class="active"><a>2. Select posting type <span>&nbsp;</span></a></li>
+      <li><a>3. Preview <span>&nbsp;</span></a></li>
     </ul>
   </div>
   <div class="clear"></div>
-  <div class="Total-Div-Box">
-    <div class="create-job-im"><img src="<?php echo css_images_js_base_url();?>images/create-job-im.png"  alt="" border="0"></div>
-    <div class="clear"></div>
-    <p>Describe the job or list the skills you're looking for.</p>
-    
-    <?php Project::project_post_left(); ?>
-    
-    <?php Project::project_post_right(); ?>
-    
+  <div class="Total-Div-Box-sub1">
+    <div class="get-betterTotal">
+      <h1>Get Better Proposals: Feature Your Job Post</h1>
+      <aside class="leftCol-post-sub1"> <img src="<?php echo css_images_js_base_url();?>images/imm.jpg" width="263" height="130" alt="">
+        <div class="clear"></div>
+      </aside>
+      <aside class="expR-sub1">
+        <ul>
+          <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
+          <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
+          <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
+          <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
+        </ul>
+        <div class="clear"></div>
+      </aside>
+      <div class="clear"></div>
+      <div class="total-btn-gr">
+        <div class="gr-btn"><a href="<?php echo site_url('project/post_project'); ?>">back</a></div>
+        <div class="bl-btn"><a href="<?php echo site_url('project/post_project_2'); ?>?projectid=<?=$project_id?>">continue</a></div>
+      </div>
+      <div class="clear"></div>
+    </div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>

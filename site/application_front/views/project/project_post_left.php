@@ -1,5 +1,5 @@
 <aside class="leftCol-post">
-  <form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_submit_link ?>" method="post">
+  <form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_submit_link ?>" enctype="multipart/form-data" method="post">
     <div class="form-Div">
       <div class="name-your-job">
         <p>name your job :</p> <input type="text" name="project_name" id="project_name" value="<?php echo set_value('project_name') ?>" /> <?php echo form_error('project_name') ?>
@@ -21,7 +21,7 @@
         <p>Describe it:</p><textarea name="project_description" cols="" rows=""><?php echo set_value('project_description') ?></textarea> <?php echo form_error('project_description') ?><div class="clear"></div>
         <div class="layer1">
           <p class="heading">Add Attachment <img src="<?php echo css_images_js_base_url();?>images/small-plus.jpg" width="9" height="9" alt="" border="0"></p>
-          <div class="content"><input name="" type="file"></div>
+          <div class="content"><input type="file" name="atchmnt" id="atchmnt"></div>
         </div>
         <div class="expR">4000 charecters left</div>
         <div class="clear"></div>

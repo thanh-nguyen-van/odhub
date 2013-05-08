@@ -16,7 +16,7 @@ foreach($data_result as $result){
      <div class="clear"></div>
  <div class="box-head-grey">
  <ul>
-     <li><span><?php echo $result->job_type; ?>:</span> <p><?php echo $result->start_price; ?> - <?php echo $result->end_price; ?></p></li>
+     <li><span><?php echo $result->job_type; ?>:</span> <p>$<?php echo $result->start_price; ?></p></li>
  <li>Posted:20 minutes ago</li>
  <li>0 Proposals
  </li>

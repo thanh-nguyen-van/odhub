@@ -24,10 +24,14 @@
 
 <script src="<?php echo css_images_js_base_url();?>js/jquery.timepicker.js"></script>
 <link rel="stylesheet" href="<?php echo css_images_js_base_url();?>css/jquery.timepicker.css" />
+<link rel="stylesheet" href="<?php echo css_images_js_base_url();?>css/colorbox/colorbox.css" />
 
 <script src="<?php echo css_images_js_base_url();?>js/jquery-ui-timepicker-addon.js"></script>
 <script src="<?php echo css_images_js_base_url();?>js/thickbox.js"></script>
-<script src="<?php echo css_images_js_base_url();?>css/thickbox.css"></script>
+
+<script src="<?php echo css_images_js_base_url();?>js/jquery.colorbox.js"></script>
+
+
 
 <script type="text/javascript"  src="<?php echo css_images_js_base_url();?>raty-master/lib/jquery.raty.min.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo css_images_js_base_url();?>images/favicon.png">

@@ -3,8 +3,7 @@
 </header>
 
 <!-- -----------------------------------------------------------------------------------------------------------  --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
 <script type="text/javascript">
 
 			function DropDown(el) {
@@ -172,21 +171,88 @@ $(".account-d2").attr('id', '');
 <section class="container">
   <div class="menu">
     <ul class="glossymenu">
-        <li class="active"><a>1. Create your job <span>&nbsp;</span></a></li>
-        <li><a>2. Select posting type <span>&nbsp;</span></a></li>
-        <li><a>3. Preview <span>&nbsp;</span></a></li>
+      <li><a>1. Create your job <span>&nbsp;</span></a></li>
+      <li><a>2. Select posting type <span>&nbsp;</span></a></li>
+      <li class="active"><a>3. Preview <span>&nbsp;</span></a></li>
     </ul>
   </div>
+  
+  <?php/* print_r($project_details); */?>
+  
   <div class="clear"></div>
-  <div class="Total-Div-Box">
-    <div class="create-job-im"><img src="<?php echo css_images_js_base_url();?>images/create-job-im.png"  alt="" border="0"></div>
-    <div class="clear"></div>
-    <p>Describe the job or list the skills you're looking for.</p>
-    
-    <?php Project::project_post_left(); ?>
-    
-    <?php Project::project_post_right(); ?>
-    
+  <div class="post-project-sub2">
+    <h1>Preview and Post</h1>
+    <div class="inner-skyDiv">
+      <div class="total-job-form">
+        <div class="jobT">job title :</div> <div class="jobR"><?php echo $project_details[0]->project_name; ?></div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Job Description: </div> <div class="jobR2"><?php echo $project_details[0]->project_description; ?></div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Files: </div> <div class="jobR">
+			<?php if($project_details[0]->project_filename != '')echo $project_details[0]->project_filename; else echo "No file uploaded";?>
+		</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Job Type: </div> <div class="jobR"><?php echo $project_details[0]->price_type; ?></div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Duration: </div> <div class="jobR"><?php echo $project_details[0]->job_type; ?></div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Hourly Budget: </div> <div class="jobR"></div> <!--Loss than $10 / hr-->
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Work View Tm: </div> <div class="jobR"> Enabled</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Category: </div> <div class="jobR"> IT &amp; Programming&gt; Mobile Applications</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Skills: </div> <div class="jobR"> .NET <br>
+          													.NET for Web<br>
+          													ABAP<br>
+          													ADO <br>
+          													ADO.NET </div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Job Location: </div> <div class="jobR"> Freelancer can be located anywhere</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Posting Period: </div> <div class="jobR"> 15 days</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Job Start Date: </div> <div class="jobR"><?php echo $project_details[0]->job_st_dt; ?></div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Job Posting Visilibity: </div> <div class="jobR"> Public</div>
+        <div class="clear"></div>
+      </div>
+      <div class="total-job-form">
+        <div class="jobT">Posting Type: </div> <div class="jobR"> Lorem Ipsum</div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+      <div class="total-post-edit-btn">
+        <div class="bl-btn1"><a href="#">post this job</a></div>
+        <div class="gr-btn1"><a href="#">edit post</a></div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
