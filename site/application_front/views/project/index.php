@@ -31,7 +31,7 @@
 	?>
   
 </div>
-<input type="button" name="go" id="go" value="Go" onclick="submit_search_form()"/>
+
 
 </form>
 <div id="search_result">
@@ -87,6 +87,10 @@ $("#search_form").submit(function(event) {
          
 
 });
+
+
+
+
 </script>
  
  

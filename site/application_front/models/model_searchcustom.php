@@ -141,6 +141,55 @@ class Model_searchcustom extends CI_Model
         
         
     } 
+    
+    public function fab_check($client_id,$professional_id){
+        $sql_check_fab = "select * from `client_favorite` where `client_id`='".$client_id."' and `professional_id`='".$professional_id."'";
+        $result = $this->db->query($sql_check_fab);
+          
+        $data_result = $result->result();  
+        
+        if(count($data_result)>0){
+            return true;
+        }
+        else{
+           return false; 
+        }
+        
+    }
+    
+    
+    public function configure_fav($client_id,$professional_id){       
+        if($this->fab_check($client_id,$professional_id)){
+            $sql_delete = "delete from `client_favorite` where `client_id`='".$client_id."' and `professional_id`='".$professional_id."'";
+            $this->db->query($sql_delete );
+            return 1;
+        }
+        else{
+            $sql_insert = "insert into `client_favorite` set `client_id`='".$client_id."',`professional_id`='".$professional_id."'";
+            $this->db->query($sql_insert);
+            return 2;
+        }
+        
+        
+        
+        
+    }
+    
+    
+    public function get_fab_professional($client_id){
+        $sql_select_professional = "select * from `lm_professionaldetail_tbl` `lpt` where `lpt`.`ProfessionalID` in(
+select `professional_id` from `client_favorite` where `client_id`='".$client_id."')";
+
+        $result =  $this->db->query($sql_select_professional);
+        $data_result = $result->result();        
+        
+        return $data_result;
+        
+        
+    }
+    
+    
+    
 }
 
 /* End of file model_location.php */

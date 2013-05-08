@@ -63,8 +63,8 @@ class Project extends MY_Controller
          
         
         $data['category_details']	= $this->model_searchproject->getCategoryInfo($final_qry_str);
-        $data['projecttypeInfo']	=  $this->model_searchproject->getProjecttypeInfo($final_qry_str);
-        $data['projectstate']		=  $this->model_searchproject->getFilterState($final_qry_str);
+        $data['projecttypeInfo']	= $this->model_searchproject->getProjecttypeInfo($final_qry_str);
+        $data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
         
         
      
@@ -190,6 +190,17 @@ class Project extends MY_Controller
         $this->middle_data['state_data']        		= $this->model_project->getAllState();
 		$this->middle_data['projecttype']				= $this->model_project->getProjectType();
 		
+		$this->middle_data['project_details']	= $this->model_project->get_project_data($this->input->get('projectid'));
+		if($this->middle_data['project_details']){
+			$project_skills						= $this->model_project->get_project_skills($this->input->get('projectid'));
+			//print_r($project_skills);
+			foreach($project_skills as $key=>$val)
+		  		$skills[$val->pr_skill_id] = $val->pr_skill_id;
+			$this->middle_data['skill_inputs']	= $skills;
+		}
+		
+		
+		
         
         
 		/*$errmsg = $this->nsession->projectdata('errmsg');
@@ -206,14 +217,21 @@ class Project extends MY_Controller
 	}	
 	public function post_project_submit()
 	{
-		$this->request_data = $this->input->post();
+		
+		$this->request_data			= $this->input->post();		
+		$this->request_skills_data	= $this->input->post('skills');
 		
 		foreach($this->request_data as $key=>$val)
-		  $this->form_validation->set_rules($key, str_replace('_',' ',$key), 'required');
+		  if($key != 'skills')
+		  	$this->form_validation->set_rules($key, str_replace('_',' ',$key), 'required');
+		
+		foreach($this->request_skills_data as $key=>$val)
+		  	$skills[$val] = $val;
+		
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			//$this->middle_data['project_post_data'] = $this->request_data;
+			$this->middle_data['skill_inputs'] = $skills;
 			$this->post_project();
 		}
 		else
@@ -252,13 +270,27 @@ class Project extends MY_Controller
 	
 	public function post_project_2()
 	{
-		$this->middle_data['project_details'] = $this->model_project->get_project_data($this->input->get('projectid'));
+		$this->middle_data['project_details'] 			 = $this->model_project->get_project_data($this->input->get('projectid'));
+		$this->middle_data['skill_details']	  			 = $this->model_project->get_project_skills($this->input->get('projectid'));
+		
+		$this->middle_data['post_project_activate_link'] = base_url().$this->middle_data['controller'].'/post_project_activate';
 		
 		$this->load->view('common/head',		 	$this->header_data);
         $this->load->view('common/header',			$this->header_data);
         $this->load->view('project/project_post_2', $this->middle_data);
         $this->load->view('common/footer',		 	$this->footer_data);
         $this->load->view('common/foot',		 	$this->footer_data);
+	}
+	public function post_project_activate()
+	{		
+		$this->request_data = $this->input->post();
+		$last_project_id	= $this->model_project->activate_project_data();
+			
+			
+		$this->template->write_view('header',  'common/header',			 	 $this->header_data);
+		$this->template->write_view('content', 'project/project_post_thank', $this->middle_data); 
+		$this->template->write_view('footer',  'common/footer',			 	 $this->footer_data);
+		$this->template->render();
 	}
     
                

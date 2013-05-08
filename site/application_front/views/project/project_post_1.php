@@ -194,8 +194,8 @@ $(".account-d2").attr('id', '');
       </aside>
       <div class="clear"></div>
       <div class="total-btn-gr">
-        <div class="gr-btn"><a href="<?php echo site_url('project/post_project'); ?>">back</a></div>
-        <div class="bl-btn"><a href="<?php echo site_url('project/post_project_2'); ?>?projectid=<?=$project_id?>">continue</a></div>
+        <div class="gr-btn"><a href="<?php echo site_url('project/post_project'); ?>/?projectid=<?=$project_id?>">back</a></div>
+        <div class="bl-btn"><a href="<?php echo site_url('project/post_project_2'); ?>/?projectid=<?=$project_id?>">continue</a></div>
       </div>
       <div class="clear"></div>
     </div>

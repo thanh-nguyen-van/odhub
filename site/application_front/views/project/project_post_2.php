@@ -177,7 +177,7 @@ $(".account-d2").attr('id', '');
     </ul>
   </div>
   
-  <?php/* print_r($project_details); */?>
+  <?php /* print_r($project_details); */ ?>
   
   <div class="clear"></div>
   <div class="post-project-sub2">
@@ -218,11 +218,9 @@ $(".account-d2").attr('id', '');
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
-        <div class="jobT">Skills: </div> <div class="jobR"> .NET <br>
-          													.NET for Web<br>
-          													ABAP<br>
-          													ADO <br>
-          													ADO.NET </div>
+        <div class="jobT">Skills: </div> <div class="jobR"><?php foreach($skill_details as $each_skill){ ?>
+        															<?=$each_skill->skill_name?><br />
+        												   <?php } ?></div>
         <div class="clear"></div>
       </div>
       <div class="total-job-form">
@@ -247,8 +245,12 @@ $(".account-d2").attr('id', '');
       </div>
       <div class="clear"></div>
       <div class="total-post-edit-btn">
-        <div class="bl-btn1"><a href="#">post this job</a></div>
-        <div class="gr-btn1"><a href="#">edit post</a></div>
+      	<form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_activate_link ?>" method="post">
+          <input type="hidden" name="project_id"	 id="project_id"	 value="<?php echo $project_details[0]->project_id; ?>" />
+          <input type="hidden" name="project_status" id="project_status" value="A" />
+        </form>
+        <div class="bl-btn1"><a href="#" onclick="document.getElementById('projectPostForm').submit();">post this job</a></div>
+        <div class="gr-btn1"><a href="<?php echo site_url('project/post_project'); ?>/?projectid=<?=$project_details[0]->project_id?>">edit post</a></div>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>

@@ -85,6 +85,28 @@ function contact_professional(ProfessionalId){
 window.open("<?php echo $this->config->base_url();?>search/sendmessage/?ProfessionalId="+ProfessionalId,'sendmessage','height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
 return false;
 }
+function trigger_fav(professional_id,obj){
+	//alert(professional_id);	
+	var param = "";
+	param = "professional_id="+professional_id;
+	
+	$.ajax({
+       type: "POST",
+        url: "<?php echo $this->config->base_url();?>search/set_favorite/",
+         data: param
+         }).done(function( msg ) {
+			 //alert(msg);
+			 if(msg == 2){
+				 obj.src = "<?php echo css_images_js_base_url();?>" + "images/red-heart.png";
+			 }
+			 if(msg == 1){
+				 obj.src = "<?php echo css_images_js_base_url();?>" + "images/grey-heart.png";
+			 }
+			 //alert(obj.src);
+         //$( "#search_result" ).empty().append( msg );  
+          });  
+	return false;
+}
 </script>
 
 

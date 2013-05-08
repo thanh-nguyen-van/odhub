@@ -1,3 +1,9 @@
+<script language="javascript">
+function contact_professional(ProfessionalId){
+window.open("<?php echo $this->config->base_url();?>search/sendmessage/?ProfessionalId="+ProfessionalId,'sendmessage','height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+return false;
+}
+</script>
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
@@ -12,7 +18,15 @@
     <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box">
     <div class="listingDiv1">
-      <div class="pro-pic1"><img src="<?php echo file_upload_base_url().'userimages/thumb/'.$client_data['ClientImage'] ?>"  alt="" border="0"></div>
+      <div class="pro-pic1">
+      
+      <img src="<?php if($client_data['ClientImage']){ echo file_upload_base_url().'userimages/'.$prof_data['ClientImage']; }else{ echo css_images_js_base_url().'images/pro-pic.png'; } ?>"   alt="" border="0">
+      
+      
+
+      
+      
+      </div>
       <div class="editSection1">
         <div class="editSec2">
           <h3> Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?> </h3>
@@ -39,7 +53,7 @@
       <div class="clear"></div>
     </div>
     <div class="tableDiv1">
-      <table>
+    <table>
         <thead>
           <tr>
             <th width="9%">First , Last</th>
@@ -49,19 +63,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="pdngTop"><a href="#">Kater More</a></td>
+    <?php
+	foreach($fab_prof as $key=>$val){
+	?>
+           <tr>
+            <td class="pdngTop"><a href="#"><?php echo $val->ProfessionalFirstname.' '.$val->ProfessionalLastname?></a></td>
             <td class="pdngTop"><a href="#">See Preview</a></td>
-            <td class="pdngTop"><span class="org-btn"><a href="#">Contact</a></span></td>
-            <td class="pdngTop" style="border-right:0;"><span class="org-btn"><a href="#">Remove</a></span></td>
+            <td class="pdngTop"><span class="org-btn"><a href="#" onclick="return contact_professional('<?php echo $val->ProfessionalId;?>')">Contact</a></span></td>
+            <td class="pdngTop" style="border-right:0;"><span class="org-btn"><a href="<?php echo $this->config->base_url();?>client/remove_fav/?professional_id=<?php echo $val->ProfessionalId;?>">Remove</a></span></td>
           </tr>
-          <tr>
-            <td class="pdng"><a href="#">Kater More</a></td>
-            <td class="pdng"><a href="#">See Preview</a></td>
-            <td class="pdng"><span class="org-btn"><a href="#">Contact</a></span></td>
-            <td class="pdng" style="border-right:0;"><span class="org-btn"><a href="#">Remove</a></span></td>
-          </tr>
-        </tbody>
+          
+      <?php
+		}
+	  
+	  ?>
+     	 </tbody>
       </table>
       <div class="clear"></div>
       <div class="showmore1">
@@ -70,7 +86,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head2">
@@ -123,7 +139,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head2">
@@ -162,7 +178,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head2">
@@ -208,7 +224,7 @@
     </div>--> 
       
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0" /></div>
   </div>
 </section>
 <div class="clear"></div>

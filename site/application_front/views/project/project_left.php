@@ -188,3 +188,4 @@ foreach($projecttypeInfo as $projecttype){
 
 
 <div class="clear"></div>
+<input type="button" name="go" id="go" value="Go" onclick="submit_search_form()" class="btnB"/>

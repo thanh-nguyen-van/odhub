@@ -11,6 +11,8 @@ class Model_project extends CI_Model
     
 	public function insert_project_data($project_filename)
 	{
+		$project_id			 = $this->input->request('project_id') != '' ? $this->input->request('project_id') : '';
+		
         $project_name		 = inputEscapeString($this->input->request('project_name'));
 		$project_description = inputEscapeString($this->input->request('project_description'));
 		$project_category	 = $this->input->request('project_category');
@@ -22,10 +24,11 @@ class Model_project extends CI_Model
 		$start_price		 = $price_type == 'Contract' ? $this->input->request('start_price1') : $this->input->request('start_price2') ;
 		//$post_by			 = inputEscapeString($this->input->request('post_by'));
         $skills              = $this->input->request('skills');
+        $project_visibility  = $this->input->request('project_visibility');
         $state               = $this->input->request('state');
 		$project_type_id	 = $this->input->request('project_type_id');
 		$project_start 		 = $this->input->request('project_start');
-		$project_start_date	 = $project_start == 'I' ? date("Y-m-d H:i:s") : date("Y-m-d H:i:s", strtotime($this->input->request('project_start_date')));
+		$project_start_date	 = $this->input->request('project_start_date');
 		$post_date			 = date("Y-m-d H:i:s");
 		
 		//$project_type_id	 = inputEscapeString($this->input->request('project_type_id'));
@@ -44,6 +47,7 @@ class Model_project extends CI_Model
 						 //'post_by'			=> $post_by				,
                          //'skills'    			=> $skills				,
 						 'project_filename'		=> $project_filename	,
+						 'project_visibility'	=> $project_visibility	,
 						 'project_start'		=> $project_start		,
                          'project_start_date'   => $project_start_date  ,
                          'state'				=> $state				,
@@ -51,19 +55,56 @@ class Model_project extends CI_Model
 						 'post_date'			=> $post_date			
 						 //'project_type_id'	=> $project_type_id
 					  );
-		$this->db->insert('project_details', $data);
-		
-		
-		$project_id = $this->db->insert_id();
-		
-		foreach($skills as $eachSkill){
-			$data = array('project_id' => $project_id, 'skill_id' => $eachSkill);
-			$this->db->insert('project_skill_map', $data);
+					  
+		if($project_id == ''){
+			$this->db->insert('project_details', $data);
+			$project_id = $this->db->insert_id();
+		}else{
+			$this->db->where('project_id',$project_id);
+			$this->db->update('project_details', $data);
 		}
+		
+		//------------------------ Project Skills ----------------------------------
+		  $this->db->where('project_id', $project_id);
+		  $this->db->delete('project_skill_map');
+		  foreach($skills as $eachSkill){
+			  $data = array('project_id' => $project_id, 'skill_id' => $eachSkill);
+			  $this->db->insert('project_skill_map', $data);
+		  }
+		//------------------------ Project Skills ----------------------------------
+		
+		return($project_id);
+	}
+	public function activate_project_data()
+	{
+		echo $project_id		= $this->input->request('project_id');		
+        echo $project_status	= $this->input->request('project_status');
+		
+		exit();
+       
+		
+		$data  = array('project_status' => $project_status);
+					  
+		$this->db->where('project_id',$project_id);
+		$this->db->update('project_details', $data);
 		
 		return($project_id);
 	}
 	
+	public function get_project_skills($project_id)
+	{
+		$sql_get_skill_names = "SELECT * FROM `project_skill` 
+								WHERE `pr_skill_id` IN 
+								 (SELECT `skill_id` FROM `project_skill_map`
+								  WHERE `project_id`='".$project_id."')";
+
+		//echo $sql_get_project_data; exit;
+        
+        $result		 = $this->db->query($sql_get_skill_names);          
+        $data_result = $result->result();
+		
+		return($data_result);
+	}
 	public function get_project_skills_data($skill_id='')
 	{
 		$table_name  = "project_skill";
@@ -83,10 +124,8 @@ class Model_project extends CI_Model
 	
 	public function get_project_data($project_id)
 	{
-        
-        
-        $sql_get_project_data = "select `pd`.`project_id`,`pd`.`project_name`,`pd`.`project_description`,`pd`.`job_type`,`pd`.`price_type`,
-if(`pd`.`w9_required`=1,'W9 Required','W9 not Required') `w9_status`,`pd`.`start_price`,`pd`.`end_price`,`pd`.`project_filename`,`pd`.`project_status`,
+        $sql_get_project_data = "select `pd`.`project_id`,`pd`.`project_name`,`pd`.`project_category`,`pd`.`project_description`,`pd`.`job_type`,`pd`.`price_type`,
+if(`pd`.`w9_required`=1,'W9 Required','W9 not Required') `w9_status`,`pd`.`start_price`,`pd`.`end_price`,`pd`.`project_filename`,`pd`.`project_visibility`,`pd`.`project_start`,`pd`.`project_start_date`,`pd`.`project_status`,
 concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_format(`pd`.`post_date`,'%M %d, %Y') `post_date`,date_format(`pd`.`project_start_date`,'%M %D, %Y') `job_st_dt` from `project_details` as `pd` left join `lm_clientdetail_tbl` `lct` on `pd`.`post_by` = `lct`.`ClientId` where `pd`.`project_id` = '".$project_id."'";
 
 //echo $sql_get_project_data; exit;

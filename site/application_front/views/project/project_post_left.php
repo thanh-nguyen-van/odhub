@@ -1,24 +1,58 @@
+<?php
+
+if($project_details)
+{ 
+	$project_id			 = $project_details[0]->project_id; 
+	$project_name		 = $project_details[0]->project_name; 
+	$project_description = $project_details[0]->project_description; 
+	$project_category	 = $project_details[0]->project_category; 
+	$price_type			 = $project_details[0]->price_type; 
+	$project_visibility	 = $project_details[0]->project_visibility; 
+	$start_price1		 = ($price_type == 'Contract') ? $project_details[0]->start_price : '0.00';
+	$start_price2		 = ($price_type == 'Hourly')   ? $project_details[0]->start_price : '0.00';
+	$project_start		 = $project_details[0]->project_start;
+	$project_start_date	 = date("m/d/Y", strtotime($project_details[0]->project_start_date));
+}
+else
+{ 
+	$project_id			 = set_value('project_id'); 
+	$project_name		 = set_value('project_name'); 
+	$project_description = set_value('project_description'); 
+	$project_category	 = set_value('project_category'); 
+	$price_type			 = set_value('price_type'); 
+	$project_visibility	 = set_value('project_visibility'); 
+	$start_price1		 = set_value('start_price1') ? set_value('start_price1') : '0.00';
+	$start_price2		 = set_value('start_price2') ? set_value('start_price2') : '0.00';
+	$project_start		 = set_value('project_start'); 
+	$project_start_date	 = set_value('project_start_date') == '' ? date("m/d/Y") : set_value('project_start_date');
+}
+
+?>
+
 <aside class="leftCol-post">
   <form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_submit_link ?>" enctype="multipart/form-data" method="post">
+  	<?php if($project_id != ''){ ?>
+    <input type="hidden" name="project_id" id="project_id" value="<?=$project_id?>" />
+    <?php } ?>
     <div class="form-Div">
       <div class="name-your-job">
-        <p>name your job :</p> <input type="text" name="project_name" id="project_name" value="<?php echo set_value('project_name') ?>" /> <?php echo form_error('project_name') ?>
+        <p>name your job :</p> <input type="text" name="project_name" id="project_name" value="<?=$project_name?>" /> <?php echo form_error('project_name') ?>
         <div class="clear"></div>
         <span>75 characters left</span>
         <div class="clear"></div>
       </div>
       <div class="total-radioDiv">
-        <div class="radio-btn"> <span><input type="radio" name="project_category" id="project_category1" value="1" <?php if(set_value('project_category') == '1') echo "checked"; ?>></span> Leadership Coaching </div>
+        <div class="radio-btn"> <span><input type="radio" name="project_category" id="project_category1" value="1" <?php if($project_category == '1') echo "checked"; ?>></span> Leadership Coaching </div>
         <div class="clear"></div>
       </div>
       <div class="total-radioDivR">
-        <div class="radio-btn1"> <span><input type="radio" name="project_category" id="project_category1" value="2" <?php if(set_value('project_category') == '2') echo "checked"; ?>></span> Workshops, Facilitation and Assessments</div>        
+        <div class="radio-btn1"> <span><input type="radio" name="project_category" id="project_category1" value="2" <?php if($project_category == '2') echo "checked"; ?>></span> Workshops, Facilitation and Assessments</div>        
          <?php echo form_error('project_category') ?>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
       <div class="describe">
-        <p>Describe it:</p><textarea name="project_description" cols="" rows=""><?php echo set_value('project_description') ?></textarea> <?php echo form_error('project_description') ?><div class="clear"></div>
+        <p>Describe it:</p><textarea name="project_description" cols="" rows=""><?php echo $project_description ?></textarea> <?php echo form_error('project_description') ?><div class="clear"></div>
         <div class="layer1">
           <p class="heading">Add Attachment <img src="<?php echo css_images_js_base_url();?>images/small-plus.jpg" width="9" height="9" alt="" border="0"></p>
           <div class="content"><input type="file" name="atchmnt" id="atchmnt"></div>
@@ -29,7 +63,8 @@
           <p>(optional)<span>Request specific skills or needs </span></p>
           <?php $i=0; foreach($project_skills_data as $each_project_skill){ ?>
             <div class="chkDiv">
-            <span><input type="checkbox" name="skills[]" id="skills<?=$i?>" value="<?=$each_project_skill->pr_skill_id?>"<?php if(set_value('skills') == $each_project_skill->pr_skill_id) echo "checked"; ?>></span> <?=$each_project_skill->skill_name?>
+            <span><input type="checkbox" name="skills[]" id="skills<?=$i?>" value="<?=$each_project_skill->pr_skill_id?>" 
+				  <?php if(isset($skill_inputs[$each_project_skill->pr_skill_id]) == $each_project_skill->pr_skill_id) echo "checked"; ?>></span> <?=$each_project_skill->skill_name?>
             </div>
           <?php $i++; } ?>          
           <?php echo form_error('skills') ?>
@@ -38,13 +73,13 @@
         <div class="total-priceG">
           <p>Pricing:</p>
           <div class="clear"></div>
-          <div class="icG"><input type="radio" name="price_type" id="price_type1" value="Contract" <?php if(set_value('price_type') == 'Contract') echo "checked"; ?>></div>
-          <div class="ic-pG">Maximum Contract Value </div> <div class="dollarG">$ <span><input type="text" name="start_price1" id="start_price1" value="<?php if(set_value('start_price1') != '') echo set_value('start_price1'); else echo "0.00"; ?>" /></span></div>
+          <div class="icG"><input type="radio" name="price_type" id="price_type1" value="Contract" <?php if($price_type == 'Contract') echo "checked"; ?>></div>
+          <div class="ic-pG">Maximum Contract Value </div> <div class="dollarG">$ <span><input type="text" name="start_price1" id="start_price1" value="<?=$start_price1?>" /></span></div>
           <div class="clear"></div>
         </div>
         <div class="total-priceG">
-          <div class="icG"><input type="radio" name="price_type" id="price_type2" value="Hourly" <?php if(set_value('price_type') == 'Hourly') echo "checked"; ?>></div>
-          <div class="ic-pG">Hourly</div> <div class="dollarG">$ <span><input type="text" name="start_price2" id="start_price2" value="<?php if(set_value('start_price2') != '') echo set_value('start_price2'); else echo "0.00"; ?>" /></span></div>
+          <div class="icG"><input type="radio" name="price_type" id="price_type2" value="Hourly" <?php if($price_type == 'Hourly') echo "checked"; ?>></div>
+          <div class="ic-pG">Hourly</div> <div class="dollarG">$ <span><input type="text" name="start_price2" id="start_price2" value="<?=$start_price2?>" /></span></div>
           <div class="clear"></div>
         </div>
         Statename : 
@@ -81,13 +116,13 @@
               <div class="content-a">
                 <h3>Job Posting Visibility</h3>
                 <div class="publicTotal">
-                  <p><span><input type="radio" name="project_visibility" id="project_visibility1" value="P" <?php if(set_value('project_visibility') == 'P') echo "checked"; ?>>
+                  <p><span><input type="radio" name="project_visibility" id="project_visibility1" value="P" <?php if($project_visibility == 'P') echo "checked"; ?>>
                   </span>Public- Visible to everyone</p>
                   <!--<div class="pub-sub"> <span><input name="" type="checkbox" value=""></span>Get more proposals. </div>-->
                   <div class="clear"></div>
                 </div>
                 <div class="publicTotal">
-                  <p><span><input type="radio" name="project_visibility" id="project_visibility2" value="I" <?php if(set_value('project_visibility') == 'I') echo "checked"; ?>>
+                  <p><span><input type="radio" name="project_visibility" id="project_visibility2" value="I" <?php if($project_visibility == 'I') echo "checked"; ?>>
                   </span>Invite only - Do not show list.Only candidates I invite can respond.</p>
                   <div class="clear"></div>
                 </div>
@@ -115,13 +150,13 @@
                 </div>
                 <h3>Propopsed Start Date</h3>
                 <div class="publicTotal">
-                  <p><span><input type="radio" name="project_start" id="project_start1" value="I" <?php if(set_value('project_start') == 'I') echo "checked"; ?>></span>
+                  <p><span><input type="radio" name="project_start" id="project_start1" value="I" <?php if($project_start == 'I') echo "checked"; ?>></span>
                   Start immediately after proposal is selected.</p>
                   <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
                 <div class="calD-total">
-                  <div class="radio-sec"> <span><input type="radio" name="project_start" id="project_start2" value="L" <?php if(set_value('project_start') == 'L') echo "checked"; ?>>
+                  <div class="radio-sec"> <span><input type="radio" name="project_start" id="project_start2" value="L" <?php if($project_start == 'L') echo "checked"; ?>>
                   </span>Job will start on </div>
                   <div class="calDiv" style="position:relative;">
                   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
@@ -129,7 +164,7 @@
                   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
                   <link rel="stylesheet" href="/resources/demos/style.css" />
                   <script> $(function() { $( "#project_start_date" ).datepicker(); }); </script>
-                    <input type="text" name="project_start_date" id="project_start_date" value="<?php if(set_value('project_start_date') != '') echo set_value('project_start_date'); else echo date("m/d/Y"); ?>" />
+                    <input type="text" name="project_start_date" id="project_start_date" value="<?=$project_start_date?>" />
                     <div gldp-el="mydate2" style="width:260px; height:160px; position:absolute; top:70px; left:30px;"> </div>
                     <span class="calDiv-icon"><img src="<?php echo css_images_js_base_url();?>images/calendar.png" width="18" height="17" alt="" border="0"></span>
                     <div class="clear"></div>
@@ -144,7 +179,7 @@
           <div class="clear"></div>
         </div>
         <div class="clear"></div>
-        <div class="continue-btn"><a onclick="document.getElementById('projectPostForm').submit();">continue</a></div>
+        <div class="continue-btn"><a href="#" onclick="document.getElementById('projectPostForm').submit();">continue</a></div>
         <div class="clear"></div>
       </div>
     </div>

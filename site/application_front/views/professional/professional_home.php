@@ -15,7 +15,11 @@
       <h1>MY ACCOUNT (PROFESSIONAL) <span><a href="#">D Hub Previews = # 45</a></span> </h1>
     </div>
     <div class="listingDiv">
-      <div class="pro-pic"><img src="<?php if($prof_data['ProfessionalImage']){ echo file_upload_base_url().'userimages/'.$prof_data['ProfessionalImage']; }else{ echo css_images_js_base_url().'images/pro-pic.png'; } ?>"   alt="" border="0"></div>
+      <div class="pro-pic">
+      
+      <img src="<?php if($prof_data['ProfessionalImage']){ echo file_upload_base_url().'userimages/'.$prof_data['ProfessionalImage']; }else{ echo css_images_js_base_url().'images/pro-pic.png'; } ?>"   alt="" border="0">
+      
+      </div>
       <div class="editSection">
         <div class="editSec">
           <h1><a href="#">Edit Profile</a></h1>
@@ -33,13 +37,13 @@
             <input name="" type="file" >
             </span> </p>
         </div>
-        <div class="company-im"><a href="#"><img src="images/comp-im.jpg" width="134" height="134" alt="" border="0"></a></div>
+        <div class="company-im"><a href="#"><img src="<?php echo css_images_js_base_url();?>images/comp-im.jpg" width="134" height="134" alt="" border="0"></a></div>
         <div class="clear"> </div>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head1">
@@ -99,7 +103,7 @@
       </div>
       <div class="clear"></div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head1">
@@ -141,7 +145,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head1">
@@ -187,7 +191,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head1">
@@ -235,7 +239,7 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
   <div class="Total-Div-Box">
     <div class="box-head1">
@@ -271,8 +275,13 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
+  <?php
+
+  
+  if(count($referal_professional)>0){
+  ?>
   <div class="Total-Div-Box">
     <div class="box-head1">
       <h1>My Referrals</h1>
@@ -282,7 +291,7 @@
       <table>
         <thead>
           <tr>
-            <th width="16%">Client First, Last </th>
+            <th width="16%">Client Name </th>
             <th width="21%"> Connected </th>
             <th width="16%">Date Connected </th>
             <th width="21%"> Referral Commisions </th>
@@ -290,20 +299,20 @@
           </tr>
         </thead>
         <tbody>
+        <?php
+
+		foreach($referal_professional as $key=>$val){
+		?>
           <tr>
-            <td class="pdngTop">Kate More</td>
+            <td class="pdngTop"><?php echo $val->ProfessionalFirstname.' '.$val->ProfessionalLastname;?></td>
             <td class="pdngTop">Yes</td>
-            <td class="pdngTop"> 12/11/12</td>
+            <td class="pdngTop"> <?php echo $val->ProfessionalJoindate; ?></td>
             <td class="pdngTop"> $100 </td>
             <td class="pdngTop" style="border-right:0;"> Yes</td>
           </tr>
-          <tr>
-            <td class="pdng">Kate More</td>
-            <td class="pdng"><span class="pdngTop">Yes</span></td>
-            <td class="pdng"> 12/11/12</td>
-            <td class="pdng"> $100 </td>
-            <td class="pdng" style="border-right:0;">Yes</td>
-          </tr>
+        <?php
+		}
+		?>
         </tbody>
       </table>
       <div class="clear"></div>
@@ -313,7 +322,11 @@
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
+<?php	  
+  }
+  ?>
+  
 </section>
 <div class="clear"></div>

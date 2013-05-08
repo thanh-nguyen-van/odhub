@@ -317,6 +317,30 @@ class Search extends MY_Controller
         $this->load->view('search/search_result',$data);  
     } 
     
+    function set_favorite(){
+          
+        $post_data = $this->input->post();       
+        $client_id = $_SESSION['user_session_id'];
+        $professional_id = $post_data['professional_id'];
+        
+        
+        $result = $this->model_searchcustom->configure_fav($client_id,$professional_id);
+        
+        echo $result;
+                      
+    }
+   
+    function check_fab($professional_id = 0){
+         $client_id = $_SESSION['user_session_id'];
+        
+         $status = $this->model_searchcustom->fab_check($client_id,$professional_id);
+        
+         return $status;
+        
+        
+        
+        
+    }
                
 }
 
