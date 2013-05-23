@@ -1,4 +1,7 @@
 <?
+
+DebugBreak();
+
 $title=$_REQUEST['title'];
 $arealaw=$_REQUEST['arealaw'];
 /*$city=$_REQUEST['city'];

@@ -37,14 +37,22 @@ class Proposal extends MY_Controller
        
        
        $data_arr['dalivery_date'] = $date_final;
-       $data_arr['proposed_by'] = 8;
+       $data_arr['proposed_by']	  = $_SESSION[USER_SESSION_ID];
        
        $this->model_proposal->add_proposal($data_arr); 
        
-       redirect('project/details/?projectid='.$this->request_data['project_id'], 'refresh');  
-        
-        
+       redirect('project/details/?projectid='.$this->request_data['project_id'], 'refresh');
     }
+	
+	public function submit_award()
+	{
+        $this->model_proposal->insert_award_data();
+		
+		$this->template->write_view('header',  'common/header',			$this->header_data);
+		$this->template->write_view('content', 'client/award_thanks',	$this->middle_data);
+		$this->template->write_view('footer',  'common/footer',			$this->footer_data);
+		$this->template->render();
+	}
         
 	
                

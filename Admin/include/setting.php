@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 //error_reporting(1);
 if ($_SERVER["HTTP_HOST"] == "localhost" || $_SERVER["HTTP_HOST"] == "192.168.1.61" || $_SERVER["HTTP_HOST"] == "192.168.1.50") 

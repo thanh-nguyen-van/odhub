@@ -74,9 +74,6 @@ class Project extends MY_Controller
     function search_result()
 	{
 		$data = "";
-        
-      
-        
          $this->request_data = $this->input->post();
         
         //DebugBreak();
@@ -129,7 +126,7 @@ class Project extends MY_Controller
     public function getSkill($professional_id){
         
         $professional_skill_data = $this->model_proposal->get_Professionalskill($professional_id);
-        $professional_skill_arr = array();
+        $professional_skill_arr	 = array();
         
         
         foreach($professional_skill_data as $key=>$val){
@@ -152,12 +149,11 @@ class Project extends MY_Controller
     }
     
    public function project_proposal()
-   {  
-  
+   {
       $this->middle_data = array();  
-      $project_id = $this->request_data;
+      $project_id		 = $this->request_data;
       
-      $proposal_details = $this->model_proposal->get_proposal($project_id);
+      $proposal_details  = $this->model_proposal->get_proposal($project_id);
       
       $this->middle_data['proposal_details'] = $proposal_details;  
       

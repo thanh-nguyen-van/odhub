@@ -31,6 +31,10 @@
                     <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewTopic.php">Topic</a></td>
                     </tr>
+                     <tr>
+                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>projectSkills.php">Project Skills</a></td>
+
+                    </tr>
                     <tr>
                     	<td align="left" valign="top" style="background:#c5c5c5;"><a href="#">News</a></td>
 

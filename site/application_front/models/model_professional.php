@@ -36,8 +36,21 @@ class Model_professional extends CI_Model
           return $data_result;
     }
     
-    
-    
+    public function get_professional_skills($prof_id)
+	{
+		$table_name  = "professional_skill_map";
+		$select_flds = "*";
+		$condition	 = "professional_id = '".$prof_id."'";
+				
+		
+		$this->db->select($select_flds);
+		$this->db->where($condition);
+		
+		$query	= $this->db->get($table_name);
+		$result = $query->row_array();
+		
+		return $result;
+	}    
     
 }
 

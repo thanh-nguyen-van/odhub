@@ -24,7 +24,7 @@
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box-pro">
-    <h1>Project Name : Test Project</h1>
+    <h1><?php echo $project_data[0]->project_name ?></h1>
     <div class="share"><a href="mailto:emailaddress">Share</a></div>
     <aside class="leftCol-pro">
     

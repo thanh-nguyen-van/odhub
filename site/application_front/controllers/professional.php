@@ -21,11 +21,30 @@ class Professional extends MY_Controller
 		//$this->leftmenu_data['left_menu']	= $this->model_content->get_menu("= 'left_menu'");
 	}
 	
+	
+	public function forum_login()
+	{
+        $this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
+		
+		$this->template->write_view('content', 'professional/forum_login',	$this->middle_data);
+		
+		$this->template->render();
+	}
+	
+	public function forum_logout()
+	{
+		$this->template->write_view('content', 'professional/forum_logout',	$this->middle_data);
+		
+		$this->template->render();
+	}
+	
+	
 	public function show_home()
 	{
         
-        $this->middle_data['prof_data']        = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
-		$prof_data		= $this->middle_data['prof_data'];
+        $this->middle_data['prof_data']     = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
+		$prof_data							= $this->middle_data['prof_data'];
+		
 		$this->middle_data['country_data']	= $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
 		$this->middle_data['state_data']	= $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
         

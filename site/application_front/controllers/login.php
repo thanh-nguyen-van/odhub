@@ -209,7 +209,7 @@ class Login extends MY_Controller
 				if ($usertype == "Client")
 				  redirect('client/show_home');
 				elseif ($usertype == "Professional")
-				  redirect('professional/show_home');
+				  redirect('professional/forum_login');
 				
 				$this->template->render();
 			
@@ -224,6 +224,8 @@ class Login extends MY_Controller
 	public function signout()
 	{
 		$this->model_login->unset_user_session_data();
+		
+		redirect('professional/forum_logout');
 		
 		$this->template->write_view('header',  'common/header',$this->header_data);
 		$this->template->write_view('content', 'home/index',$this->middle_data); 
