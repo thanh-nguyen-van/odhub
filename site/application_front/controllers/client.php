@@ -29,19 +29,41 @@ class Client extends MY_Controller
 	
 	public function show_home()
 	{
-        $client_id = $_SESSION[USER_SESSION_ID];
+                $client_id = $_SESSION[USER_SESSION_ID];
         
 		$this->middle_data['client_data']	= $this->model_client->get_client_data($client_id);
 		$this->middle_data['country_data']	= $this->model_location->get_country_data($this->middle_data['client_data']['ClientCountry']);
 		$this->middle_data['state_data']	= $this->model_location->get_state_data($this->middle_data['client_data']['ClientState']);
-        $this->middle_data['fab_prof']      = $this->model_searchcustom->get_fab_professional($client_id);
+                $this->middle_data['fab_prof']      = $this->model_searchcustom->get_fab_professional($client_id);
+               
+                
+                
+                 $this->middle_data['client_invoice'] = $this->model_client->getClientInvoices($client_id);
+                 $this->middle_data['nr_client_invoice'] = $this->model_client->getClientInvoices($client_id)->num_rows();
+                 $invoiceProjectArray = $this->middle_data['client_invoice']->row_array();
+                 $invoiceProjectId = $invoiceProjectArray['project_id'];
+                // $checkPayRelease = $this->model_client->checkPayRelease($invoiceProjectId);
+                
 		
 		$this->template->write_view('header',  'common/header',		 $this->header_data);
 		$this->template->write_view('content', 'client/client_home', $this->middle_data);
 		$this->template->write_view('footer',  'common/footer',		 $this->footer_data);
 		$this->template->render();
+                
 	}
 	
+       function check_showhome($invoice_code){
+           
+           $record = $this->model_client->check_paybut($invoice_code);
+           if(count($record)>0){
+               return false;
+           }
+           else{
+               return true;
+           }
+       } 
+        
+        
 	public function project_list()
 	{
         $client_id = $_SESSION[USER_SESSION_ID];

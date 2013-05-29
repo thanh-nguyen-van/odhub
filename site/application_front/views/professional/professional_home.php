@@ -26,16 +26,21 @@
 	ajaxRequest.onreadystatechange = function(){
 		if(ajaxRequest.readyState == 4){			
                         var ajaxDisplay = document.getElementById('ajaxDiv');
-                        alert(ajaxRequest.responseText);
+                        //alert(ajaxRequest.responseText);
+                        if(ajaxRequest.responseText==1)
+                            {
 			ajaxDisplay.innerHTML = "Project referred successfully.";
+                            }else{
+                               ajaxDisplay.innerHTML = "Project already referred to this professional."; 
+                            }
 		
 		}
 	}
 	//var age = document.getElementById('age').value;
 	//var wpm = document.getElementById('wpm').value;
 	//var sex = document.getElementById('sex').value;
-	var queryString = "?referal_user_id=" + referal_user_id + "&project_id=" + project_id+"&proposal_id=" + proposal_id;
-	ajaxRequest.open("GET", "<?php echo base_url()?>/professional/refer_user" + queryString, true);
+	var queryString = referal_user_id + "/" + project_id+"/" + proposal_id;
+	ajaxRequest.open("GET", "<?php echo base_url()?>professional/refer_user/" + queryString, true);
 	ajaxRequest.send(null); 
     }
        
@@ -114,41 +119,27 @@
                     <tr>
                         <th width="9%">First , Last</th>
                         <th width="8%"> Email </th>
-                        <th width="9%">Phone </th>
-                        <th width="9%">Balance $</th>
-                        <th width="11%">Most Recent Invoice</th>
-                        <th width="11%">Send Invoice </th>
-                        <th width="11%">Client Source </th>
-                        <th width="10%">Active</th>
-                        <th width="12%">Total Payment  Received $</th>
+
+                        <th width="9%">Amount $</th>
+      
+                        
+                         <th width="11%">Send Invoice </th>
                         <th width="10%" style="border-right:0;">Agreement </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="pdngTop">Kater More </td>
-                        <td class="pdngTop">kat@xy.com </td>
-                        <td class="pdngTop">111222334</td>
-                        <td class="pdngTop">$456 </td>
-                        <td class="pdngTop">8908032</td>
-                        <td class="pdngTop"><span class="send-btn"><a href="#">Send</a></span></td>
-                        <td class="pdngTop">OD HUB </td>
-                        <td class="pdngTop">Yes</td>
-                        <td class="pdngTop">$1000</td>
-                        <td class="pdngTop" style="border-right:0;"><span class="send-btn"><a href="#">Upload</a></span></td>
-                    </tr>
-                    <tr>
-                        <td class="pdng">Kater More </td>
-                        <td class="pdng">kat@xy.com </td>
-                        <td class="pdng">111222334</td>
-                        <td class="pdng">$456 </td>
-                        <td class="pdng">8908032</td>
-                        <td class="pdng"><span class="send-btn"><a href="#">Send</a></span></td>
-                        <td class="pdng">OD HUB </td>
-                        <td class="pdng">Yes</td>
-                        <td class="pdng">$1000</td>
+                <tbody> <?php 
+				for($i=0;$i<count($awarded_projects_details);$i++){?>
+                       <tr>
+                        <td class="pdng"><?php echo $awarded_projects_details[$i]['ClientFirstname'].$awarded_projects_details[$i]['ClientLastname'];  ?></td>
+                        <td class="pdng"><?php echo $awarded_projects_details[$i]['ClientEmail'];?> </td>
+
+                        <td class="pdng"><?php echo $awarded_projects_details[$i]['price'];?></td>  
+						
+                       
+                        <td class="pdng"><span class="send-btn"><a href="<? echo $this->config->base_url(); ?>professional/send_invoice?projectid=<?=$awarded_projects_details[$i]['project_id']?>">Send</a></span></td>
                         <td class="pdng" style="border-right:0;"><span class="send-btn"><a href="#">View</a></span></td>
                     </tr>
+					<?php } ?>
                 </tbody>
             </table>
             <div class="clear"></div>
@@ -172,6 +163,7 @@
             <div class="clear"></div>
         </div>
         <div class="tableDiv1">
+            <div class="" id="ajaxDiv" ></div>
             <table>
 <?php if ($nr_awarded_projects <> 0) { ?>
 
@@ -203,17 +195,17 @@
                                 <input type="button" class="prof_butt_cls" name="ref_butt_<?php echo $eachResultRow->project_id; ?>" id="ref_butt_<?php echo $eachResultRow->project_id; ?>" value="Refer" onclick="javascript:assignval(refer_id.value,<?php echo $eachResultRow->project_id; ?>,<?php echo $eachResultRow->proposal_id; ?>)">
                             </td>
                             <td class="pdngTop"><?php echo date('Y-m-d', strtotime($eachResultRow->dalivery_date));?></td>
-                            <td class="pdngTop" style="border-right:0;">  <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$eachResultRow->project_id; ?>">Conversation</a></td>
+                            <td class="pdngTop" style="border-right:0;"><span class="send-btn">  <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$eachResultRow->project_id; ?>">Conversation</a></span></td>
                         </tr>
                     <?php
                     }
                     ?>
                         <div class="clear"></div>
-            <div class="showmore1">
+<!--            <div class="showmore1">
                 <ul>
                     <li><a href="#">Show more</a></li>
                 </ul>
-            </div>
+            </div>-->
                         <?php
                 } else {
                     ?>
@@ -360,7 +352,7 @@
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
 <?php
-if (count($referal_professional) > 0) {
+if (count($referal_payment) > 0) {
     ?>
         <div class="Total-Div-Box">
             <div class="box-head1">
@@ -372,22 +364,22 @@ if (count($referal_professional) > 0) {
                     <thead>
                         <tr>
                             <th width="16%">Client Name </th>
-                            <th width="21%"> Connected </th>
-                            <th width="16%">Date Connected </th>
                             <th width="21%"> Referral Commisions </th>
-                            <th width="16%" style="border-right:0;">RESPOND </th>
+                            <th width="16%"> Project Cost</th>
+                            <th width="21%"> Date  </th>
+                            
                         </tr>
                     </thead>
                     <tbody>
     <?php
-    foreach ($referal_professional as $key => $val) {
+    foreach ($referal_payment as $key => $val) {
         ?>
                             <tr>
-                                <td class="pdngTop"><?php echo $val->ProfessionalFirstname . ' ' . $val->ProfessionalLastname; ?></td>
-                                <td class="pdngTop">Yes</td>
-                                <td class="pdngTop"> <?php echo $val->ProfessionalJoindate; ?></td>
-                                <td class="pdngTop"> $100 </td>
-                                <td class="pdngTop" style="border-right:0;"> Yes</td>
+                                <td class="pdngTop"><?php echo $val->client_name; ?></td>
+                                <td class="pdngTop"><?php echo $val->amount; ?></td>
+                                <td class="pdngTop"> <?php echo $val->project_cost; ?></td>
+                                <td class="pdngTop"><?php echo $val->date; ?></td>
+                               
                             </tr>
         <?php
     }

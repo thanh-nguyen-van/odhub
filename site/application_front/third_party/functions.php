@@ -274,4 +274,16 @@ if ( ! function_exists('properName'))
             return $fname.' '.substr($lname,0,1);
         }
 }
+
+ // --- check Pay release --- //
+    function checkPayRelease($project_id,$client_id,$professional_id){
+        return BASEPATH.'database/DB.php';
+        //$db = DB('default', true);
+        //$db->where(array('project_id'=>$project_id,'client_id'=>$client_id,'$professional_id'=>$professional_id,)); 
+       //return $db->get('payrelese_history'); 
+       //return $project_id; 
+    }
+    // --- check Pay release --- //
+   
+
 ?>

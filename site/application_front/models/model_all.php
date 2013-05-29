@@ -88,4 +88,59 @@ class Model_all extends CI_Model
     } 
     
     
+    public function relese_payment($receivers,$projectId,$invoice_code){
+        
+         $sql_get_aword_details = "select * from `project_aword_map` where `project_id`='".$projectId."'";
+         $result = $this->db->query($sql_get_aword_details);
+        
+         $data_result = $result->result();  
+         
+         
+         $sql_get_client_id = "select `post_by` from `project_details` where `project_id`='".$projectId."'";
+         $client_result = $this->db->query($sql_get_client_id);
+         $client_info = $client_result->result();
+         
+         $client_id = $client_info[0]->post_by;
+         
+         $from_acount = 'santanu.arc3_api1.gmail.com';
+         
+         
+         
+         $i=0;
+         foreach($data_result as $result){
+             $professional_id = $result->proffetional_id;
+             $project_cost = $result->price;
+             $amount = $receivers[$i]['amount'];
+             $to_acount = $receivers[$i]['receiverEmail'];
+                          
+             $sql_insert_payrelese_history = "insert into `payrelese_history` set `project_id`='".$projectId."',`client_id`='".$client_id."',`professional_id`='".$professional_id."',`amount`='".$amount."',`project_cost`='".$project_cost."',`from_acount`='".$from_acount."',`to_acount`='".$to_acount."',`date`='". date('Y-m-d H:i:s')."',`invoice_code`='".$invoice_code."'";
+             $this->db->query($sql_insert_payrelese_history);
+              $i = $i + 1;
+         }
+         
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    function getreferal_details($professional_id = 0){
+        $sql_referal_details = "select `p_h`.`client_id`,`p_h`.`amount`,`p_h`.`project_cost`,`p_h`.`date`,concat(`lct`.`ClientFirstname`,' ',`lct`.`Clientlastname`) `client_name` from
+        `payrelese_history` `p_h` left join `lm_clientdetail_tbl` `lct`
+        on  `p_h`.`client_id` = `lct`.`ClientId`
+        where
+        `p_h`.`amount`!=`p_h`.`project_cost` and `p_h`.`professional_id` = '".$professional_id."'";
+        
+        $referal_result = $this->db->query($sql_referal_details);
+        $result = $referal_result->result();
+        
+        return $result;
+        
+        
+    }
+    
+    
 }

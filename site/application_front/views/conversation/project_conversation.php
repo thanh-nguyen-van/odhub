@@ -5,6 +5,19 @@ return false;
 }
 </script>
 
+<script type="text/javascript">
+ function getFile(){
+   document.getElementById("upfile").click();
+ }
+ function sub(obj){
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
+    document.myForm.submit();
+    event.preventDefault();
+  }
+</script>
+
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
@@ -49,9 +62,20 @@ return false;
 	<input type="hidden" name="receiver_id" value="<?=$receiver_id?>">
 	<input type="hidden" name="sender_id" value="<?=$sender_id?>">
 	<input type="hidden" name="sender_type" value="<?=$sender_type?>">
-	<textarea rows="4" cols="122" name="text_message" placeholder="some text..........."></textarea>
-	<input type="file" name="atchmnt1">
-	<input type="submit" name="send_text" value="Send">
+	<textarea class="conv-textfield" rows="" cols="" name="text_message" placeholder="some text..........."></textarea>
+	<!--<input type="file" name="atchmnt1">-->
+    <div class="upload-btn">
+    	<div id="yourBtn" onclick="getFile()">Upload Image</div>
+   		<div style='height: 0px; width: 0px;overflow:hidden;'>
+                            <input id="upfile" type="file" value="upload" onchange="sub(this)"/>
+                            </div>
+                            
+        <input type="submit" name="send_text" value="Send" class="inputsend">                  
+    </div>
+    
+   
+	
+    <div class="clear"></div>
 	</form>
     <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>

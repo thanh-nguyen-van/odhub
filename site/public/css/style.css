@@ -3831,6 +3831,100 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 		width:123.571px !important; 
 	}
 
+.conv-textfield{
+		width:100%;
+		border: solid 1px #ccc;
+		resize:none;
+		height:100px;
+		margin-bottom:10px;
+		box-shadow:-1px 0px 7px 2px rgba(215, 215, 215, 0.93) inset;
+	}	
+.conv-textfield:focus{
+		box-shadow:none;
+	}
+.inputsend{
+		border:none;
+		background:none;
+		color:#fff;
+		cursor:pointer;
+		background:url(../images/btn-bg-blue.png) repeat-x left top;
+		height:28px;
+		line-height:28px;
+		padding:0 10px;
+		border-radius:5px;
+		margin-left:10px;
+	}	
+	
+.inputsend:hover,#yourBtn:hover{
+		color:#000;
+	}
+.upload-btn span{
+		margin:0px 0 0 10px;
+		float:left;
+	}	
+		
+#yourBtn{
+	background:url(../images/btn-bg-blue.png) repeat-x left top;
+	height:28px;
+	line-height:28px;
+	width:20%;
+	text-align:center;
+	color:#fff;
+	border-radius:5px;
+	float:left;
+	cursor:pointer;
+	}	
+.pdngTop p{
+		color:#000;
+	}	
+
+.invoice-table table{
+	border-collapse: collapse;
+	width:100%;
+	margin-bottom:15px;
+	}	
+	
+.invoice-table table thead{
+		background:#494949;
+		color:#fff;
+	}	
+	
+.invoice-table table td{
+		padding:5px;
+		border-right: solid 1px #ccc;
+	}
+	
+.invoice-table table td:last-child{
+		border:none;
+	}
+	
+.invoice-table table tbody tr{
+		background:#f4f4f4;
+	}	
+	
+.invoice-table table tbody tr:nth-child(2n+1){
+		background:#ebebeb;
+	}
+
+.second-table tr td:nth-of-type(1),.second-table tr td:nth-of-type(2){
+		border:none;
+		background:#fff;
+	}
+	
+.sendbutton{
+		border:none;
+		background:none;
+		cursor:pointer;
+		color:#fff;
+		
+	}	
+.centeralign{
+		text-align:right;
+		margin-bottom:20px;
+	}	
+		
+		
+
 /*---------------------------------*/
 /*--------responsive css-----------*/
 /*---------------------------------*/
@@ -4240,16 +4334,16 @@ a.inline {
 	content: "Most Recent Invoice";
 }
 .tableDiv td:nth-of-type(6):before {
-	content: "Send Invoice";
+	content: "Client Source ";
 }
 .tableDiv td:nth-of-type(7):before {
-	content: "Client Source";
-}
-.tableDiv td:nth-of-type(8):before {
 	content: "Active";
 }
+.tableDiv td:nth-of-type(8):before {
+	content: "Total Payment  Received $ ";
+}
 .tableDiv td:nth-of-type(9):before {
-	content: "Total Payment  Received $";
+	content: "Send Invoice";
 }
 .tableDiv td:nth-of-type(10):before {
 	content: "Agreement";

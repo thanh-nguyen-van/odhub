@@ -92,7 +92,7 @@ class Payment extends MY_Controller
    
    public function relese_process($arr_professional,$price=0){
        
-       DebugBreak();
+       
        
        $search_str = implode(',',$arr_professional);
        $professional_paypal = $this->model_proposal->getProfessional_paypalId($search_str);
@@ -166,7 +166,9 @@ $httpParsedResponseAr = $this->PPHttpPost('MassPay', $nvpStr);
       
     if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"]))
 {
- exit('MassPay Completed Successfully: ' . print_r($httpParsedResponseAr, true));
+   return $receivers;         
+    
+    
 }
 else
 {
@@ -267,6 +269,7 @@ else
     // print_r($_REQUEST);
     // die;
        $projectId = $this->input->get('projectid');
+       $invoice_code = $this->input->get('invoice_code');
        
        $professional_details = $this->model_proposal->getProfessionalInfo($projectId);
        
@@ -279,9 +282,15 @@ else
            $price = $details->price;
        }
        
-       print_r($arr_professional);
        
-       $this->relese_process($arr_professional,$price);
+       
+       $receivers = $this->relese_process($arr_professional,$price);
+      
+     //  DebugBreak();
+      $this->model_all->relese_payment($receivers,$projectId,$invoice_code);
+       
+       redirect('client/show_home', 'refresh');   
+       
       // $this->test_process();
        
        

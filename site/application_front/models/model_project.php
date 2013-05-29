@@ -33,6 +33,8 @@ class Model_project extends CI_Model
 		
 		//$project_type_id	 = inputEscapeString($this->input->request('project_type_id'));
        
+       
+       $client_id = $_SESSION[USER_SESSION_ID];
 		
 		$data  = array(
 						 'project_name'			=> $project_name		,
@@ -52,7 +54,8 @@ class Model_project extends CI_Model
                          'project_start_date'   => $project_start_date  ,
                          'state'				=> $state				,
 						 'project_type_id'		=> $project_type_id		,
-						 'post_date'			=> $post_date			
+						 'post_date'			=> $post_date,
+                         'post_by'              => $client_id			
 						 //'project_type_id'	=> $project_type_id
 					  );
 					  
@@ -180,7 +183,7 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
 				`p_d`.`post_date`
 				FROM `project_details` `p_d`
 				LEFT JOIN `lm_clientdetail_tbl` `l_c_t` ON `l_c_t`.`ClientId` = `p_d`.`post_by`
-				WHERE `p_d`.`post_by` = '83' AND `p_d`.`project_status` = 'A'
+				WHERE `p_d`.`post_by` = '".$client_id."' AND `p_d`.`project_status` = 'A'
 				";
 				
 		$result		 = $this->db->query($sql);          
