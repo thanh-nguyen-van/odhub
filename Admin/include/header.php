@@ -51,7 +51,7 @@ $(document).ready(function(){
 <body onLoad="MM_preloadImages('<?php echo $publicURL;?>images/sign-h.jpg','<?php echo $publicURL;?>images/fdbk-h.png','<?php echo $publicURL;?>images/nd-hlp-h.png','<?php echo $publicURL;?>images/y-btn-h.png','<?php echo $publicURL;?>images/bl-h.png','<?php echo $publicURL;?>images/s-icon1-h.png','<?php echo $publicURL;?>images/s-icon2-h.png','<?php echo $publicURL;?>images/s-icon3-h.png')">
 <header>
 <div class="top-header_bg">
-<?php if(strstr($_SERVER[PHP_SELF],'index.php')){?>
+<?php if(strstr($_SERVER['PHP_SELF'],'index.php')){?>
 <div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','<?php echo $publicURL;?>images/fdbk-h.png',1)"><img src="<?php echo $publicURL;?>images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
 <div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','<?php echo $publicURL;?>images/nd-hlp-h.png',1)"><img src="<?php echo $publicURL;?>images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
 <?php }?>

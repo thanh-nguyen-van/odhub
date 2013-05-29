@@ -62,6 +62,9 @@
                     <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewLeftMenu.php">Left Menu</a></td>
                     </tr>
+                    <tr>
+                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>PaypalSetting.php">Paypal Setting</a></td>
+                    </tr>
                     
                 </table>
           </td>

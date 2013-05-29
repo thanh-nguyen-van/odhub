@@ -2,6 +2,7 @@
 
 session_start();
 //error_reporting(1);
+error_reporting(E_ALL ^ E_NOTICE);
 if ($_SERVER["HTTP_HOST"] == "localhost" || $_SERVER["HTTP_HOST"] == "192.168.1.61" || $_SERVER["HTTP_HOST"] == "192.168.1.50") 
 { // for local
     define("SERVERPATH", "http://" . $_SERVER['HTTP_HOST'] . "/odhub/Admin/");

@@ -142,8 +142,9 @@ class Project extends MY_Controller
     
     public function project_head()
 	{
+	
       $this->middle_data = array();  
-      $this->middle_data['project_details']  = $this->model_project->get_project_data($this->request_data['projectid']);  
+      $this->middle_data['project_details']  = $this->model_project->get_project_data($this->request_data); 
       $this->load->view('project/project_head', $this->middle_data);  
         
     }
@@ -190,14 +191,13 @@ class Project extends MY_Controller
 		if($this->middle_data['project_details']){
 			$project_skills						= $this->model_project->get_project_skills($this->input->get('projectid'));
 			//print_r($project_skills);
+			if(!empty($project_skills)){
 			foreach($project_skills as $key=>$val)
 		  		$skills[$val->pr_skill_id] = $val->pr_skill_id;
 			$this->middle_data['skill_inputs']	= $skills;
+			}
 		}
 		
-		
-		
-        
         
 		/*$errmsg = $this->nsession->projectdata('errmsg');
 		if($errmsg != ''){
@@ -211,6 +211,8 @@ class Project extends MY_Controller
         $this->load->view('common/footer',		  $this->footer_data);
         $this->load->view('common/foot',		  $this->footer_data);
 	}	
+
+	
 	public function post_project_submit()
 	{
 		
@@ -220,10 +222,10 @@ class Project extends MY_Controller
 		foreach($this->request_data as $key=>$val)
 		  if($key != 'skills')
 		  	$this->form_validation->set_rules($key, str_replace('_',' ',$key), 'required');
-		
+		if(!empty($this->request_skills_data)){
 		foreach($this->request_skills_data as $key=>$val)
 		  	$skills[$val] = $val;
-		
+		}
 		
 		if ($this->form_validation->run() == FALSE)
 		{

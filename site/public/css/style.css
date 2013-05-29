@@ -32,6 +32,7 @@ a:hover {
 ::selection {
 	background:#2e2823;
 	color:#FFFFFF;
+	
 }
 ::-moz-selection {
 background:#2e2823;
@@ -2154,6 +2155,13 @@ img {
 	padding:0 12px;
 	border-radius:10px;
 }
+.top-blue-sec2 {
+    background: none repeat scroll 0 0 #025D89;
+    border-radius: 10px 10px 10px 10px;
+    margin: 0 auto;
+    padding: 0 12px;
+    width: 98%;
+}
 .drop-dwn {
 	font-size:13px;
 	color:#fff;
@@ -3663,7 +3671,6 @@ border-top:1px solid #dedede;
 
 .tableDiv1 p{ font-size:12px; text-align: justify; }
 .bold2{ font-weight:bold!important; font-size:14px!important;}
-.bold2 a{ font-weight:bold!important; font-size:14px!important;}
 .bold2 span{ font-weight:bold!important; font-size:18px!important; color:#19a702;}
 
 .bold3{ font-weight:bold!important; font-size:14px!important;}
@@ -3783,14 +3790,46 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 .prop-btn a:hover{ color:#28ADF7; text-decoration:none;}
 
 
+.award-btn{ width:40px; float:right; padding:5px 10px; background:#025D89; text-align:center;}
+.award-btn a{ color:#fff; text-decoration:none;}
+.award-btn a:hover{ color:#c5eafc;}
 
+.pay_area{
+		background:#ECECEC;
+		padding:20px;
+	}
+.pay-block{
+		border-bottom: solid 1px #ccc;
+		padding:10px 0;
+	}	
+	
+.pay-name{
+		display:inline-block;
+		width:30%;
+		font-size:14px;
+		vertical-align:top;
+	}
+.pay-box{
+		display:inline-block;
+		width:60%;
+	}	
 
-
-
-
-
-
-
+.pay-input{
+		width:60%;
+		border: solid 1px #ccc;
+		padding:10px;
+	}
+.pay-textarea{
+		width:60%;
+		border: solid 1px #ccc;
+		padding:10px;
+		height:100px;
+		resize:none;
+	}	
+		
+.monyear{
+		width:123.571px !important; 
+	}
 
 /*---------------------------------*/
 /*--------responsive css-----------*/
@@ -7345,6 +7384,13 @@ in-right h2 {
 }
 }
 
+
+.continue-btn #PayNow{
+	border:none;
+	background:none;
+	color:#FFF;
+	cursor:pointer;
+}
 
 
 

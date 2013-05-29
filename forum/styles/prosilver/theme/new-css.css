@@ -1,0 +1,221 @@
+.logo {
+    float: left;
+    padding-top: 15px;
+    width: auto;
+	display:none!important
+}
+
+.realize {
+    float: right!important;
+    padding-top: 18px!important;
+    width: 460px!important;
+}
+.realize h2 {
+    color: #592002;
+    font-family: 'open_sansregular';
+    font-size: 30px;
+    text-transform: uppercase;
+}
+.rlze-right {
+    float: right;
+    padding-top: 10px;
+    width: 96px;
+}
+.rlze-right img {
+    border: 0 none;
+    padding: 0 3px;
+}
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #2E2823;
+    color: #FFFFFF;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1004px;
+}
+.footer {
+    background-color: #EDEDED;
+}
+.f-left {
+    float: left;
+    padding-right: 56px;
+    width: 200px;
+}
+.f-mid {
+    border-left: 1px solid #A1A1A1;
+    float: left;
+    font-size: 11px;
+    margin: 10px 0 0;
+    padding-left: 16px;
+    width: 570px;
+}
+.f-mid a {
+    color: #646464;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 16px 0 0;
+}
+.f-mid a:hover {
+    color: #646464;
+    line-height: 20px;
+    text-decoration: underline;
+}
+.f-right {
+    float: right;
+    padding-right: 50px;
+    padding-top: 10px;
+    width: 96px;
+}
+.f-right img {
+    padding: 0 3px;
+}
+
+@font-face {
+	font-family: 'open_sansregular';
+	src: url('../font1/opensans-regular-webfont.eot');
+	src: url('../font1/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),  url('../font1/opensans-regular-webfont.woff') format('woff'),  url('../font1/opensans-regular-webfont.ttf') format('truetype'),  url('../font1/opensans-regular-webfont.svg#open_sansregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.top-header_bg {
+    background-color: #2B2B2B;
+    height: 42px;
+    width: 100%;
+}
+
+.top-left-sign {
+    color: #E0C304;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 11px 0 0;
+    position: absolute;
+    text-transform: uppercase;
+}
+.top-left-sign span a {
+    color: #81CFEE;
+}
+.top-left-sign span a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.nd-hlp {
+    bottom: 0;
+    margin-top: 200px;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+.main-menu {
+    float: right;
+    margin: 12px 0 0;
+}
+.main-menu ul {
+    margin: 0;
+}
+.main-menu li ul {
+    left: -2px;
+    padding-top: 2px;
+}
+.main-menu li ul li {
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.main-menu li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 100;
+}
+.main-menu a {
+    color: #C0EDFF;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+}
+.main-menu a:hover {
+    color: #D8C0A8;
+    text-decoration: none;
+}
+.main-menu li.submenu > a {
+    background: url("../images/menu_down_arrow.png") no-repeat scroll right center transparent;
+    cursor: default;
+    padding-right: 20px;
+}
+.main-menu > ul > li {
+    float: left;
+    margin-right: 28px;
+}
+.main-menu > ul > li:last-child {
+    margin-right: 0;
+}
+.main-menu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 100;
+}
+.main-menu li:hover > ul {
+    display: block;
+}
+.main-menu li ul li.submenu > a {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #403830;
+    padding-right: 10px;
+}
+.main-menu li ul li.submenu > a:hover {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #F5F5F5;
+    padding-right: 10px;
+}
+.main-menu li ul li {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #534A42;
+}
+.main-menu li ul li a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #D43A32;
+}
+.main-menu li ul li:last-child {
+    border-bottom: 1px solid #2E2823;
+}
+.main-menu li ul li a {
+    background: none repeat scroll 0 0 #403830;
+    line-height: 33px;
+    padding: 0 25px 0 12px;
+}
+.main-menu li ul li ul {
+    left: 100% !important;
+    padding: 0 !important;
+    top: -1px !important;
+}
+.sign-in a {
+    background: url("../images/sign.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+.sign-in a:hover {
+    background: url("../images/sign-h.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

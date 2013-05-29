@@ -52,18 +52,35 @@ class Model_proposal extends CI_Model
         return $data_result;
     }
 	
+    
+    function update_award_data($aword_id){
+        $payment_date        = inputEscapeString($this->input->request('payment_date'));
+        $price        = inputEscapeString($this->input->request('mc_gross'));
+        $ipn_track_id        = inputEscapeString($this->input->request('auth'));
+        
+        $sql_update_aword = "update `project_aword_map` set `payment_date`='".$payment_date."',`price`='".$price."',`ipn_track_id`='".$ipn_track_id."' where `aword_id`='".$aword_id."'";
+        $this->db->query($sql_update_aword);
+        return true;
+    }
+    
 	
 	function insert_award_data($data=FALSE)
 	{
         $professionalid	= inputEscapeString($this->input->request('professionalid'));
 		$proposalid		= inputEscapeString($this->input->request('proposalid'));
-		$projectid		= inputEscapeString($this->input->request('projectid'));
+        $projectid        = inputEscapeString($this->input->request('projectid'));
+        $mydate        = inputEscapeString($this->input->request('mydate'));
+        $comment        = inputEscapeString($this->input->request('comment'));
+        
+        
 		
 		$data  = array(
 						 'project_id'		=> $projectid		,
 						 'proffetional_id'	=> $professionalid	,
 						 'proposal_id'		=> $proposalid		,
-						 'aword_date'		=> date("Y-m-d H:i:s")
+                         'aword_date'        => date("Y-m-d H:i:s"),
+                         'delivery_date'        => $mydate,
+						 'comment'		=> $comment
 					  );
 					  
 					  
@@ -77,6 +94,9 @@ class Model_proposal extends CI_Model
 		
 		
 		$this->db->insert('project_aword_map', $data); 
+        $aword_id = $this->db->insert_id() ;
+        return $aword_id;
+        
     }
     
     
@@ -90,6 +110,33 @@ where `professional_id`= '".$professional_id."'";
         
         return $data_result;
     }
+    
+    
+    function get_admin_paypal_acount(){
+        $sql_admin_paypal_acount = "select * from `lm_adminaccount_tbl` where `AdminId`=1";
+        $result = $this->db->query($sql_admin_paypal_acount);
+        $data_result = $result->result();  
+        return $data_result;
+        
+        
+    }
+    
+    
+    function getProfessionalInfo($project_id){
+        $sql_professional_info = "select * from `project_aword_map` where `project_id`='".$project_id."'";
+        $result = $this->db->query($sql_professional_info);
+        $data_result = $result->result();  
+        return $data_result;
+    }
+    
+    
+    function getProfessional_paypalId($search_str=0){
+        $sql_professional_paypal = "select `paypal_email` from `lm_professionaldetail_tbl` where `ProfessionalId` in (".$search_str.")";
+        $result = $this->db->query($sql_professional_paypal);
+        $data_result = $result->result();  
+        return $data_result;
+    }
+    
     
     
 }

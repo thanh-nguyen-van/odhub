@@ -174,6 +174,9 @@ if($lawyerid!="")
         </td>
 	  <?php }elseif($key == 's_professional_contract_charge'){ ?>
       <td>Contract Charge</td>
+	  <?php }elseif($key == 'paypal_email'){ ?>
+      <td>Paypal E-mail</td>
+      
       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
       <?php }elseif($key == 'referral_code'){ ?>
       <td>Referral Code</td>

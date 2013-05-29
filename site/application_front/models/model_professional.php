@@ -50,7 +50,38 @@ class Model_professional extends CI_Model
 		$result = $query->row_array();
 		
 		return $result;
-	}    
+	}
+        public function getMyAwardedProjects($professionalUserId)
+        {
+            $this->db->select("*");
+            $this->db->from("project_aword_map");
+            $this->db->where(array("project_aword_map.proffetional_id"=>$professionalUserId,"project_aword_map.ipn_track_id !="=>''));
+            $this->db->join('project_details', 'project_details.project_id = project_aword_map.project_id', 'left');
+            $this->db->join('proposal', 'proposal.proposal_id = project_aword_map.proposal_id', 'left');
+            $this->db->join('lm_clientdetail_tbl', 'lm_clientdetail_tbl.ClientId = project_details.post_by', 'left');
+            $this->db->order_by('project_aword_map.aword_id','desc');
+            $result =  $this->db->get();
+            //echo $this->db->last_query();
+            return  $result;
+            
+            
+        }
+        public function getMyReferals($professionalUserId)
+        {
+            //$qry = $this->db->query("SELECT * FROM lm_professionaldetail_tbl where p_user in(select referral_code from lm_professionaldetail_tbl where ProfessionalId='".$professionalUserId."')");
+           
+            $this->db->select("referral_code");    
+            $this->db->from("lm_professionaldetail_tbl"); 
+            $this->db->where("ProfessionalId",$professionalUserId);
+            $result2 = $this->db->get()->row_array();
+          
+            //print_r($result2);
+            $this->db->select("*");
+            $this->db->from("lm_professionaldetail_tbl");
+            $this->db->where(array("p_user"=>$result2['referral_code']));
+            return $this->db->get();
+
+        }
     
 }
 

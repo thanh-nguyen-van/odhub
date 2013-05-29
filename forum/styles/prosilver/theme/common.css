@@ -1,3 +1,4 @@
+
 /* General Markup Styles
 ---------------------------------------- */
 
@@ -178,6 +179,7 @@ a#logo:hover {
 
 #site-description h1 {
 	margin-right: 0;
+	display:none;
 }
 
 /* Round cornered boxes and backgrounds
@@ -642,3 +644,20 @@ p.rules a {
 	line-height: 1px;
 	background: transparent;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

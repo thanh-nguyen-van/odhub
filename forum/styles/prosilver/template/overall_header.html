@@ -81,7 +81,229 @@
 
 <link href="{T_THEME_PATH}/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 <link href="{T_STYLESHEET_LINK}" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="{T_THEME_PATH}/new-css.css" type="text/css" media="screen">
 
+<style type="text/css">
+	.logo {
+    float: left;
+    padding-top: 15px;
+    width: auto;	
+}
+
+.realize {
+    float: right!important;
+    padding-top: 18px!important;
+    width: 460px!important;
+}
+.realize h2 {
+    color: #592002;
+    font-family: 'open_sansregular';
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.rlze-right img {
+    border: 0 none;
+    padding: 0 3px;
+}
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #2E2823;
+    color: #FFFFFF;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1004px;
+}
+.footer {
+    background-color: #EDEDED;
+}
+.f-left {
+    float: left;
+    padding-right: 56px;
+    width: 200px;
+}
+.f-mid {
+    border-left: 1px solid #A1A1A1;
+    float: left;
+    font-size: 11px;
+    margin: 10px 0 0;
+    padding-left: 16px;
+    width: 570px;
+}
+.f-mid a {
+    color: #646464;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 16px 0 0;
+}
+.f-mid a:hover {
+    color: #646464;
+    line-height: 20px;
+    text-decoration: underline;
+}
+
+.f-right img {
+    padding: 0 3px;
+}
+
+@font-face {
+	font-family: 'open_sansregular';
+	src: url('../font1/opensans-regular-webfont.eot');
+	src: url('../font1/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),  url('../font1/opensans-regular-webfont.woff') format('woff'),  url('../font1/opensans-regular-webfont.ttf') format('truetype'),  url('../font1/opensans-regular-webfont.svg#open_sansregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.top-header_bg {
+    background-color: #2B2B2B;
+    height: 42px;
+    width: 100%;
+}
+
+.top-left-sign {
+    color: #E0C304;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 11px 0 0;
+    position: absolute;
+    text-transform: uppercase;
+}
+.top-left-sign span a {
+    color: #81CFEE;
+}
+.top-left-sign span a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.nd-hlp {
+    bottom: 0;
+    margin-top: 200px;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+.main-menu {
+    float: right;
+    margin: 12px 0 0;
+}
+.main-menu ul {
+    margin: 0;
+}
+.main-menu li ul {
+    left: -2px;
+    padding-top: 2px;
+}
+.main-menu li ul li {
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.main-menu li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 100;
+}
+.main-menu a {
+    color: #C0EDFF;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+}
+.main-menu a:hover {
+    color: #D8C0A8;
+    text-decoration: none;
+}
+.main-menu li.submenu > a {
+    background: url("../images/menu_down_arrow.png") no-repeat scroll right center transparent;
+    cursor: default;
+    padding-right: 20px;
+}
+.main-menu > ul > li {
+    float: left;
+    margin-right: 28px;
+}
+.main-menu > ul > li:last-child {
+    margin-right: 0;
+}
+.main-menu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 100;
+}
+.main-menu li:hover > ul {
+    display: block;
+}
+.main-menu li ul li.submenu > a {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #403830;
+    padding-right: 10px;
+}
+.main-menu li ul li.submenu > a:hover {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #F5F5F5;
+    padding-right: 10px;
+}
+.main-menu li ul li {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #534A42;
+}
+.main-menu li ul li a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #D43A32;
+}
+.main-menu li ul li:last-child {
+    border-bottom: 1px solid #2E2823;
+}
+.main-menu li ul li a {
+    background: none repeat scroll 0 0 #403830;
+    line-height: 33px;
+    padding: 0 25px 0 12px;
+}
+.main-menu li ul li ul {
+    left: 100% !important;
+    padding: 0 !important;
+    top: -1px !important;
+}
+.sign-in a {
+    background: url("../images/sign.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+.sign-in a:hover {
+    background: url("../images/sign-h.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+
+.rlze-right {
+    float: right;
+    padding-top: 10px;
+    width: 96px !important;
+}
+.f-right {
+    float: right;
+    padding-right: 50px;
+    padding-top: 10px;
+    width: 100px !important;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+}
+.headerspace h3 { font-size:14px!important; 
+}
+
+
+
+
+</style>
 <link href="{T_THEME_PATH}/normal.css" rel="stylesheet" type="text/css" title="A" />
 <link href="{T_THEME_PATH}/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
 <link href="{T_THEME_PATH}/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
@@ -97,73 +319,61 @@
 <div id="wrap">
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
-		<div class="headerbar">
-			<div class="inner"><span class="corners-top"><span></span></span>
+    
+    <div class="top-header_bg" style="    background-color: #2B2B2B;
+    height: 42px;
+    width: 100%;
+">
 
-			<div id="site-description">
-				<a href="{U_INDEX}" title="{L_INDEX}" id="logo">{SITE_LOGO_IMG}</a>
-				<h1>{SITENAME}</h1>
-				<p>{SITE_DESCRIPTION}</p>
-				<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
-			</div>
 
-		<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
-			<div id="search-box">
-				<form action="{U_SEARCH}" method="get" id="search">
-				<fieldset>
-					<input name="keywords" id="keywords" type="text" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="inputbox search" value="<!-- IF SEARCH_WORDS-->{SEARCH_WORDS}<!-- ELSE -->{L_SEARCH_MINI}<!-- ENDIF -->" onclick="if(this.value=='{LA_SEARCH_MINI}')this.value='';" onblur="if(this.value=='')this.value='{LA_SEARCH_MINI}';" />
-					<input class="button2" value="{L_SEARCH}" type="submit" /><br />
-					<a href="{U_SEARCH}" title="{L_SEARCH_ADV_EXPLAIN}">{L_SEARCH_ADV}</a> {S_SEARCH_HIDDEN_FIELDS}
-				</fieldset>
-				</form>
-			</div>
-		<!-- ENDIF -->
+<div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','images/fdbk-h.png',1)"><img src="images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
+<div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','images/nd-hlp-h.png',1)"><img src="images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
+	<div class="container">
+        <div class="top-left-sign" style="    color: #E0C304;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 11px 0 0;
+    position: absolute;
+    text-transform: uppercase;
+"><span><a href="#">Sign  up</a></span>  for  a  free  account  today</div>
+        <nav class="main-menu">
+                <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="#">For Clients</a></li>
+                <li><a href="#">For OD Professionals</a></li>
+                <li class="sign-in"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','http://192.168.1.50/odhub/site/public/images/sign-h.jpg',1)"><img src="http://192.168.1.50/odhub/site/public/images/sign.jpg" name="Image15" width="66" height="24" border="0"></a></li>
+                </ul>
+      </nav>
+    </div>
+    <div class="clear"></div>
+</div>
+    
+ 
+<div class="container" style="border-bottom:1px solid #000;">
 
-			<span class="corners-bottom"><span></span></span></div>
-		</div>
+    <div class="logo" style="    float: left;
+    padding-top: 15px;
+    width:300px; float:left;"><a href="#"><img src="http://192.168.1.50/odhub/site/public/images/logo.png" alt="" border="0"></a></div>
+    
+    <div class="realize" style="width:460px; float:right;	font-family: 'open_sansregular'; " >
+    	<h4 style="    color: #592002;
+	font-family: 'open_sansregular';    font-size: 26px;
+    text-transform: uppercase;
+    width:404px;
+    float:right;
+    font-weight:normal;
+    padding:15px 0 0px 0;
+    margin-bottom:10px;
 
-		<div class="navbar">
-			<div class="inner"><span class="corners-top"><span></span></span>
-
-			<ul class="linklist navlinks">
-				<li class="icon-home"><a href="{U_INDEX}" accesskey="h">{L_INDEX}</a> <!-- BEGIN navlinks --> <strong>&#8249;</strong> <a href="{navlinks.U_VIEW_FORUM}">{navlinks.FORUM_NAME}</a><!-- END navlinks --></li>
-
-				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="{L_CHANGE_FONT_SIZE}">{L_CHANGE_FONT_SIZE}</a></li>
-
-				<!-- IF U_EMAIL_TOPIC --><li class="rightside"><a href="{U_EMAIL_TOPIC}" title="{L_EMAIL_TOPIC}" class="sendemail">{L_EMAIL_TOPIC}</a></li><!-- ENDIF -->
-				<!-- IF U_EMAIL_PM --><li class="rightside"><a href="{U_EMAIL_PM}" title="{L_EMAIL_PM}" class="sendemail">{L_EMAIL_PM}</a></li><!-- ENDIF -->
-				<!-- IF U_PRINT_TOPIC --><li class="rightside"><a href="{U_PRINT_TOPIC}" title="{L_PRINT_TOPIC}" accesskey="p" class="print">{L_PRINT_TOPIC}</a></li><!-- ENDIF -->
-				<!-- IF U_PRINT_PM --><li class="rightside"><a href="{U_PRINT_PM}" title="{L_PRINT_PM}" accesskey="p" class="print">{L_PRINT_PM}</a></li><!-- ENDIF -->
-			</ul>
-
-			<!-- IF not S_IS_BOT and S_USER_LOGGED_IN -->
-			<ul class="linklist leftside">
-				<li class="icon-ucp">
-					<a href="{U_PROFILE}" title="{L_PROFILE}" accesskey="e">{L_PROFILE}</a>
-						<!-- IF S_DISPLAY_PM --> (<a href="{U_PRIVATEMSGS}">{PRIVATE_MESSAGE_INFO}</a>)<!-- ENDIF -->
-					<!-- IF S_DISPLAY_SEARCH --> &bull;
-					<a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a>
-					<!-- ENDIF -->
-					<!-- IF U_RESTORE_PERMISSIONS --> &bull;
-					<a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a>
-					<!-- ENDIF -->
-				</li>
-			</ul>
-			<!-- ENDIF -->
-
-			<ul class="linklist rightside">
-				<li class="icon-faq"><a href="{U_FAQ}" title="{L_FAQ_EXPLAIN}">{L_FAQ}</a></li>
-				<!-- IF not S_IS_BOT -->
-					<!-- IF S_DISPLAY_MEMBERLIST --><li class="icon-members"><a href="{U_MEMBERLIST}" title="{L_MEMBERLIST_EXPLAIN}">{L_MEMBERLIST}</a></li><!-- ENDIF -->
-					<!-- IF not S_USER_LOGGED_IN and S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --><li class="icon-register"><a href="{U_REGISTER}">{L_REGISTER}</a></li><!-- ENDIF -->
-					<li class="icon-logout"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x">{L_LOGIN_LOGOUT}</a></li>
-				<!-- ENDIF -->
-			</ul>
-
-			<span class="corners-bottom"><span></span></span></div>
-		</div>
-
-	</div>
+">Realize your full potential</h4>
+        <div class="b-line" align="right"><img src="http://192.168.1.50/odhub/site/public/images/b-line.jpg" alt=""></div>
+        <div class="rlze-right" style="width:72px; float:right;"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','http://192.168.1.50/odhub/site/public/images/s-icon1-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon1.png" alt="" name="Image22" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','http://192.168.1.50/odhub/site/public/images/s-icon2-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon2.png" alt="" name="Image23" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','http://192.168.1.50/odhub/site/public/images/s-icon3-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon3.png" alt="" name="Image24" width="24" height="30" border="0"></a></div>    
+    </div>
+    <div class="clear"></div>
+    
+</div>
 
 	<a name="start_here"></a>
 	<div id="page-body">
@@ -174,3 +384,26 @@
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
 		<!-- ENDIF -->
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>

@@ -12,35 +12,18 @@ if($_SESSION['first_redirect']==1){
 	unset($_SESSION['first_redirect']);
 	$_SESSION['bb_sess_key'] = $user->session_id;
 	$_SESSION['sid']		 = substr($this->_rootref['U_LOGIN_LOGOUT'],strpos($this->_rootref['U_LOGIN_LOGOUT'],'sid=')+4);
-	header("location: /odhub/site/professional/show_home");
+	header("location: /odhub/odhub/site/professional/show_home");
 }
 
 if($_SESSION['ci_click_logout']==1){
 	
 	unset($_SESSION['ci_click_logout']);
 	
-	header("location: /odhub/");
+	header("location: /odhub/odhub/");
 }
 ?>
 
 <?php if (!defined('IN_PHPBB')) exit; ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<div id="login_content" style="display:none">
-<section class="welcome-users right">
-                	<h2><cufon class="cufon cufon-canvas" alt="Welcome " style="width: 85px; height: 14px;"><canvas width="102" height="17" style="width: 102px; height: 17px; top: -3px; left: -1px;"></canvas><cufontext>Welcome </cufontext></cufon><cufon class="cufon cufon-canvas" alt="<?php echo $_SESSION['username'];?>" style="width: 54px; height: 14px;"><canvas width="62" height="17" style="width: 62px; height: 17px; top: -3px; left: -1px;"></canvas><cufontext><?php echo $_SESSION['username'];?></cufontext></cufon></h2> <a href="http://localhost/mufon/dashboard/confirmLogout.mfn"><dt><cufon class="cufon cufon-canvas" alt="Log " style="width: 39px; height: 14px;"><canvas width="55" height="17" style="width: 55px; height: 17px; top: -3px; left: -1px;"></canvas><cufontext>Log </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Out" style="width: 37px; height: 14px;"><canvas width="46" height="17" style="width: 46px; height: 17px; top: -3px; left: -1px;"></canvas><cufontext>Out</cufontext></cufon></dt></a>
-                </section>
-</div>
-<?php
-if($_SESSION['username']!=""){
-?>
-<script language="javascript">
-	document.getElementById('head-top').innerHTML = document.getElementById('login_content').innerHTML;
-</script>
-<?php
-}
-?>
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo (isset($this->_rootref['S_CONTENT_DIRECTION'])) ? $this->_rootref['S_CONTENT_DIRECTION'] : ''; ?>" lang="<?php echo (isset($this->_rootref['S_USER_LANG'])) ? $this->_rootref['S_USER_LANG'] : ''; ?>" xml:lang="<?php echo (isset($this->_rootref['S_USER_LANG'])) ? $this->_rootref['S_USER_LANG'] : ''; ?>">
 <head>
 
@@ -119,7 +102,229 @@ if($_SESSION['username']!=""){
 
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
 <link href="<?php echo (isset($this->_rootref['T_STYLESHEET_LINK'])) ? $this->_rootref['T_STYLESHEET_LINK'] : ''; ?>" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/new-css.css" type="text/css" media="screen">
 
+<style type="text/css">
+	.logo {
+    float: left;
+    padding-top: 15px;
+    width: auto;	
+}
+
+.realize {
+    float: right!important;
+    padding-top: 18px!important;
+    width: 460px!important;
+}
+.realize h2 {
+    color: #592002;
+    font-family: 'open_sansregular';
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.rlze-right img {
+    border: 0 none;
+    padding: 0 3px;
+}
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #2E2823;
+    color: #FFFFFF;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1004px;
+}
+.footer {
+    background-color: #EDEDED;
+}
+.f-left {
+    float: left;
+    padding-right: 56px;
+    width: 200px;
+}
+.f-mid {
+    border-left: 1px solid #A1A1A1;
+    float: left;
+    font-size: 11px;
+    margin: 10px 0 0;
+    padding-left: 16px;
+    width: 570px;
+}
+.f-mid a {
+    color: #646464;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 16px 0 0;
+}
+.f-mid a:hover {
+    color: #646464;
+    line-height: 20px;
+    text-decoration: underline;
+}
+
+.f-right img {
+    padding: 0 3px;
+}
+
+@font-face {
+	font-family: 'open_sansregular';
+	src: url('../font1/opensans-regular-webfont.eot');
+	src: url('../font1/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),  url('../font1/opensans-regular-webfont.woff') format('woff'),  url('../font1/opensans-regular-webfont.ttf') format('truetype'),  url('../font1/opensans-regular-webfont.svg#open_sansregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.top-header_bg {
+    background-color: #2B2B2B;
+    height: 42px;
+    width: 100%;
+}
+
+.top-left-sign {
+    color: #E0C304;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 11px 0 0;
+    position: absolute;
+    text-transform: uppercase;
+}
+.top-left-sign span a {
+    color: #81CFEE;
+}
+.top-left-sign span a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.nd-hlp {
+    bottom: 0;
+    margin-top: 200px;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+.main-menu {
+    float: right;
+    margin: 12px 0 0;
+}
+.main-menu ul {
+    margin: 0;
+}
+.main-menu li ul {
+    left: -2px;
+    padding-top: 2px;
+}
+.main-menu li ul li {
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.main-menu li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 100;
+}
+.main-menu a {
+    color: #C0EDFF;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+}
+.main-menu a:hover {
+    color: #D8C0A8;
+    text-decoration: none;
+}
+.main-menu li.submenu > a {
+    background: url("../images/menu_down_arrow.png") no-repeat scroll right center transparent;
+    cursor: default;
+    padding-right: 20px;
+}
+.main-menu > ul > li {
+    float: left;
+    margin-right: 28px;
+}
+.main-menu > ul > li:last-child {
+    margin-right: 0;
+}
+.main-menu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 100;
+}
+.main-menu li:hover > ul {
+    display: block;
+}
+.main-menu li ul li.submenu > a {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #403830;
+    padding-right: 10px;
+}
+.main-menu li ul li.submenu > a:hover {
+    background: url("../images/submenu_left_arrow.png") no-repeat scroll right center #F5F5F5;
+    padding-right: 10px;
+}
+.main-menu li ul li {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #534A42;
+}
+.main-menu li ul li a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #D43A32;
+}
+.main-menu li ul li:last-child {
+    border-bottom: 1px solid #2E2823;
+}
+.main-menu li ul li a {
+    background: none repeat scroll 0 0 #403830;
+    line-height: 33px;
+    padding: 0 25px 0 12px;
+}
+.main-menu li ul li ul {
+    left: 100% !important;
+    padding: 0 !important;
+    top: -1px !important;
+}
+.sign-in a {
+    background: url("../images/sign.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+.sign-in a:hover {
+    background: url("../images/sign-h.jpg") no-repeat scroll left top transparent;
+    height: 24px;
+    width: 66px;
+}
+
+.rlze-right {
+    float: right;
+    padding-top: 10px;
+    width: 96px !important;
+}
+.f-right {
+    float: right;
+    padding-right: 50px;
+    padding-top: 10px;
+    width: 100px !important;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+}
+.headerspace h3 { font-size:14px!important; 
+}
+
+
+
+
+</style>
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/normal.css" rel="stylesheet" type="text/css" title="A" />
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
@@ -137,75 +342,56 @@ if($_SESSION['username']!=""){
 <div id="wrap">
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
-		<div class="headerbar">
-			<div class="inner"><span class="corners-top"><span></span></span>
+    
+    <div class="top-header_bg" style="background-color: #2B2B2B; height: 42px; width: 100%;">
+  <div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','images/fdbk-h.png',1)"><img src="images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
+  <div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','images/nd-hlp-h.png',1)"><img src="images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
+  <div class="container">
+    <div class="top-left-sign" style="    color: #E0C304;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 11px 0 0;
+    position: absolute;
+    text-transform: uppercase;
+"><span><?php if($this->_rootref['LOGGED_IN_USER_LIST'] != ''){ ?><span>Welcome <?php echo $_SESSION['user_session_fullname'] ?>, <a href="../professional/show_home">My Account</a><?php }else{ ?><a href="../login/signup">Sign  up</a></span> for  a  free  account  today<?php } ?></div>
+    <nav class="main-menu">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../site/static_content/index/3">How it Works</a></li>
+        <li><a href="../">For Clients</a></li>
+        <li><a href="../">For OD Professionals</a></li>
+        <li class="sign-in"><?php if($this->_rootref['LOGGED_IN_USER_LIST'] == ''){ ?><a href="../login/signin" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','../site/public/images/sign-h.jpg',1)"><img src="../site/public/public/images/sign.jpg" name="Image15" width="66" height="24" border="0"></a><? }else{ ?><a href="../login/signout" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','../site/public/images/logout-h.jpg',1)"><img src="../site/public/images/logout.jpg" name="Image15" width="66" height="24" border="0"></a> <?php } ?></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="clear"></div>
+</div>
+    
+ 
+<div class="container" style="border-bottom:1px solid #000;">
 
-			<div id="site-description">
-				<a href="<?php echo (isset($this->_rootref['U_INDEX'])) ? $this->_rootref['U_INDEX'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_INDEX'])) ? $this->_rootref['L_INDEX'] : ((isset($user->lang['INDEX'])) ? $user->lang['INDEX'] : '{ INDEX }')); ?>" id="logo"><?php echo (isset($this->_rootref['SITE_LOGO_IMG'])) ? $this->_rootref['SITE_LOGO_IMG'] : ''; ?></a>
-				<h1><?php echo (isset($this->_rootref['SITENAME'])) ? $this->_rootref['SITENAME'] : ''; ?></h1>
-				<p><?php echo (isset($this->_rootref['SITE_DESCRIPTION'])) ? $this->_rootref['SITE_DESCRIPTION'] : ''; ?></p>
-				<p class="skiplink"><a href="#start_here"><?php echo ((isset($this->_rootref['L_SKIP'])) ? $this->_rootref['L_SKIP'] : ((isset($user->lang['SKIP'])) ? $user->lang['SKIP'] : '{ SKIP }')); ?></a></p>
-			</div>
+    <div class="logo" style="    float: left;
+    padding-top: 15px;
+    width:300px; float:left;"><a href="#"><img src="http://192.168.1.50/odhub/site/public/images/logo.png" alt="" border="0"></a></div>
+    
+    <div class="realize" style="width:460px; float:right;	font-family: 'open_sansregular'; " >
+    	<h4 style="    color: #592002;
+	font-family: 'open_sansregular';    font-size: 26px;
+    text-transform: uppercase;
+    width:404px;
+    float:right;
+    font-weight:normal;
+    padding:15px 0 0px 0;
+    margin-bottom:10px;
 
-		<?php if ($this->_rootref['S_DISPLAY_SEARCH'] && ! $this->_rootref['S_IN_SEARCH']) {  ?>
-
-			<div id="search-box">
-				<form action="<?php echo (isset($this->_rootref['U_SEARCH'])) ? $this->_rootref['U_SEARCH'] : ''; ?>" method="get" id="search">
-				<fieldset>
-					<input name="keywords" id="keywords" type="text" maxlength="128" title="<?php echo ((isset($this->_rootref['L_SEARCH_KEYWORDS'])) ? $this->_rootref['L_SEARCH_KEYWORDS'] : ((isset($user->lang['SEARCH_KEYWORDS'])) ? $user->lang['SEARCH_KEYWORDS'] : '{ SEARCH_KEYWORDS }')); ?>" class="inputbox search" value="<?php if ($this->_rootref['SEARCH_WORDS']) {  echo (isset($this->_rootref['SEARCH_WORDS'])) ? $this->_rootref['SEARCH_WORDS'] : ''; } else { echo ((isset($this->_rootref['L_SEARCH_MINI'])) ? $this->_rootref['L_SEARCH_MINI'] : ((isset($user->lang['SEARCH_MINI'])) ? $user->lang['SEARCH_MINI'] : '{ SEARCH_MINI }')); } ?>" onclick="if(this.value=='<?php echo ((isset($this->_rootref['LA_SEARCH_MINI'])) ? $this->_rootref['LA_SEARCH_MINI'] : ((isset($this->_rootref['L_SEARCH_MINI'])) ? addslashes($this->_rootref['L_SEARCH_MINI']) : ((isset($user->lang['SEARCH_MINI'])) ? addslashes($user->lang['SEARCH_MINI']) : '{ SEARCH_MINI }'))); ?>')this.value='';" onblur="if(this.value=='')this.value='<?php echo ((isset($this->_rootref['LA_SEARCH_MINI'])) ? $this->_rootref['LA_SEARCH_MINI'] : ((isset($this->_rootref['L_SEARCH_MINI'])) ? addslashes($this->_rootref['L_SEARCH_MINI']) : ((isset($user->lang['SEARCH_MINI'])) ? addslashes($user->lang['SEARCH_MINI']) : '{ SEARCH_MINI }'))); ?>';" />
-					<input class="button2" value="<?php echo ((isset($this->_rootref['L_SEARCH'])) ? $this->_rootref['L_SEARCH'] : ((isset($user->lang['SEARCH'])) ? $user->lang['SEARCH'] : '{ SEARCH }')); ?>" type="submit" /><br />
-					<a href="<?php echo (isset($this->_rootref['U_SEARCH'])) ? $this->_rootref['U_SEARCH'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_SEARCH_ADV_EXPLAIN'])) ? $this->_rootref['L_SEARCH_ADV_EXPLAIN'] : ((isset($user->lang['SEARCH_ADV_EXPLAIN'])) ? $user->lang['SEARCH_ADV_EXPLAIN'] : '{ SEARCH_ADV_EXPLAIN }')); ?>"><?php echo ((isset($this->_rootref['L_SEARCH_ADV'])) ? $this->_rootref['L_SEARCH_ADV'] : ((isset($user->lang['SEARCH_ADV'])) ? $user->lang['SEARCH_ADV'] : '{ SEARCH_ADV }')); ?></a> <?php echo (isset($this->_rootref['S_SEARCH_HIDDEN_FIELDS'])) ? $this->_rootref['S_SEARCH_HIDDEN_FIELDS'] : ''; ?>
-
-				</fieldset>
-				</form>
-			</div>
-		<?php } ?>
-
-
-			<span class="corners-bottom"><span></span></span></div>
-		</div>
-
-		<div class="navbar">
-			<div class="inner"><span class="corners-top"><span></span></span>
-
-			<ul class="linklist navlinks">
-				<li class="icon-home"><a href="<?php echo (isset($this->_rootref['U_INDEX'])) ? $this->_rootref['U_INDEX'] : ''; ?>" accesskey="h"><?php echo ((isset($this->_rootref['L_INDEX'])) ? $this->_rootref['L_INDEX'] : ((isset($user->lang['INDEX'])) ? $user->lang['INDEX'] : '{ INDEX }')); ?></a> <?php $_navlinks_count = (isset($this->_tpldata['navlinks'])) ? sizeof($this->_tpldata['navlinks']) : 0;if ($_navlinks_count) {for ($_navlinks_i = 0; $_navlinks_i < $_navlinks_count; ++$_navlinks_i){$_navlinks_val = &$this->_tpldata['navlinks'][$_navlinks_i]; ?> <strong>&#8249;</strong> <a href="<?php echo $_navlinks_val['U_VIEW_FORUM']; ?>"><?php echo $_navlinks_val['FORUM_NAME']; ?></a><?php }} ?></li>
-
-				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="<?php echo ((isset($this->_rootref['L_CHANGE_FONT_SIZE'])) ? $this->_rootref['L_CHANGE_FONT_SIZE'] : ((isset($user->lang['CHANGE_FONT_SIZE'])) ? $user->lang['CHANGE_FONT_SIZE'] : '{ CHANGE_FONT_SIZE }')); ?>"><?php echo ((isset($this->_rootref['L_CHANGE_FONT_SIZE'])) ? $this->_rootref['L_CHANGE_FONT_SIZE'] : ((isset($user->lang['CHANGE_FONT_SIZE'])) ? $user->lang['CHANGE_FONT_SIZE'] : '{ CHANGE_FONT_SIZE }')); ?></a></li>
-
-				<?php if ($this->_rootref['U_EMAIL_TOPIC']) {  ?><li class="rightside"><a href="<?php echo (isset($this->_rootref['U_EMAIL_TOPIC'])) ? $this->_rootref['U_EMAIL_TOPIC'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_EMAIL_TOPIC'])) ? $this->_rootref['L_EMAIL_TOPIC'] : ((isset($user->lang['EMAIL_TOPIC'])) ? $user->lang['EMAIL_TOPIC'] : '{ EMAIL_TOPIC }')); ?>" class="sendemail"><?php echo ((isset($this->_rootref['L_EMAIL_TOPIC'])) ? $this->_rootref['L_EMAIL_TOPIC'] : ((isset($user->lang['EMAIL_TOPIC'])) ? $user->lang['EMAIL_TOPIC'] : '{ EMAIL_TOPIC }')); ?></a></li><?php } if ($this->_rootref['U_EMAIL_PM']) {  ?><li class="rightside"><a href="<?php echo (isset($this->_rootref['U_EMAIL_PM'])) ? $this->_rootref['U_EMAIL_PM'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_EMAIL_PM'])) ? $this->_rootref['L_EMAIL_PM'] : ((isset($user->lang['EMAIL_PM'])) ? $user->lang['EMAIL_PM'] : '{ EMAIL_PM }')); ?>" class="sendemail"><?php echo ((isset($this->_rootref['L_EMAIL_PM'])) ? $this->_rootref['L_EMAIL_PM'] : ((isset($user->lang['EMAIL_PM'])) ? $user->lang['EMAIL_PM'] : '{ EMAIL_PM }')); ?></a></li><?php } if ($this->_rootref['U_PRINT_TOPIC']) {  ?><li class="rightside"><a href="<?php echo (isset($this->_rootref['U_PRINT_TOPIC'])) ? $this->_rootref['U_PRINT_TOPIC'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_PRINT_TOPIC'])) ? $this->_rootref['L_PRINT_TOPIC'] : ((isset($user->lang['PRINT_TOPIC'])) ? $user->lang['PRINT_TOPIC'] : '{ PRINT_TOPIC }')); ?>" accesskey="p" class="print"><?php echo ((isset($this->_rootref['L_PRINT_TOPIC'])) ? $this->_rootref['L_PRINT_TOPIC'] : ((isset($user->lang['PRINT_TOPIC'])) ? $user->lang['PRINT_TOPIC'] : '{ PRINT_TOPIC }')); ?></a></li><?php } if ($this->_rootref['U_PRINT_PM']) {  ?><li class="rightside"><a href="<?php echo (isset($this->_rootref['U_PRINT_PM'])) ? $this->_rootref['U_PRINT_PM'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_PRINT_PM'])) ? $this->_rootref['L_PRINT_PM'] : ((isset($user->lang['PRINT_PM'])) ? $user->lang['PRINT_PM'] : '{ PRINT_PM }')); ?>" accesskey="p" class="print"><?php echo ((isset($this->_rootref['L_PRINT_PM'])) ? $this->_rootref['L_PRINT_PM'] : ((isset($user->lang['PRINT_PM'])) ? $user->lang['PRINT_PM'] : '{ PRINT_PM }')); ?></a></li><?php } ?>
-
-			</ul>
-
-			<?php if (! $this->_rootref['S_IS_BOT'] && $this->_rootref['S_USER_LOGGED_IN']) {  ?>
-
-			<ul class="linklist leftside">
-				<li class="icon-ucp">
-					<a href="<?php echo (isset($this->_rootref['U_PROFILE'])) ? $this->_rootref['U_PROFILE'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_PROFILE'])) ? $this->_rootref['L_PROFILE'] : ((isset($user->lang['PROFILE'])) ? $user->lang['PROFILE'] : '{ PROFILE }')); ?>" accesskey="e"><?php echo ((isset($this->_rootref['L_PROFILE'])) ? $this->_rootref['L_PROFILE'] : ((isset($user->lang['PROFILE'])) ? $user->lang['PROFILE'] : '{ PROFILE }')); ?></a>
-						<?php if ($this->_rootref['S_DISPLAY_PM']) {  ?> (<a href="<?php echo (isset($this->_rootref['U_PRIVATEMSGS'])) ? $this->_rootref['U_PRIVATEMSGS'] : ''; ?>"><?php echo (isset($this->_rootref['PRIVATE_MESSAGE_INFO'])) ? $this->_rootref['PRIVATE_MESSAGE_INFO'] : ''; ?></a>)<?php } if ($this->_rootref['S_DISPLAY_SEARCH']) {  ?> &bull;
-					<a href="<?php echo (isset($this->_rootref['U_SEARCH_SELF'])) ? $this->_rootref['U_SEARCH_SELF'] : ''; ?>"><?php echo ((isset($this->_rootref['L_SEARCH_SELF'])) ? $this->_rootref['L_SEARCH_SELF'] : ((isset($user->lang['SEARCH_SELF'])) ? $user->lang['SEARCH_SELF'] : '{ SEARCH_SELF }')); ?></a>
-					<?php } if ($this->_rootref['U_RESTORE_PERMISSIONS']) {  ?> &bull;
-					<a href="<?php echo (isset($this->_rootref['U_RESTORE_PERMISSIONS'])) ? $this->_rootref['U_RESTORE_PERMISSIONS'] : ''; ?>"><?php echo ((isset($this->_rootref['L_RESTORE_PERMISSIONS'])) ? $this->_rootref['L_RESTORE_PERMISSIONS'] : ((isset($user->lang['RESTORE_PERMISSIONS'])) ? $user->lang['RESTORE_PERMISSIONS'] : '{ RESTORE_PERMISSIONS }')); ?></a>
-					<?php } ?>
-
-				</li>
-			</ul>
-			<?php } ?>
-
-
-			<ul class="linklist rightside">
-				<li class="icon-faq"><a href="<?php echo (isset($this->_rootref['U_FAQ'])) ? $this->_rootref['U_FAQ'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_FAQ_EXPLAIN'])) ? $this->_rootref['L_FAQ_EXPLAIN'] : ((isset($user->lang['FAQ_EXPLAIN'])) ? $user->lang['FAQ_EXPLAIN'] : '{ FAQ_EXPLAIN }')); ?>"><?php echo ((isset($this->_rootref['L_FAQ'])) ? $this->_rootref['L_FAQ'] : ((isset($user->lang['FAQ'])) ? $user->lang['FAQ'] : '{ FAQ }')); ?></a></li>
-				<?php if (! $this->_rootref['S_IS_BOT']) {  if ($this->_rootref['S_DISPLAY_MEMBERLIST']) {  ?><li class="icon-members"><a href="<?php echo (isset($this->_rootref['U_MEMBERLIST'])) ? $this->_rootref['U_MEMBERLIST'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_MEMBERLIST_EXPLAIN'])) ? $this->_rootref['L_MEMBERLIST_EXPLAIN'] : ((isset($user->lang['MEMBERLIST_EXPLAIN'])) ? $user->lang['MEMBERLIST_EXPLAIN'] : '{ MEMBERLIST_EXPLAIN }')); ?>"><?php echo ((isset($this->_rootref['L_MEMBERLIST'])) ? $this->_rootref['L_MEMBERLIST'] : ((isset($user->lang['MEMBERLIST'])) ? $user->lang['MEMBERLIST'] : '{ MEMBERLIST }')); ?></a></li><?php } if (! $this->_rootref['S_USER_LOGGED_IN'] && $this->_rootref['S_REGISTER_ENABLED'] && ! ( $this->_rootref['S_SHOW_COPPA'] || $this->_rootref['S_REGISTRATION'] )) {  ?><li class="icon-register"><a href="<?php echo (isset($this->_rootref['U_REGISTER'])) ? $this->_rootref['U_REGISTER'] : ''; ?>"><?php echo ((isset($this->_rootref['L_REGISTER'])) ? $this->_rootref['L_REGISTER'] : ((isset($user->lang['REGISTER'])) ? $user->lang['REGISTER'] : '{ REGISTER }')); ?></a></li><?php } ?>
-
-					<li class="icon-logout"><a href="<?php echo (isset($this->_rootref['U_LOGIN_LOGOUT'])) ? $this->_rootref['U_LOGIN_LOGOUT'] : ''; ?>" title="<?php echo ((isset($this->_rootref['L_LOGIN_LOGOUT'])) ? $this->_rootref['L_LOGIN_LOGOUT'] : ((isset($user->lang['LOGIN_LOGOUT'])) ? $user->lang['LOGIN_LOGOUT'] : '{ LOGIN_LOGOUT }')); ?>" accesskey="x"><?php echo ((isset($this->_rootref['L_LOGIN_LOGOUT'])) ? $this->_rootref['L_LOGIN_LOGOUT'] : ((isset($user->lang['LOGIN_LOGOUT'])) ? $user->lang['LOGIN_LOGOUT'] : '{ LOGIN_LOGOUT }')); ?></a></li>
-				<?php } ?>
-
-			</ul>
-
-			<span class="corners-bottom"><span></span></span></div>
-		</div>
-
-	</div>
+">Realize your full potential</h4>
+        <div class="b-line" align="right"><img src="http://192.168.1.50/odhub/site/public/images/b-line.jpg" alt=""></div>
+        <div class="rlze-right" style="width:72px; float:right;"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','http://192.168.1.50/odhub/site/public/images/s-icon1-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon1.png" alt="" name="Image22" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','http://192.168.1.50/odhub/site/public/images/s-icon2-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon2.png" alt="" name="Image23" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','http://192.168.1.50/odhub/site/public/images/s-icon3-h.png',1)"><img src="http://192.168.1.50/odhub/site/public/images/s-icon3.png" alt="" name="Image24" width="24" height="30" border="0"></a></div>    
+    </div>
+    <div class="clear"></div>
+    
+</div>
 
 	<a name="start_here"></a>
 	<div id="page-body">
@@ -218,3 +404,27 @@ if($_SESSION['username']!=""){
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
 		<?php } ?>
+
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>

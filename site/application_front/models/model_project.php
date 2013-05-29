@@ -67,9 +67,11 @@ class Model_project extends CI_Model
 		//------------------------ Project Skills ----------------------------------
 		  $this->db->where('project_id', $project_id);
 		  $this->db->delete('project_skill_map');
-		  foreach($skills as $eachSkill){
-			  $data = array('project_id' => $project_id, 'skill_id' => $eachSkill);
-			  $this->db->insert('project_skill_map', $data);
+			if(!empty($skills)){
+			 foreach($skills as $eachSkill){
+				  $data = array('project_id' => $project_id, 'skill_id' => $eachSkill);
+				  $this->db->insert('project_skill_map', $data);
+			  }
 		  }
 		//------------------------ Project Skills ----------------------------------
 		

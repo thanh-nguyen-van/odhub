@@ -1,16 +1,17 @@
 <?php
-session_start();
-include('include/connect.php');
+//session_start();
 include('include/setting.php');
+include('include/connect.php');
 
-$usertype=  my_addslashes($_REQUEST['usertype']);
-$username=  my_addslashes($_REQUEST['username']);
-$password=  my_addslashes($_REQUEST['password']);
+
+$usertype =  my_addslashes($_REQUEST['usertype']);
+$username =  my_addslashes($_REQUEST['username']);
+$password =  my_addslashes($_REQUEST['password']);
 $login_attempts = $_SESSION['login_attempts'] == "" ? 0 : (int)$_SESSION['login_attempts'];
 
 
 	$select_query="SELECT * FROM ".$table['adminaccount']." WHERE AdminUsername='$username' AND AdminPassword='$password'";
-	$select_result=mysql_query($select_query);
+	$select_result = mysql_query($select_query);
 	if(mysql_num_rows($select_result)>0)
 	{
 		while($rc=mysql_fetch_array($select_result))
@@ -30,7 +31,8 @@ $login_attempts = $_SESSION['login_attempts'] == "" ? 0 : (int)$_SESSION['login_
 	}
 	else
 	{
-		$err_label="<font class=error color='red'>Invalid Username or password</font>";
+		$err_label=$_SESSION['err_msg']="<font class=error color='red'>Invalid Username or password</font>";
+                 //if ($err_label != '') { echo $err_label; unset($err_label);}
 		include('AdminLogin.php');
 	}
 
