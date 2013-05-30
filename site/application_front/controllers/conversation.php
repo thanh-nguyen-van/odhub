@@ -52,27 +52,31 @@ class conversation extends MY_Controller
 
 public function project_conversation()
 	{
-		$sender_id	= $_SESSION[USER_SESSION_ID];
-		$this->middle_data['present_user_id'] = $_SESSION[USER_SESSION_ID]; 
 		$project_id = $this->input->get('projectid');
         $this->middle_data['project_id']	 	= $project_id;
 		
 		if($_SESSION['user_session_type']=="Client"){
-			$this->middle_data['sender_id']	 	= $sender_id;//sender id
-			$this->middle_data['client_data']	 	= $this->model_client->get_client_data($sender_id);
-			$this->middle_data['sender_type']		= "Client";
+			$this->middle_data['sender_id']	 						= $_SESSION[USER_SESSION_ID];//sender id
+			$this->middle_data['sender_client_data']	 			= $this->model_client->get_client_data($_SESSION[USER_SESSION_ID]);
+			$this->middle_data['sender_type']						= "Client";
+			$this->middle_data['sender_name']						= $_SESSION['user_session_fullname'];
+			$this->middle_data['get_receiver']	 					= $this->model_conversation->get_receiver($project_id);
+			$this->middle_data['receiver_id']      					= $this->middle_data['get_receiver']['proffetional_id'];
+			$this->middle_data['receiver_proffessional_details']	= $this->model_professional->get_professional_data($this->middle_data['receiver_id']);
 		}else{
-		$this->middle_data['sender_id']	 	= $sender_id;//sender id
-		$this->middle_data['sender_type']		= "Proffessional";
+			$this->middle_data['sender_id']	 						= $_SESSION[USER_SESSION_ID];//sender id
+			$this->middle_data['sender_proffessional_data']	 		= $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
+			$this->middle_data['sender_type']						= "Proffessional";
+			$this->middle_data['sender_name']						= $_SESSION['user_session_fullname'];
+			$this->middle_data['get_receiver']	 					= $this->model_project->get_project_data($project_id);
+			$this->middle_data['receiver_id']      					= $this->middle_data['get_receiver'][0]->post_by;
+			$this->middle_data['receiver_client_details']			= $this->model_client->get_client_data($this->middle_data['receiver_id']);
 		}
-	
-
-		$this->middle_data['project_conversation_submit_link']	= base_url().$this->middle_data['controller'].'/add_conversation';
-		$this->middle_data['attachment_path']	= file_upload_absolute_path().'conversation_files/';
-		$this->middle_data['conversation']	 	= $this->model_conversation->get_conversation($project_id);
-		$this->middle_data['get_receiver']	 	= $this->model_conversation->get_receiver($project_id);
-		$this->middle_data['receiver_id']       = $this->middle_data['get_receiver']['proffetional_id'];//receiver id
-		
+		$this->middle_data['project_conversation_submit_link']		= base_url().$this->middle_data['controller'].'/add_conversation';
+		$this->middle_data['attachment_path']						= file_upload_absolute_path().'conversation_files/';
+		$this->middle_data['conversation']	 						= $this->model_conversation->get_conversation($project_id);
+		$this->middle_data['get_receiver']	 						= $this->model_conversation->get_receiver($project_id);
+			
 		
 		$this->template->write_view('header',  'common/header',			$this->header_data);
 		$this->template->write_view('content', 'conversation/project_conversation',	$this->middle_data);
@@ -104,9 +108,37 @@ public function add_conversation(){
 				  }
 			  }
 			//--------- File Upload ------------------------
+			//-------------sending mail------------------------
+			if($this->input->post('sender_type')=="Client"){
+				//receiver will be proffessional
+				$receiver_details	= $this->model_professional->get_professional_data($this->input->post('receiver_id'));
+				
+				$to  = $receiver_details['ProfessionalEmail']; // note the comma
+				$subject = 'Conversation text from Client';
+				$message = 'Dear '.$receiver_details['ProfessionalFirstname'].' sir,<BR> Here is the new message posted in conversation <BR> '.$this->input->post('text_message').'<br>'.date("Y-m-d H:i:s")."<br>Thank You<BR>ODHUB Webteam";
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= 'To: '.$receiver_details['ProfessionalFirstname'].' <'.$receiver_details['ProfessionalEmail'].'>'. "\r\n";
+				$headers .= 'From: ODHUB Webteam <noreply@odhub.com>' . "\r\n";
+			}else{
+				//receiver will be client
+				$receiver_details			=	$this->model_client->get_client_data($this->input->post('receiver_id'));
 			
-			$last_project_id = $this->model_conversation->insert_conversation_data($file_name);
-			 redirect("conversation/project_conversation?projectid=".$project_id, "location");
+				$to  = $receiver_details['ClientEmail']; 
+				$subject = 'Conversation text from proffessional';
+				$message = 'Dear '.$receiver_details['ClientFirstname'].' sir,<BR> Here is the new message posted in conversation <BR> '.$this->input->post('text_message').'<br>'.date("Y-m-d H:i:s")."<br>Thank You<BR>ODHUB Webteam";
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= 'To: '.$receiver_details['ClientFirstname'].' <'.$receiver_details['ClientEmail'].'>'. "\r\n";
+				$headers .= 'From: ODHUB Webteam <noreply@odhub.com>' . "\r\n";
+				}
+				// Mail it
+				/* if(mail($to, $subject, $message, $headers)){
+					$last_project_id = $this->model_conversation->insert_conversation_data($file_name);
+					redirect("conversation/project_conversation?projectid=".$project_id, "location");
+				} */
+				$last_project_id = $this->model_conversation->insert_conversation_data($file_name);
+					redirect("google.com");
 }
 	
     

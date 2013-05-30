@@ -16,6 +16,7 @@ class Client extends MY_Controller
 		$this->load->model('model_location');
         $this->load->model('model_upload');
 		$this->load->model('model_searchcustom');
+		$this->load->model('model_conversation');
         
         $this->initData();
 	}
@@ -98,8 +99,8 @@ class Client extends MY_Controller
 		$this->middle_data['project_id']	 	= $project_id;
 		$this->middle_data['client_data']	 	= $this->model_client->get_client_data($client_id);
 		$this->middle_data['proposals_data']	= $this->model_proposal->get_proposals($project_id);
-		
-        //$this->middle_data['award_submit_link']    = $this->config->base_url().'proposal/submit_award';
+	
+		//$this->middle_data['award_submit_link']    = $this->config->base_url().'proposal/submit_award';
         
          
         

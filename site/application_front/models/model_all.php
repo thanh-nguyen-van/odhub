@@ -3,7 +3,7 @@
 class Model_all extends CI_Model
 {
     public $request_data = "";
-       public function project_search_rq($request_data){
+    public function project_search_rq($request_data){
         
        // DebugBreak();
        
@@ -124,10 +124,9 @@ class Model_all extends CI_Model
         
         
     }
+        
     
-    
-    
-    function getreferal_details($professional_id = 0){
+    public function getreferal_details($professional_id = 0){
         $sql_referal_details = "select `p_h`.`client_id`,`p_h`.`amount`,`p_h`.`project_cost`,`p_h`.`date`,concat(`lct`.`ClientFirstname`,' ',`lct`.`Clientlastname`) `client_name` from
         `payrelese_history` `p_h` left join `lm_clientdetail_tbl` `lct`
         on  `p_h`.`client_id` = `lct`.`ClientId`
@@ -142,5 +141,21 @@ class Model_all extends CI_Model
         
     }
     
+    
+    public function getCategoryName($category_id){
+       
+       $sql_category_name = "select * from `project_category` where `pr_cat_id`='".$category_id."'"; 
+       $category_result = $this->db->query($sql_category_name);
+       $category_info = $category_result->result(); 
+       return $category_info;
+    }
+   
+    public function getStateName($state_id){
+       
+       $sql_state_name = "select * from `lm_state_tbl` where `StateId`='".$state_id."'"; 
+       $state_result = $this->db->query($sql_state_name);
+       $state_info = $state_result->result(); 
+       return $state_info;
+    }
     
 }

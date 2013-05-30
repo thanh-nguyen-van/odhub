@@ -7,7 +7,7 @@
     	<div class="lgt-blue">
         	<div class="dp-blue">
             <div class="login-im"></div>
-             <p style="font-size:14px; color:#FFF; font-weight:bold">Thank You, Project Aworded.</p>
+             <p style="font-size:14px; color:#FFF; font-weight:bold">Thank You, Project Awarded.</p>
              <div class="clear"></div>
             </div>
         </div>

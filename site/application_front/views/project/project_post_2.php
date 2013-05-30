@@ -171,7 +171,7 @@ $(".account-d2").attr('id', '');
 <section class="container">
   <div class="menu">
     <ul class="glossymenu">
-      <li><a>1. Create your job <span>&nbsp;</span></a></li>
+      <li><a>1. Post a Project <span>&nbsp;</span></a></li>
       <li><a>2. Select posting type <span>&nbsp;</span></a></li>
       <li class="active"><a>3. Preview <span>&nbsp;</span></a></li>
     </ul>
@@ -254,7 +254,7 @@ $(".account-d2").attr('id', '');
           <input type="hidden" name="project_id"	 id="project_id"	 value="<?php echo $project_details[0]->project_id; ?>" />
           <input type="hidden" name="project_status" id="project_status" value="A" />
         </form>
-        <div class="bl-btn1"><a href="#" onclick="document.getElementById('projectPostForm').submit();">post this job</a></div>
+        <div class="bl-btn1"><a href="#" onclick="document.getElementById('projectPostForm').submit();">post this project</a></div>
         <div class="gr-btn1"><a href="<?php echo site_url('project/post_project'); ?>/?projectid=<?=$project_details[0]->project_id?>">edit post</a></div>
         <div class="clear"></div>
       </div>

@@ -36,7 +36,7 @@ else
     <?php } ?>
     <div class="form-Div">
       <div class="name-your-job">
-        <p>name your job :</p> <input type="text" name="project_name" id="project_name" value="<?=$project_name?>" /> <?php echo form_error('project_name') ?>
+        <p>Name your project :</p> <input type="text" name="project_name" id="project_name" value="<?=$project_name?>" /> <?php echo form_error('project_name') ?>
         <div class="clear"></div>
         <span>75 characters left</span>
         <div class="clear"></div>
@@ -73,17 +73,17 @@ else
         <div class="total-priceG">
           <p>Pricing:</p>
           <div class="clear"></div>
-          <div class="icG"><input type="radio" name="price_type" id="price_type1" value="Contract" <?php if($price_type == 'Contract') echo "checked"; ?>></div>
-          <div class="ic-pG">Maximum Contract Value </div> <div class="dollarG">$ <span><input type="text" name="start_price1" id="start_price1" value="<?=$start_price1?>" /></span></div>
+          <div class="icG"><input type="radio" name="price_type" id="price_type1" value="Contract" <?php if($price_type == 'Contract') echo "checked"; ?> onclick="enable_pricing(start_price1,rad1)"></div>
+          <div class="ic-pG">Maximum Contract Value </div> <div class="dollarG" id="rad1">$ <span><input type="text" name="start_price1" id="start_price1" value="<?=$start_price1?>" disabled="true" /></span></div>
           <div class="clear"></div>
         </div>
         <div class="total-priceG">
-          <div class="icG"><input type="radio" name="price_type" id="price_type2" value="Hourly" <?php if($price_type == 'Hourly') echo "checked"; ?>></div>
-          <div class="ic-pG">Hourly</div> <div class="dollarG">$ <span><input type="text" name="start_price2" id="start_price2" value="<?=$start_price2?>" /></span></div>
+          <div class="icG"><input type="radio" name="price_type" id="price_type2" value="Hourly" <?php if($price_type == 'Hourly') echo "checked"; ?> onclick="enable_pricing(start_price2,rad2)"></div>
+          <div class="ic-pG">Hourly</div> <div class="dollarG" id="rad2">$ <span><input type="text" name="start_price2" id="start_price2" value="<?=$start_price2?>" disabled="true" /></span></div>
           <div class="clear"></div>
         </div>
         Statename : 
-        <select id="state" name="state">
+        <select id="select" name="select">
 		<?php
         
 			for($i=0;$i<count($state_data);$i++){

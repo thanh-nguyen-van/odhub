@@ -39,6 +39,8 @@
             <br />
             Skillset : <?php echo $skillset;?>
             <div class="clear"></div>
+                <?php if($val->attachment!=''){?><div class="" id="" ><a href="<?php echo file_upload_absolute_path().'porposal_files/'.$val->attachment;?>"> <?php echo $val->attachment;?></a></div><div class="clear"></div><?php }?>
+             
           </div>
           <div class="clear"></div>
           <div class="light-bord"></div>

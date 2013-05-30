@@ -1556,7 +1556,7 @@ img {
 	float:left;
 	height:143px;
 	margin-right:0px;
-	border:2px solid #c2c2c2;
+	/*border:2px solid #c2c2c2;*/
 }
 .editSection1 {
 	width:75%;
@@ -3091,7 +3091,7 @@ width:
 .req-skills span{  text-align:left; float:left;color: #077fb8; font-size:14px;}
 
 
-.chkDiv{ width:86px; float:left; margin-right:5px; text-align:left; font-size:13px; color:#077fb8; text-transform:uppercase;}
+.chkDiv{ /*width:86px;*/ width:268px; float:left; margin-right:5px; text-align:left; font-size:13px; color:#077fb8; text-transform:uppercase;}
 .chkDiv span{ width:20px; float: left; margin-right:3px;}
 
 
@@ -3832,7 +3832,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 	}
 
 .conv-textfield{
-		width:100%;
+		width:96%;
+		padding:5px 2%;
 		border: solid 1px #ccc;
 		resize:none;
 		height:100px;
@@ -3849,10 +3850,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 		cursor:pointer;
 		background:url(../images/btn-bg-blue.png) repeat-x left top;
 		height:28px;
-		line-height:28px;
 		padding:0 10px;
 		border-radius:5px;
-		margin-left:10px;
+		margin-right:10px;
+		float:left;
 	}	
 	
 .inputsend:hover,#yourBtn:hover{
@@ -3922,9 +3923,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 		text-align:right;
 		margin-bottom:20px;
 	}	
-		
-		
+.lowspace{
+		padding-bottom:0;
+		height:450px;
+		overflow:scroll;
+		overflow-x:hidden;
+	}
+	
+.lowspace table tr:nth-of-type(2n+1){
+		background:#f3f3f3;
+	}			
 
+.lowspace table tr td span{
+		vertical-align:top;
+	}	
+.lowspace table tr td span.midlealigne{
+		vertical-align:middle;
+	}
+	
+.squreshape{
+		text-align:center;
+		margin:0 0 10px 10px;
+		background:#fc9f28;
+		width:150px;
+		float:right;
+		width:135px !important;
+	}		
 /*---------------------------------*/
 /*--------responsive css-----------*/
 /*---------------------------------*/

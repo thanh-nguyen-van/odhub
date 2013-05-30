@@ -171,7 +171,7 @@ $(".account-d2").attr('id', '');
 <section class="container">
   <div class="menu">
     <ul class="glossymenu">
-      <li><a>1. Create your job <span>&nbsp;</span></a></li>
+      <li><a>1. Post a Project <span>&nbsp;</span></a></li>
       <li class="active"><a>2. Select posting type <span>&nbsp;</span></a></li>
       <li><a>3. Preview <span>&nbsp;</span></a></li>
     </ul>
@@ -179,7 +179,7 @@ $(".account-d2").attr('id', '');
   <div class="clear"></div>
   <div class="Total-Div-Box-sub1">
     <div class="get-betterTotal">
-      <h1>Get Better Proposals: Feature Your Job Post</h1>
+      <h1>Get Better Proposals: Feature Your Project Post</h1>
       <aside class="leftCol-post-sub1"> <img src="<?php echo css_images_js_base_url();?>images/imm.jpg" width="263" height="130" alt="">
         <div class="clear"></div>
       </aside>

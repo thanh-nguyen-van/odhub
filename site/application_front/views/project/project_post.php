@@ -67,7 +67,8 @@ jQuery(document).ready(function() {
 </script> 
 <!--custom dropdown --> 
 
-<script src="js/jquery.dd.min.js"></script> 
+
+<script src="http://192.168.1.50/odhub/site/public/js/jquery.dd.min.js"></script> 
 <script>
 function createByJson() {
 	var jsonData = [					
@@ -172,7 +173,7 @@ $(".account-d2").attr('id', '');
 <section class="container">
   <div class="menu">
     <ul class="glossymenu">
-        <li class="active"><a>1. Create your job <span>&nbsp;</span></a></li>
+        <li class="active"><a>1. Post a Project <span>&nbsp;</span></a></li>
         <li><a>2. Select posting type <span>&nbsp;</span></a></li>
         <li><a>3. Preview <span>&nbsp;</span></a></li>
     </ul>

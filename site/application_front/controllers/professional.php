@@ -149,6 +149,11 @@ class Professional extends MY_Controller {
         $this->template->render();
    
 	}
+        public function checkIfReferred($project_id)
+        {
+           return $checkStatusReferer = $this->model_professional->checkIfReferred($project_id);
+            
+        }
 
 }
 

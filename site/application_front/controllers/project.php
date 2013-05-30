@@ -12,6 +12,7 @@ class Project extends MY_Controller
 		$this->load->model('model_upload');
         $this->load->model('model_all');
         $this->load->model('model_proposal');  
+        $this->load->model('model_professional');  
         
         $this->initData();
         
@@ -50,6 +51,28 @@ class Project extends MY_Controller
         $this->load->view('common/footer',$this->footer_data);
         $this->load->view('common/foot',$this->footer_data);
 	}  
+    
+    function aword_project(){
+        //DebugBreak();
+        $this->request_data = $this->input->post();
+        $middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID]); 
+        
+        $this->load->view('common/head',$this->header_data);
+        $this->load->view('common/header',$this->header_data);
+        $this->load->view('project/aword_project',$middle_data);
+        $this->load->view('common/footer',$this->footer_data);
+        $this->load->view('common/foot',$this->footer_data);
+    }
+   
+   function getCategoryName($category_id){
+       $category_info = $this->model_all->getCategoryName($category_id);
+       return $category_info;
+   } 
+   
+   function getStateName($stateId){
+       $state_info = $this->model_all->getStateName($stateId);
+       return $state_info;
+   }
      
     function index_left()
 	{
@@ -91,6 +114,7 @@ class Project extends MY_Controller
         
         $this->load->view('project/project_content',$data);  
     }
+	
 	
     public function getSkillInfo($project_id){
         $project_skill_data = $this->model_searchproject->getProjectSkillDetails($project_id);
@@ -238,15 +262,15 @@ class Project extends MY_Controller
 			  $file_name = '';
 			  if(isset($_FILES['atchmnt']['name']) && $_FILES['atchmnt']['name'] <> "")
 			  {
-				  $field							= 'atchmnt';
-				  $uploadFileData					= array();
-				  $uploadFileData[$field.'_err']	= '';
+				  $field			= 'atchmnt';
+				  $uploadFileData		= array();
+				  $uploadFileData[$field.'_err']= '';
 				  
 				  $config1['allowed_types']	= 'gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|txt|doc|docx|xls|xlsx|ppt|pptx|pps|ppsx|rtf|pdf';
 				  $config1['upload_path'] 	= file_upload_absolute_path().'project_files/';
 				  $config1['optional'] 		= true;
 				  $config1['max_size']  	= '12000';
-				                                        
+				      // print_r($uploadFileData.'~~~~'.$field.'~~~~~~'.print_r($config1));  die("asdasd");                               
 				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
 				  if($isUploaded)
 				  {
@@ -290,7 +314,16 @@ class Project extends MY_Controller
 		$this->template->write_view('footer',  'common/footer',			 	 $this->footer_data);
 		$this->template->render();
 	}
-    
+    public function aword_project_details(){
+	$this->request_data = $this->input->get('projectid');		
+		
+		
+		$this->load->view('common/head',			 $this->header_data);
+        $this->load->view('common/header',			 $this->header_data);
+        $this->load->view('project/project_aword_details', $this->middle_data);
+        $this->load->view('common/footer',			 $this->footer_data);
+        $this->load->view('common/foot',			 $this->footer_data);
+	}
                
 }
 

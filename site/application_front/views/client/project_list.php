@@ -12,10 +12,16 @@ return false;
     <ul class="clearfix">
       <li><a href="<?php echo $this->config->base_url();?>client/show_home">Profile</a></li>
       <li><a href="<?php echo $this->config->base_url();?>client/show_home">Account</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>client/project_list">Projects</a></li>
-      <li class="last"><a href="#">Realistic Previews</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">Projects</a></li>
+<!--      <li class="last"><a href="#">Realistic Previews</a></li>-->
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
+    
+    <span class="org-btn squreshape">
+    
+             <a href="<?php echo site_url('project/post_project');?>"> Post a Project </a> 
+        </span>
+        <div class="clear"></div>
   <div class="Total-Div-Box">
   
   
@@ -23,7 +29,8 @@ return false;
   
   
     <div class="box-head2">
-      <h1>My OD Projects </h1>
+        <h1>My OD Projects </h1>
+        
       <div class="clear"></div>
     </div>
     <div class="tableDiv2">
@@ -45,8 +52,11 @@ return false;
           </td>
           <td class="pdngTop" width="50%" style="border-right:0;"><span class="org-btn"><a href="<?php echo ($each_project->bids==0) ? '#' : $this->config->base_url().'client/proposal_list?projectid='.$each_project->project_id ?>">view (<?=$each_project->bids?>)</a></span>&nbsp;&nbsp;<span class="org-btn"><a href="<?php echo $this->config->base_url().'project/post_project?projectid='.$each_project->project_id ?>">Edit</a></span>&nbsp;&nbsp;
           <span class="org-btn">
-          <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$each_project->project_id ?>">Conversation</a>
-          </span>&nbsp;&nbsp;
+		  
+          <? if($each_project->awarded != "Not Awarded"){?>
+		  <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$each_project->project_id ?>">Conversation</a>
+          <? }else{ echo '<a href="#">Conversation</a>'; } ?>
+		  </span>&nbsp;&nbsp;
           <span class="org-btn">
           <a href="<?php echo $this->config->base_url().'payment/release?projectid='.$each_project->project_id ?>">Payment</a>
           </span>

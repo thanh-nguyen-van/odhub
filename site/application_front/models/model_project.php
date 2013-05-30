@@ -126,7 +126,7 @@ class Model_project extends CI_Model
 	
 	public function get_project_data($project_id)
 	{
-        $sql_get_project_data = "select `pd`.`project_id`,`pd`.`project_name`,`pd`.`project_category`,`pd`.`project_description`,`pd`.`job_type`,`pd`.`price_type`,
+        $sql_get_project_data = "select `pd`.`project_id`,`pd`.`post_by`,`pd`.`project_name`,`pd`.`project_category`,`pd`.`project_description`,`pd`.`job_type`,`pd`.`price_type`,
 if(`pd`.`w9_required`=1,'W9 Required','W9 Not Required') `w9_status`,`pd`.`start_price`,`pd`.`end_price`,`pd`.`project_filename`,`pd`.`project_visibility`,`pd`.`project_start`,`pd`.`project_start_date`,`pd`.`project_status`,
 concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_format(`pd`.`post_date`,'%M %d, %Y') `post_date`,date_format(`pd`.`project_start_date`,'%M %D, %Y') `job_st_dt` from `project_details` as `pd` left join `lm_clientdetail_tbl` `lct` on `pd`.`post_by` = `lct`.`ClientId` where `pd`.`project_id` = '".$project_id."'";
 

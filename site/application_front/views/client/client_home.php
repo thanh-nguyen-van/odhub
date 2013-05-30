@@ -12,8 +12,8 @@
         <ul class="clearfix">
             <li><a href="#">Profile</a></li>
             <li><a href="#">Account</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
-            <li class="last"><a href="#">Realistic Previews</a></li>
+            <li class="last"><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
+<!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">
@@ -55,11 +55,21 @@
             <div class="clear"></div>
         </div>
     </div>
+    <div>
+             <span class="org-btn squreshape"  style="float: right; padding-right: 20px; width: 150px !important; vertical-align: top;">
+             <a href="<?php echo site_url('search');?>"> Search Professional </a> 
+        </span>
+        <span class="org-btn squreshape"  style="float: right; padding-right: 20px; width: 120px !important; vertical-align: top;">
+             <a href="<?php echo site_url('project/post_project');?>"> Post a Project </a> 
+        </span>
+            <div class="clear"></div>
+        </div>
     <div class="Total-Div-Box">
         <div class="box-head2">
             <h1>My Favorites </h1>
             <div class="clear"></div>
         </div>
+        
         <div class="tableDiv1">
             <table>
                 <thead>

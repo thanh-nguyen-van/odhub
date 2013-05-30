@@ -17,7 +17,7 @@ class Model_conversation extends CI_Model
 		
 		$this->db->select($select_flds);
 		$this->db->where($condition);
-		
+		$this->db->order_by("date", "desc");
 		$query	= $this->db->get($table_name);
 		$result = $query->result_array();
 		
@@ -57,6 +57,7 @@ class Model_conversation extends CI_Model
 					  );
 					  
 			$this->db->insert('lm_project_conversation', $data);
+			return;
 		
 	}
 	

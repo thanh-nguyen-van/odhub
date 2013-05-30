@@ -6,8 +6,8 @@
     <ul class="clearfix">
       <li><a href="<?php echo $this->config->base_url();?>client/show_home">Profile</a></li>
       <li><a href="<?php echo $this->config->base_url();?>client/show_home">Account</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>client/project_list">Projects</a></li>
-      <li class="last"><a href="#">Realistic Previews</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">Projects</a></li>
+      <!--<li class="last"><a href="#">Realistic Previews</a></li>-->
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
 

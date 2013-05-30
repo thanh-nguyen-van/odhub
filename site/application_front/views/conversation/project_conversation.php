@@ -35,7 +35,7 @@ return false;
       <h1>Conversation</h1>
       <div class="clear"></div>
     </div>
-    <div class="tableDiv1 proposals2">
+    <div class="tableDiv1 proposals2 lowspace">
     <?php if($conversation){ //print_r($proposals_data); ?>
         <table>
           <thead>
@@ -47,7 +47,9 @@ return false;
           <tbody>
           	<?php for($i=0;$i<count($conversation);$i++){ ?>
             <tr>
-             <td><p><? if($present_user_id ==  $conversation[$i]['sender_id']){ ?>You <? }else{ if($sender_type=="Client"){?> Proffessional <?}else{?> Client <?} } ?>&nbsp; >> &nbsp;<?php echo $conversation[$i]['text_message']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$conversation[$i]['date'] ?><br><? if($conversation[$i]['attachment']){?>attachments: <a href="<? echo $attachment_path.$conversation[$i]['attachment'];?>"><? echo $conversation[$i]['attachment'];?></a><? }?></p></td>
+             <td>
+             
+             <p><? if($sender_id ==  $conversation[$i]['sender_id']){ echo '<span><img src="'.css_images_js_base_url().'images/comment1.png" name="Image18" alt=""></span>'.$sender_name." [You]"; }else{ if($sender_type=="Client"){ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_proffessional_details['ProfessionalFirstname']." ".$receiver_proffessional_details['ProfessionalLastname']." [proffessional]"; }else{ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_client_details['ClientFirstname']." ".$receiver_client_details['ClientLastname']." [client]";} } ?>&nbsp; <span class="midlealigne"><img src="<?php echo css_images_js_base_url();?>images/aero.png" name="Image18" alt=""></span> &nbsp; <?php echo $conversation[$i]['text_message']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$conversation[$i]['date'] ?><br><? if($conversation[$i]['attachment']){?>attachments: <a href="<? echo $attachment_path.$conversation[$i]['attachment'];?>"><? echo $conversation[$i]['attachment'];?></a><? }?></p></td>
             </tr>
             <?php } ?>
           </tbody>
@@ -65,12 +67,15 @@ return false;
 	<textarea class="conv-textfield" rows="" cols="" name="text_message" placeholder="some text..........."></textarea>
 	<!--<input type="file" name="atchmnt1">-->
     <div class="upload-btn">
+    
+    <input type="submit" name="send_text" value="Send" class="inputsend">
+    
     	<div id="yourBtn" onclick="getFile()">Upload Image</div>
    		<div style='height: 0px; width: 0px;overflow:hidden;'>
                             <input id="upfile" type="file" value="upload" onchange="sub(this)"/>
                             </div>
                             
-        <input type="submit" name="send_text" value="Send" class="inputsend">                  
+                          
     </div>
     
    

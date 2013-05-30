@@ -53,8 +53,8 @@
         <ul class="clearfix">
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>project/">Projects</a></li>
-            <li><a href="#">Realistic Previews</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/">Projects</a></li>
+<!--            <li><a href="#">Realistic Previews</a></li>-->
             <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
@@ -185,14 +185,18 @@
                             <td class="pdngTop"><?php echo $eachResultRow->project_name;?> </td>
                             <td class="pdngTop"><?php echo $eachResultRow->price;?> USD </td>
                             <td class="pdngTop">
+                                        <?php $referer = Professional::checkIfReferred($eachResultRow->project_id);
+                                        if($referer->num_rows()==1){
+                                        ?>
                                 <select name="refer_id[]" id="refer_id"  >
                                             <option value="">--Select--</option>
                                             <?php foreach($my_referal->result() as $eachReferal){?>
                                             <option value="<?php echo $eachReferal->ProfessionalId;?>"><?php echo $eachReferal->ProfessionalFirstname." ".$eachReferal->ProfessionalLastname;?></option>
                                             <?php }?>
-                                </select>
+                                        </select>
                                 
                                 <input type="button" class="prof_butt_cls" name="ref_butt_<?php echo $eachResultRow->project_id; ?>" id="ref_butt_<?php echo $eachResultRow->project_id; ?>" value="Refer" onclick="javascript:assignval(refer_id.value,<?php echo $eachResultRow->project_id; ?>,<?php echo $eachResultRow->proposal_id; ?>)">
+                                    <?php }else{ $arr = $referer->row_array();echo $arr['ProfessionalFirstname']." ".$arr['ProfessionalLastname'];}?>
                             </td>
                             <td class="pdngTop"><?php echo date('Y-m-d', strtotime($eachResultRow->dalivery_date));?></td>
                             <td class="pdngTop" style="border-right:0;"><span class="send-btn">  <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$eachResultRow->project_id; ?>">Conversation</a></span></td>

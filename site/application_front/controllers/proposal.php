@@ -11,7 +11,7 @@ class Proposal extends MY_Controller
         $this->load->model('model_project');
         $this->load->model('model_all');
         $this->load->model('model_proposal');
-        
+        $this->load->model('model_upload');     
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -23,8 +23,7 @@ class Proposal extends MY_Controller
 	}
 	
     public function saveproposal(){
-    // print_r($_REQUEST);
-	// die;
+
        $this->request_data = $this->input->post(); 
        
        $data_arr = array()  ;
@@ -39,7 +38,28 @@ class Proposal extends MY_Controller
        
        $data_arr['dalivery_date'] = $date_final;
        $data_arr['proposed_by']	  = $_SESSION[USER_SESSION_ID];
-       
+       //        file attachment upload
+                    $file_name = '';
+			  if(isset($_FILES['proposal_attach']['name']) && $_FILES['proposal_attach']['name'] <> "")
+			  {
+				  $field		= 'proposal_attach';
+				  $uploadFileData					= array();
+				  $uploadFileData[$field.'_err']	= '';
+				  
+				  $config1['allowed_types']	= 'gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|txt|doc|docx|xls|xlsx|ppt|pptx|pps|ppsx|rtf|pdf';
+				  $config1['upload_path'] 	= file_upload_absolute_path().'porposal_files/';
+				  $config1['optional'] 		= true;
+				  $config1['max_size']  	= '12000';
+				                                        
+				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
+				  if($isUploaded)
+				  {
+					  $file_name = $uploadFileData[$field];
+                                            $data_arr['attachment']	  = $file_name;
+				  }
+
+                          }
+                                 
        $this->model_proposal->add_proposal($data_arr); 
        
        redirect('project/details/?projectid='.$this->request_data['project_id'], 'refresh');

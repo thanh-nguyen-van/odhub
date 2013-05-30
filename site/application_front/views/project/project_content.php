@@ -8,7 +8,7 @@ foreach($data_result as $result){
 <div class="box-head-proR">
         <h1><?php echo $result->project_name; ?>
         
-        <span><a href="<?php echo site_url('project/details?projectid='.$result->project_id); ?>"><?php echo $result->project_type_txt; ?></a></span>
+        <span><a href="<?php echo site_url('project/details?projectid='.$result->project_id); ?>">Bid Here<?php //echo $result->project_type_txt; ?></a></span>
         
         </h1>
     

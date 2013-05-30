@@ -21,11 +21,10 @@ class Model_proposal extends CI_Model
         }
         
         
-        $insert_str = implode(',',$insert_str_arr);
-        
+        $insert_str = implode(',',$insert_str_arr);        
         $insert_str = $insert_str.",`proposed_date`='".date("Y-m-d H:i:s")."'";
         
-        $insert_sql = "insert into `".$this->table_name."` set ".$insert_str;
+        $insert_sql = "insert into `".$this->table_name."` set ".$insert_str;        
         
         $this->db->query($insert_sql);
         
@@ -36,7 +35,7 @@ class Model_proposal extends CI_Model
     
     
     function get_proposal($project_id){
-        $sql_proposal_list = "select `pr`.`proposal_description`,`lpt`.`ProfessionalId`,concat(`lpt`.`ProfessionalFirstname`,' ',`lpt`.`ProfessionalLastname`) `fullname`,`lst`.`StateName` from `".$this->table_name."` `pr` left join `lm_professionaldetail_tbl` `lpt` on `pr`.`proposed_by` = `lpt`.`ProfessionalId` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `project_id` = '".$project_id."' AND `pr`.`proposed_by` = '".$_SESSION[USER_SESSION_ID]."'";
+        $sql_proposal_list = "select `pr`.`proposal_description`, `pr`.`attachment`,`lpt`.`ProfessionalId`,concat(`lpt`.`ProfessionalFirstname`,' ',`lpt`.`ProfessionalLastname`) `fullname`,`lst`.`StateName` from `".$this->table_name."` `pr` left join `lm_professionaldetail_tbl` `lpt` on `pr`.`proposed_by` = `lpt`.`ProfessionalId` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `project_id` = '".$project_id."' AND `pr`.`proposed_by` = '".$_SESSION[USER_SESSION_ID]."'";
         $result = $this->db->query($sql_proposal_list);
         
         $data_result = $result->result();  

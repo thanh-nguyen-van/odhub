@@ -13,6 +13,7 @@
             <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Profile</a></li>
             <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
             <li><a href="<?php echo $this->config->base_url();?>project/aword_project/">Projects</a></li>
+			
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
             <li class="last"><a href="<?php echo $this->config->base_url();?>project/">  Find Projects  </a></li>
         </ul>
@@ -27,7 +28,7 @@
     
    <?php
 	  //$this->index_left();   
-	  Project::index_left(); 
+	 // Project::index_left(); 
 	?>
   
 </div>
@@ -37,10 +38,89 @@
 <div id="search_result">
 
 <?php
-//$this->index_left(); 
+//debugbreak();
+$data_result = $awarded_projects->result();
+foreach($data_result as $result){
+?>
+<div class="total-right-pro-Div">
 
-	Project::search_result(); 
-	?>
+<section class="rightCol-R">
+<div class="box-head-proR">
+        <h1><a href="<?php echo $this->config->base_url();?>project/aword_project_details?project_id=<? echo $result->project_id;?>"><?php echo $result->project_name; ?></a>
+        
+        
+        
+        </h1>
+    
+    </div>
+     <div class="clear"></div>
+ <div class="box-head-grey">
+ <ul>
+     <li><span><?php echo $result->job_type; ?>:</span> <p>$<?php echo $result->start_price; ?></p></li>
+ 
+ </ul>
+ 
+ 
+ <div class="clear"></div>
+ </div>   
+ 
+ 
+ <section class="rightCol-Boxmid">
+ 
+ <article>
+ <?php echo $result->project_description; ?>
+ 
+ </article>
+ 
+ <div class="cat">Category: <span>
+ <?php 
+ $category_details = Project::getCategoryName($result->project_category);
+ echo $category_details[0]->pr_cat_name; 
+ 
+ ?>
+ </span></div>
+ 
+ 
+ <?php
+
+ $skill_set = Project::getSkillInfo($result->project_id);
+ ?>
+ 
+ 
+ <div class="skills">Skills: <span><?php echo $skill_set;?></span></div>
+ 
+ <div class="clear"></div>
+ 
+ <div class="bottom-glagDiv">
+ <ul>
+    <li><?php //echo $result->cl_name; ?></li>
+    <li><?php 
+
+	$state_info = Project::getStateName($result->state);
+	echo $state_info[0]->StateName;
+	//echo $result->StateName; 
+	
+	?></li>
+ 
+ </ul>
+ 
+ 
+ </div>
+ 
+  <div class="clear"></div>
+ </section>
+    
+
+ <div class="clear"></div>
+
+</section>
+
+
+
+</div>
+<?php
+}
+?>
  
  </div>
  
@@ -102,6 +182,6 @@ $("#search_form").submit(function(event) {
 
 </div>
 
-<div class="drop-shadow-project"><img src="images/drop-shadow.png" alt="" border="0"></div>
+<div class="drop-shadow-project"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png" alt="" border="0"></div>
 <div class="clear"></div>
 </section>

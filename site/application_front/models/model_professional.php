@@ -96,9 +96,11 @@ class Model_professional extends CI_Model
            
         }
      public function checkIfReferred($project_id){
-            $this->db->select("count(*)");    
+            $this->db->select("*");    
             $this->db->from("project_aword_map"); 
             $this->db->where("project_id",$project_id);
+            $this->db->join("lm_professionaldetail_tbl","project_aword_map.proffetional_id = lm_professionaldetail_tbl.ProfessionalId","left");
+            return $this->db->get();
         }
 	public function SaveInvoiceData($invoiceData){
 		$invoiceNumber = "INV".rand();
