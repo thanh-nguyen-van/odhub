@@ -107,9 +107,13 @@ class Model_professional extends CI_Model
 		$Invoicedate = date("Y-m-d H:i:s");
 		$sql_invoice_query = "INSERT INTO `lm_invoice` (`project_id`, `client_id`, `professional_id`, `invoice_number`, `cr_date`, `amount`) VALUES ('".$invoiceData['project_id']."', '".$invoiceData['ClientId']."', '".$invoiceData['proffessionalId']."', '".$invoiceNumber."', '".$Invoicedate."', '".$invoiceData['amount']."')";
 		$this->db->query($sql_invoice_query);
-		//redirect('professional/show_home');
+		redirect($this->config->base_url().'professional/show_home');
 		}
-		
+		public function checkIfinvoiceSend($project_id){
+			$sql_checkIfinvoiceSend = "select * from lm_invoice where project_id = ".$project_id;
+			 $resul_checkIfinvoiceSend = $this->db->query($sql_checkIfinvoiceSend);
+			return $resul_checkIfinvoiceSend->row_array();
+		}
 		
 }
 

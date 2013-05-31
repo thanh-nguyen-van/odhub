@@ -1,3 +1,4 @@
+
 <section class="second-sec-cont2">
         <div class="top-blue-sec">
           <div class="drop-dwn">
@@ -39,7 +40,7 @@
             <br />
             Skillset : <?php echo $skillset;?>
             <div class="clear"></div>
-                <?php if($val->attachment!=''){?><div class="" id="" ><a href="<?php echo file_upload_absolute_path().'porposal_files/'.$val->attachment;?>"> <?php echo $val->attachment;?></a></div><div class="clear"></div><?php }?>
+                <?php if($val->attachment!=''){?><div class="" id="" ><a href="<?php echo site_url('../upload/porposal_files/'.$val->attachment);?>"> <?php echo $val->attachment;?></a></div><div class="clear"></div><?php }?>
              
           </div>
           <div class="clear"></div>

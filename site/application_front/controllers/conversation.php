@@ -104,8 +104,12 @@ public function add_conversation(){
 				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
 				  if($isUploaded)
 				  {
-					  $file_name = $uploadFileData[$field];
-				  }
+					 $file_name = $uploadFileData[$field];
+					 
+				  }else{
+				  echo  "<script type=\"text/javascript\">alert('Wrong File heas been uploaded ,Only 'gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|txt|doc|docx|xls|xlsx|ppt|pptx|pps|ppsx|rtf|pdf' type file are allowed.');</script>";
+				  redirect($this->config->base_url()."conversation/project_conversation?projectid=".$project_id, "location");
+				 }
 			  }
 			//--------- File Upload ------------------------
 			//-------------sending mail------------------------
@@ -138,7 +142,7 @@ public function add_conversation(){
 					redirect("conversation/project_conversation?projectid=".$project_id, "location");
 				} */
 				$last_project_id = $this->model_conversation->insert_conversation_data($file_name);
-					redirect("google.com");
+				redirect($this->config->base_url()."conversation/project_conversation?projectid=".$project_id, "location");
 }
 	
     

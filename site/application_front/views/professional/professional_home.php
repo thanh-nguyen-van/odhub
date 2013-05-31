@@ -53,7 +53,7 @@
         <ul class="clearfix">
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>project/">Projects</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">Projects</a></li>
 <!--            <li><a href="#">Realistic Previews</a></li>-->
             <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
         </ul>
@@ -136,7 +136,15 @@
                         <td class="pdng"><?php echo $awarded_projects_details[$i]['price'];?></td>  
 						
                        
-                        <td class="pdng"><span class="send-btn"><a href="<? echo $this->config->base_url(); ?>professional/send_invoice?projectid=<?=$awarded_projects_details[$i]['project_id']?>">Send</a></span></td>
+                        
+						 <?php $checkIfinvoiceSend = Professional::checkIfinvoiceSend($awarded_projects_details[$i]['project_id']);
+						  if(empty($checkIfinvoiceSend)){?>
+						  <td class="pdng"><span class="send-btn">
+						
+						<a href="<? echo $this->config->base_url(); ?>professional/send_invoice?projectid=<?=$awarded_projects_details[$i]['project_id']?>">Send</a></span>
+							</td>
+						<?php }else{ echo "<td>Invoice send</td>"; } ?>
+					
                         <td class="pdng" style="border-right:0;"><span class="send-btn"><a href="#">View</a></span></td>
                     </tr>
 					<?php } ?>
@@ -225,52 +233,7 @@
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
         <!--</form>-->
     </div>
-    <div class="Total-Div-Box">
-        <div class="box-head1">
-            <h1>My OD HUB Account </h1>
-            <div class="clear"></div>
-        </div>
-        <div class="tableDiv2">
-            <table>
-                <thead>
-                    <tr>
-                        <th width="16%">Date</th>
-                        <th width="21%"> Type </th>
-                        <th width="16%">Amount $ </th>
-                        <th width="16%"> Source </th>
-                        <th width="13%">Client </th>
-                        <th width="18%" style="border-right:0;">Method</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pdngTop">12/5/12 </td>
-                        <td class="pdngTop">Proffessional Referal Paid </td>
-                        <td class="pdngTop"> $25 </td>
-                        <td class="pdngTop">OD Hub </td>
-                        <td class="pdngTop">OD Hub </td>
-                        <td class="pdngTop" style="border-right:0;">Commission Payment</td>
-                    </tr>
-                    <tr>
-                        <td class="pdng">12/5/12 </td>
-                        <td class="pdng">Proffessional Referal Paid </td>
-                        <td class="pdng"> $25 </td>
-                        <td class="pdng">OD Hub </td>
-                        <td class="pdng">OD Hub </td>
-                        <td class="pdng" style="border-right:0;">Commission Payment</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="clear"></div>
-            <div class="showmore">
-                <ul>
-                    <li><a href="#">Show more</a></li>
-                    <li><a href="#">Manually Add Clients</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
-    </div>
+   
     <div class="Total-Div-Box">
         <div class="box-head1">
             <h1>My Invoices </h1>
@@ -319,6 +282,53 @@
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
+	 <div class="Total-Div-Box">
+        <div class="box-head1">
+            <h1>My OD HUB Account </h1>
+            <div class="clear"></div>
+        </div>
+        <div class="tableDiv2">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="16%">Date</th>
+                        <th width="21%"> Type </th>
+                        <th width="16%">Amount $ </th>
+                        <th width="16%"> Source </th>
+                        <th width="13%">Client </th>
+                        <th width="18%" style="border-right:0;">Method</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pdngTop">12/5/12 </td>
+                        <td class="pdngTop">Proffessional Referal Paid </td>
+                        <td class="pdngTop"> $25 </td>
+                        <td class="pdngTop">OD Hub </td>
+                        <td class="pdngTop">OD Hub </td>
+                        <td class="pdngTop" style="border-right:0;">Commission Payment</td>
+                    </tr>
+                    <tr>
+                        <td class="pdng">12/5/12 </td>
+                        <td class="pdng">Proffessional Referal Paid </td>
+                        <td class="pdng"> $25 </td>
+                        <td class="pdng">OD Hub </td>
+                        <td class="pdng">OD Hub </td>
+                        <td class="pdng" style="border-right:0;">Commission Payment</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clear"></div>
+            <div class="showmore">
+                <ul>
+                    <li><a href="#">Show more</a></li>
+                    <li><a href="#">Manually Add Clients</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
+    </div>
+	
     <div class="Total-Div-Box">
         <div class="box-head1">
             <h1>My Realistic Previews</h1>

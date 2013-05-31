@@ -56,8 +56,8 @@ class Model_conversation extends CI_Model
 						 'date'			=> $post_date			
 					  );
 					  
-			$this->db->insert('lm_project_conversation', $data);
-			return;
+			$result = $this->db->insert('lm_project_conversation', $data);
+			return $result;
 		
 	}
 	

@@ -50,15 +50,15 @@ class Professional extends MY_Controller {
         $qry_str = "`lpt`.`p_user` = '" . $referral_code . "'";
         $referal_professional = $this->model_professional->getAllProfessional($qry_str);
         $this->middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID]);
-		$this->middle_data['awarded_projects_details'] = $this->middle_data['awarded_projects']->result_array();
-		$awardedProjectArray = $this->middle_data['awarded_projects']->row_array();
+        $this->middle_data['awarded_projects_details'] = $this->middle_data['awarded_projects']->result_array();
+	$awardedProjectArray = $this->middle_data['awarded_projects']->row_array();
         $awardedProjectId = $awardedProjectArray['project_id'];
         $checkReferal = $this->model_professional->checkIfReferred($awardedProjectId);
        
-	   $this->middle_data['nr_awarded_projects'] = $this->middle_data['awarded_projects']->num_rows();
+	$this->middle_data['nr_awarded_projects'] = $this->middle_data['awarded_projects']->num_rows();
         $this->middle_data['referal_professional'] = $referal_professional;
         $this->middle_data['my_referal'] = $this->model_professional->getMyReferals($_SESSION[USER_SESSION_ID]);
-        $this->model_professional->getMyReferals($_SESSION[USER_SESSION_ID]);;
+        $this->model_professional->getMyReferals($_SESSION[USER_SESSION_ID]);
         $this->middle_data['nr_my_referal'] = $this->middle_data['my_referal']->num_rows();
         
         $referal_details = $this->model_all->getreferal_details($_SESSION[USER_SESSION_ID]);
@@ -154,6 +154,9 @@ class Professional extends MY_Controller {
            return $checkStatusReferer = $this->model_professional->checkIfReferred($project_id);
             
         }
+		public function checkIfinvoiceSend($project_id){
+		return $checkStatusSendinvoice = $this->model_professional->checkIfinvoiceSend($project_id);
+		}
 
 }
 

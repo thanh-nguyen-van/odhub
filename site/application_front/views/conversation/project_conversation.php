@@ -49,7 +49,12 @@ return false;
             <tr>
              <td>
              
-             <p><? if($sender_id ==  $conversation[$i]['sender_id']){ echo '<span><img src="'.css_images_js_base_url().'images/comment1.png" name="Image18" alt=""></span>'.$sender_name." [You]"; }else{ if($sender_type=="Client"){ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_proffessional_details['ProfessionalFirstname']." ".$receiver_proffessional_details['ProfessionalLastname']." [proffessional]"; }else{ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_client_details['ClientFirstname']." ".$receiver_client_details['ClientLastname']." [client]";} } ?>&nbsp; <span class="midlealigne"><img src="<?php echo css_images_js_base_url();?>images/aero.png" name="Image18" alt=""></span> &nbsp; <?php echo $conversation[$i]['text_message']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$conversation[$i]['date'] ?><br><? if($conversation[$i]['attachment']){?>attachments: <a href="<? echo $attachment_path.$conversation[$i]['attachment'];?>"><? echo $conversation[$i]['attachment'];?></a><? }?></p></td>
+             <p><? if($sender_id ==  $conversation[$i]['sender_id']){ echo '<span><img src="'.css_images_js_base_url().'images/comment1.png" name="Image18" alt=""></span>'.$sender_name." [You]"; }else{ if($sender_type=="Client"){ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_proffessional_details['ProfessionalFirstname']." ".$receiver_proffessional_details['ProfessionalLastname']." [proffessional]"; }else{ echo '<span><img src="'.css_images_js_base_url().'images/comment.png" name="Image18" alt=""></span>'.$receiver_client_details['ClientFirstname']." ".$receiver_client_details['ClientLastname']." [client]";} } ?>&nbsp;
+			 <span class="midlealigne"><img src="<?php echo css_images_js_base_url();?>images/aero.png" name="Image18" alt=""></span> 
+			 &nbsp; <?php echo $conversation[$i]['text_message']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$conversation[$i]['date'] ?>
+			 <span class="attachment"><? if($conversation[$i]['attachment']){?><strong>&nbsp; &nbsp; &nbsp; &nbsp; Attachments:</strong> <a href="<? echo $attachment_path.$conversation[$i]['attachment'];?>"><? echo $conversation[$i]['attachment'];?></a><? }?></span>
+			 </p>
+			 </td>
             </tr>
             <?php } ?>
           </tbody>
@@ -70,9 +75,9 @@ return false;
     
     <input type="submit" name="send_text" value="Send" class="inputsend">
     
-    	<div id="yourBtn" onclick="getFile()">Upload Image</div>
+    	<div id="yourBtn" onclick="getFile()">Upload file</div>
    		<div style='height: 0px; width: 0px;overflow:hidden;'>
-                            <input id="upfile" type="file" value="upload" onchange="sub(this)"/>
+                            <input id="upfile" type="file" name="atchmnt1" value="upload" onchange="sub(this)"/>
                             </div>
                             
                           
@@ -82,7 +87,7 @@ return false;
 	
     <div class="clear"></div>
 	</form>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+
   </div>
 </section>
 <div class="clear"></div>

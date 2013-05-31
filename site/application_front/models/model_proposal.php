@@ -43,11 +43,18 @@ class Model_proposal extends CI_Model
         return $data_result;
     }
 	function get_proposals($project_id){
-        $sql_proposal_list = "select `pr`.`proposal_id`,`pr`.`proposal_description`,`pr`.`price`,`lpt`.`ProfessionalId`,concat(`lpt`.`ProfessionalFirstname`,' ',`lpt`.`ProfessionalLastname`) `fullname`,`lst`.`StateName`, (select count(*) from `project_aword_map` where `project_id`='".$project_id."') as `awords` from `".$this->table_name."` `pr` left join `lm_professionaldetail_tbl` `lpt` on `pr`.`proposed_by` = `lpt`.`ProfessionalId` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `project_id` = '".$project_id."'";
+        $sql_proposal_list = "select `pr`.`proposal_id`,`pr`.`attachment`,`pr`.`proposal_description`,`pr`.`price`,`lpt`.`ProfessionalId`,concat(`lpt`.`ProfessionalFirstname`,' ',`lpt`.`ProfessionalLastname`) `fullname`,`lst`.`StateName`, (select count(*) from `project_aword_map` where `project_id`='".$project_id."') as `awords` from `".$this->table_name."` `pr` left join `lm_professionaldetail_tbl` `lpt` on `pr`.`proposed_by` = `lpt`.`ProfessionalId` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `project_id` = '".$project_id."'";
         $result = $this->db->query($sql_proposal_list);
         
         $data_result = $result->result();  
         
+        return $data_result;
+    }
+	function get_proposal_byuser($project_id){
+       $sql_proposal_list = "select `pr`.`proposal_id`,`pr`.`attachment`,`pr`.`proposal_description`,`pr`.`price`,`lpt`.`ProfessionalId`,concat(`lpt`.`ProfessionalFirstname`,' ',`lpt`.`ProfessionalLastname`) `fullname`,`lst`.`StateName`, (select count(*) from `project_aword_map` where `project_id`='".$project_id."') as `awords` from `".$this->table_name."` `pr` left join `lm_professionaldetail_tbl` `lpt` on `pr`.`proposed_by` = `lpt`.`ProfessionalId` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `project_id` = '".$project_id."'";
+      $result = $this->db->query($sql_proposal_list);
+        
+        $data_result = $result->result();  
         return $data_result;
     }
 	

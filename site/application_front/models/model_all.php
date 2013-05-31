@@ -27,10 +27,19 @@ class Model_all extends CI_Model
             if(isset($this->request_data['mydate'])){
                 $mydate = $this->request_data['mydate'];
                 if($mydate!=""){
-                $mydate_arr = explode('/',$mydate);
-                $mydate_str = $mydate_arr[2].$mydate_arr[1].$mydate_arr[0];
-                $cond_str = "date_format(`post_date`,'%Y%m%d') >= '".$mydate_str."'";
-                array_push($arr_cond_arr,$cond_str);
+					
+					$mydate_arr = explode('/',$mydate);
+					$mydate_str = $mydate_arr[2].$mydate_arr[1].$mydate_arr[0];
+					$cond_str = "date_format(`post_date`,'%Y%m%d') >= '".$mydate_str."'";
+					array_push($arr_cond_arr,$cond_str);
+                }
+                
+            }
+			if(isset($this->request_data['immediate'])){
+                $immediate = $this->request_data['immediate'];
+                if($immediate!=""){
+					$cond_str = "project_start = 'I'";
+					array_push($arr_cond_arr,$cond_str);
                 }
                 
             }
@@ -38,6 +47,11 @@ class Model_all extends CI_Model
             if(isset($this->request_data['projecttype'])){
                $tmp_str = implode(',',$this->request_data['projecttype']);
                $cond_str = "`pd`.`project_type_id` in(".$tmp_str.")";
+               array_push($arr_cond_arr,$cond_str);
+            } 
+			if(isset($this->request_data['projectcoachingtype'])){
+               $tmp_str = implode(',',$this->request_data['projectcoachingtype']);
+               $cond_str = "`pd`.`project_coaching_type_id` in(".$tmp_str.")";
                array_push($arr_cond_arr,$cond_str);
             }
             

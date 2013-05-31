@@ -30,6 +30,7 @@ return false;
               <th width="25%">Professional Name</th>
               <th width="20%">Skills Set</th>
               <th width="30%">Proposal Description</th>
+              <th width="10%">Attachment</th>
               <th width="05%">Budget</th>
               <th width="13%" style="border-right:0;"></th>
             </tr>
@@ -44,6 +45,10 @@ return false;
               <td class="bold3"><p><?=$each_proposal->fullname?> (<?=$each_proposal->StateName?>)</p></td>
               <td><p> Microsoft Access Administration, MySQL Administration, PHP</p></td>
               <td><p><?=$each_proposal->proposal_description?></p></td>
+              <td align="center"><p>
+                  <?php if($each_proposal->attachment!=''){?>
+                      <a href="<?php echo site_url('../upload/porposal_files/'.$each_proposal->attachment);?>"><?php echo $each_proposal->attachment;?>  </a>
+                  <?php }else{echo "No Attachment";}?></p></td>
               <td class="bold3">$<?=$each_proposal->price?></td>
               <td class="pdngTop" style="border-right:0;">
               <?php if($each_proposal->awords == 0){ ?>

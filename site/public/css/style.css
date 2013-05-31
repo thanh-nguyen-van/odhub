@@ -2676,13 +2676,17 @@ width:
 	border-radius:10px 10px 0px 0px;
 	padding:12px 17px;
 }
-.box-head-proR h1 {
+.box-head-proR h1{
 	font-size:1.5em;
 	color:#9fcfe7;
 	text-align:left;
 	width:100%;
 	float:left;
 }
+.box-head-proR h1 a {
+		color:#9fcfe7;
+		text-decoration:none;
+	}
 .box-head-proR h1 span {
 	float:right;
 	font-size:0.8em;
@@ -3925,8 +3929,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 	}	
 .lowspace{
 		padding-bottom:0;
-		height:450px;
-		overflow:scroll;
+		max-height:450px;
+		overflow:auto;
 		overflow-x:hidden;
 	}
 	
@@ -3948,7 +3952,101 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679abc', end
 		width:150px;
 		float:right;
 		width:135px !important;
-	}		
+	}	
+
+.select-box-style{
+		width:83%;
+		border: solid 1px #ccc;
+		padding:5px;
+	}	
+
+.ref_button{
+		color:#fff;
+		padding:7px 0px;
+		width:16%;
+		text-align:center;
+		cursor:pointer;
+		border:none;
+		border-radius:5px;
+		background: rgb(7,134,195); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(7,134,195,1) 0%, rgba(2,93,137,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(7,134,195,1)), color-stop(100%,rgba(2,93,137,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(7,134,195,1) 0%,rgba(2,93,137,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(7,134,195,1) 0%,rgba(2,93,137,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(7,134,195,1) 0%,rgba(2,93,137,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(7,134,195,1) 0%,rgba(2,93,137,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0786c3', endColorstr='#025d89',GradientType=0 ); /* IE6-9 */
+
+
+	}
+.select_btn1{
+	background:#025d89;
+	padding:15px 0;
+	padding-right:30px;
+	color:#fff;
+	border-radius:12px;
+	margin-bottom:15px;
+	text-align:right;
+	}	
+		
+.select_btn{
+		margin:15px 0;
+	}	
+	
+#search_result .fullwidth{
+		width:100%;
+	}	
+	
+#search_result .fullwidth .rightCol-Boxmid{
+		width:94.5%;
+	}	
+	
+span.attachment{
+	display:inline-block;
+	float: right;
+	vertical-align:middle!important;
+	margin-right:20px;
+}
+.attachment strong{
+font-weight:bold !important;
+
+}
+
+#state, #project_type_id{
+		border:1px solid #ACD2E6;
+		padding:5px;
+		width:150px;
+		margin-bottom:10px;
+	}	
+	
+.startdate{
+		float:left;
+		width:36%;
+	}	
+	
+.cal{
+		float:left;
+		width:62%;
+	}	
+	
+.cal input{
+		border: solid 1px #ccc;
+		padding:5px 0;
+		width:100%;
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
 /*---------------------------------*/
 /*--------responsive css-----------*/
 /*---------------------------------*/

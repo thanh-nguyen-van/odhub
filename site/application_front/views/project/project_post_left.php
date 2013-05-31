@@ -5,6 +5,7 @@ if($project_details)
 	$project_id			 = $project_details[0]->project_id; 
 	$project_name		 = $project_details[0]->project_name; 
 	$project_description = $project_details[0]->project_description; 
+        $project_filename = $project_details[0]->project_filename; 
 	$project_category	 = $project_details[0]->project_category; 
 	$price_type			 = $project_details[0]->price_type; 
 	$project_visibility	 = $project_details[0]->project_visibility; 
@@ -18,6 +19,7 @@ else
 	$project_id			 = set_value('project_id'); 
 	$project_name		 = set_value('project_name'); 
 	$project_description = set_value('project_description'); 
+	$project_filename = set_value('project_filename'); 
 	$project_category	 = set_value('project_category'); 
 	$price_type			 = set_value('price_type'); 
 	$project_visibility	 = set_value('project_visibility'); 
@@ -28,7 +30,23 @@ else
 }
 
 ?>
-
+<script language="javascript" type="text/javascript">
+    function enable_pricing(txtboxid,divid)
+    {
+        if(txtboxid.name=='start_price1')
+        {
+                document.getElementById("rad2").innerHTML="$ <span><input type='text' name='start_price2' name='start_price2' value='<?php echo $start_price2;?>' disabled ></span>";
+                document.getElementById("rad1").innerHTML="$ <span><input type='text' name='start_price1' id='name='start_price1' value='<?php echo $start_price1;?>' ></span>";
+                txtboxid.focus();
+        }
+        if(txtboxid.name=='start_price2')
+        {
+                document.getElementById("rad1").innerHTML="$ <span><input type='text' name='start_price1' name='start_price1' value='<?php echo $start_price1;?>' disabled  ></span>";
+                document.getElementById("rad2").innerHTML="$ <span><input type='text' name='start_price2' id='name='start_price2' value='<?php echo $start_price2;?>' ></span>";
+                txtboxid.focus();
+        }
+    }
+</script>
 <aside class="leftCol-post">
   <form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_submit_link ?>" enctype="multipart/form-data" method="post">
   	<?php if($project_id != ''){ ?>
@@ -56,6 +74,7 @@ else
         <div class="layer1">
           <p class="heading">Add Attachment <img src="<?php echo css_images_js_base_url();?>images/small-plus.jpg" width="9" height="9" alt="" border="0"></p>
           <div class="content"><input type="file" name="atchmnt" id="atchmnt"></div>
+          <?php if($this->input->get('projectid')){?> <?php if($project_filename!=''){?>Attachment : <span class="" id="" ><a href="<?php echo site_url('../upload/project_files/'.$project_filename);?>"> <?php echo $project_filename;?></a></span><div class="clear"></div><?php }?><?php }?>
         </div>
         <div class="expR">4000 charecters left</div>
         <div class="clear"></div>
@@ -83,7 +102,7 @@ else
           <div class="clear"></div>
         </div>
         Statename : 
-        <select id="select" name="select">
+        <select id="state" name="state">
 		<?php
         
 			for($i=0;$i<count($state_data);$i++){

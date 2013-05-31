@@ -45,11 +45,23 @@ class Model_searchproject extends CI_Model
         
        return $data_result;
     }
+	public function project_leadership_coaching($final_qry_str = 1){
+        $table_ref_name = 'leadership_coatching';
+      
+        $sql_project_leadership_info = "select `pd`.`project_coaching_type_id`,`pt`.`leadership_coaching_text` from `".$this->table_name."` `pd` left join 
+`".$table_ref_name."` `pt` on `pd`.`project_coaching_type_id` = `pt`.`id` where ".$final_qry_str." group by `pd`.`project_coaching_type_id`;";
+      
+       $result = $this->db->query($sql_project_leadership_info);
+          
+       $data_result = $result->result();  
+        
+       return $data_result;
+    }
     
     
     public function getProjectDetails_short($final_qry_str=1){
         
-         $sql_getproject = "select `project_id`,`project_name`,`job_type`,`project_description`,`pc`.`pr_cat_name` `project_category`,`lst`.`StateName`,
+         $sql_getproject = "select `project_id`,`project_filename`,`project_name`,`job_type`,`project_description`,`pc`.`pr_cat_name` `project_category`,`lst`.`StateName`,
                             `start_price`,`end_price`,concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `cl_name`,`skills`,`post_date`,
                             `pt`.`project_type_txt` from `project_details` `pd` left join 
                             `project_category` `pc` on `pd`.`project_category` = `pc`.`pr_cat_id` left join `lm_state_tbl` `lst` on 

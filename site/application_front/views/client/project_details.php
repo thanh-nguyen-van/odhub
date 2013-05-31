@@ -82,6 +82,7 @@
 </p>
 
 <div class="clear"></div>
+<?php if($project_details[0]->project_filename!=''){?>Attachment : <span class="" id="" ><a href="<?php echo site_url('../upload/project_files/'.$project_details[0]->project_filename);?>"> <?php echo $project_details[0]->project_filename;?></a></span><div class="clear"></div><?php }?>
 </div>
 
 

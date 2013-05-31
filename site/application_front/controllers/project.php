@@ -77,17 +77,20 @@ class Project extends MY_Controller
     function index_left()
 	{
        $final_qry_str = 1;
+	   $final_qry_str_2 = 1;
        $this->request_data = $this->input->post();
         
         //DebugBreak();
         
         
         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
+        $final_qry_str_2 = $this->model_all->project_search_rq($this->request_data);
          
         
         $data['category_details']	= $this->model_searchproject->getCategoryInfo($final_qry_str);
         $data['projecttypeInfo']	= $this->model_searchproject->getProjecttypeInfo($final_qry_str);
-        $data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
+        $data['project_leadership_coaching']	= $this->model_searchproject->project_leadership_coaching($final_qry_str);
+		$data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
         
         
      
@@ -102,7 +105,7 @@ class Project extends MY_Controller
         //DebugBreak();
         
         
-         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
+        $final_qry_str = $this->model_all->project_search_rq($this->request_data);
         
         
          $data_result = $this->model_searchproject->getProjectDetails_short($final_qry_str);
@@ -169,7 +172,7 @@ class Project extends MY_Controller
 	
       $this->middle_data = array();  
       $this->middle_data['project_details']  = $this->model_project->get_project_data($this->request_data); 
-      $this->load->view('project/project_head', $this->middle_data);  
+	  $this->load->view('project/project_head', $this->middle_data);  
         
     }
     
@@ -179,10 +182,20 @@ class Project extends MY_Controller
       $project_id		 = $this->request_data;
       
       $proposal_details  = $this->model_proposal->get_proposal($project_id);
-      
       $this->middle_data['proposal_details'] = $proposal_details;  
       
       $this->load->view('project/project_proposal', $this->middle_data);
+        
+    }
+	public function project_proposal_byuser()
+   {
+      $this->middle_data = array();  
+      $project_id		 = $this->request_data;
+      
+      $proposal_details  = $this->model_proposal->get_proposal_byuser($project_id);
+      $this->middle_data['proposal_details'] = $proposal_details;  
+      
+      $this->load->view('project/project_proposal_aword', $this->middle_data);
         
     }
     
@@ -239,7 +252,7 @@ class Project extends MY_Controller
 	
 	public function post_project_submit()
 	{
-		
+		//echo ($_FILES['atchmnt']['name']); die();
 		$this->request_data			= $this->input->post();		
 		$this->request_skills_data	= $this->input->post('skills');
 		
@@ -251,7 +264,8 @@ class Project extends MY_Controller
 		  	$skills[$val] = $val;
 		}
 		
-		if ($this->form_validation->run() == FALSE)
+		//if ($this->form_validation->run() == FALSE)
+                if (0)
 		{
 			$this->middle_data['skill_inputs'] = $skills;
 			$this->post_project();
@@ -315,16 +329,38 @@ class Project extends MY_Controller
 		$this->template->render();
 	}
     public function aword_project_details(){
-	$this->request_data = $this->input->get('projectid');		
+	$this->request_data = $this->input->get('projectid');		       
+        //////////////////////////////
+         $this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
+        $prof_data = $this->middle_data['prof_data'];
+        $referral_code = $prof_data['referral_code'];
+        $qry_str = "`lpt`.`p_user` = '" . $referral_code . "'";
+        $referal_professional = $this->model_professional->getAllProfessional($qry_str);
+        $this->middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID]);
+      
+         $this->middle_data['var_array'] = $this->middle_data['awarded_projects']->row_array();
+        $awardedProjectId = $this->request_data;
+        $checkReferal = $this->model_professional->checkIfReferred($awardedProjectId);
+        
+        $this->middle_data['referal_professional'] = $referal_professional;
+        $this->middle_data['my_referal'] = $this->model_professional->getMyReferals($_SESSION[USER_SESSION_ID]);
+        $this->model_professional->getMyReferals($_SESSION[USER_SESSION_ID]);
+        $this->middle_data['nr_my_referal'] = $this->middle_data['my_referal']->num_rows();
+        
+        $referal_details = $this->model_all->getreferal_details($_SESSION[USER_SESSION_ID]);
+        /////////////////////////////
 		
-		
-		$this->load->view('common/head',			 $this->header_data);
+        $this->load->view('common/head',			 $this->header_data);
         $this->load->view('common/header',			 $this->header_data);
         $this->load->view('project/project_aword_details', $this->middle_data);
         $this->load->view('common/footer',			 $this->footer_data);
         $this->load->view('common/foot',			 $this->footer_data);
 	}
-               
+         public function checkIfReferred($project_id)
+        {
+           return $checkStatusReferer = $this->model_project->checkIfReferred($project_id);
+            
+        }       
 }
 
 /* End of file home.php */

@@ -42,11 +42,11 @@
 $data_result = $awarded_projects->result();
 foreach($data_result as $result){
 ?>
-<div class="total-right-pro-Div">
+<div class="total-right-pro-Div fullwidth">
 
 <section class="rightCol-R">
 <div class="box-head-proR">
-        <h1><a href="<?php echo $this->config->base_url();?>project/aword_project_details?project_id=<? echo $result->project_id;?>"><?php echo $result->project_name; ?></a>
+        <h1><a href="<?php echo $this->config->base_url();?>project/aword_project_details?projectid=<? echo $result->project_id;?>"><?php echo $result->project_name; ?></a>
         
         
         
@@ -104,7 +104,7 @@ foreach($data_result as $result){
  
  </ul>
  
- 
+ <?php if($result->project_filename!=''){?>Attachment : <span class="" id="" ><a href="<?php echo site_url('../upload/project_files/'.$result->project_filename);?>"> <?php echo $result->project_filename;?></a></span><div class="clear"></div><?php }?>
  </div>
  
   <div class="clear"></div>

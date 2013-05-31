@@ -53,27 +53,6 @@ foreach($projecttypeInfo as $projecttype){
 <?php
 }
 ?>
-<!-- Project Leader ship -->
-
-<h2>Coaching Focus:</h2>
-
-<?php
-
-$type_arr = array();
-if(isset($post_data['projectcoachingtype'])){
-   $type_arr = $post_data['projectcoachingtype'];
-}
-
-
-foreach($project_leadership_coaching as $projecttype){
-?>
-<div class="totaBoxD-pro">
-<span><input name="projectcoachingtype[]" id="projectcoachingtype" type="checkbox" value="<?php echo $projecttype->project_coaching_type_id; ?>" <?php if(in_array($projecttype->project_coaching_type_id,$type_arr)){echo "checked";}?> onclick="submit_search_form();"></span><p><?php echo $projecttype->leadership_coaching_text; ?></p>
-<div class="clear"></div>
-</div>
-<?php
-}
-?>
 
 </div>
 
@@ -174,19 +153,19 @@ foreach($project_leadership_coaching as $projecttype){
 
 <div class="start-Date">
 
-<div class="startdate"> <input type="radio" value="noimmediate" name="immediate" />start date</div>
+<p>start date</p>
+
+
 <div class="cal">
  <input type="text" id="mydate" name="mydate" gldp-id="mydate" />
     <div gldp-el="mydate"
          style="width:260px; height:160px; position:absolute; top:70px; left:30px;">
     </div>
     
-   
+    <span class="cal-icon"><img src="images/calendar.png" width="18" height="17" alt="" border="0"></span>
   
   <div class="clear"></div>
 </div>
-
-<input type="radio" value="immediate" name="immediate" />Immediate 
 <div class="clear"></div>
 
 </div>

@@ -52,11 +52,12 @@ foreach($data_result as $result){
     <li><span><img src="images/flag.jpg" width="16" height="11" alt="" border="0"></span><?php echo $result->StateName; ?></li>
  
  </ul>
- 
+     
  
  </div>
  
   <div class="clear"></div>
+  <?php if($result->project_filename!=''){?>Attachment : <span class="" id="" ><a href="<?php echo site_url('../upload/project_files/'.$result->project_filename);?>"> <?php echo $result->project_filename;?></a></span><div class="clear"></div><?php }?>
  </section>
     
 

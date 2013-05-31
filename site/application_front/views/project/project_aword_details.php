@@ -19,8 +19,8 @@
     <ul class="clearfix">
       <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Profile</a></li>
       <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>project/">Projects</a></li>
-      <li class="last"><a href="#">Realistic Previews</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>project/">Projects</a></li>
+<!--      <li class="last"><a href="#">Realistic Previews</a></li>-->
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box-pro">
@@ -35,19 +35,22 @@
 	Project::project_head(); 
 	?>
     
-    
+    <?php
+	//$this->index_left();   
+	Project::project_proposal_byuser(); 
+	?>
+      
+      
+      
       
       <div class="clear"></div>
     </aside>
     
-    
-    
-   
-    
+      
     
     <div class="clear"></div>
   </div>
-  <div class="clear"></div>
-  <div class="drop-shadow-1"><img src="images/drop-shadow.png" alt="" width="839" height="11" border="0"></div>
+  <div class="clear"></div><br />
+  <!--<div class="drop-shadow-1"><img src="images/drop-shadow.png" alt="" width="839" height="11" border="0"></div>-->
 </section>
 <div class="clear"></div>
