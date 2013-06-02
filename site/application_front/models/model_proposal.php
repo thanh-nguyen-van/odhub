@@ -70,7 +70,7 @@ class Model_proposal extends CI_Model
     }
     
 	
-	function insert_award_data($data=FALSE)
+	function insert_award_data($data=array())
 	{
         $professionalid	= inputEscapeString($this->input->request('professionalid'));
 		$proposalid		= inputEscapeString($this->input->request('proposalid'));
@@ -119,7 +119,7 @@ where `professional_id`= '".$professional_id."'";
     
     
     function get_admin_paypal_acount(){
-        $sql_admin_paypal_acount = "select * from `lm_adminaccount_tbl` where `AdminId`=1";
+        $sql_admin_paypal_acount = "select * from `odhub_payment_setting`";
         $result = $this->db->query($sql_admin_paypal_acount);
         $data_result = $result->result();  
         return $data_result;

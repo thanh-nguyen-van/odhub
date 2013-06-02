@@ -12,6 +12,8 @@ class Proposal extends MY_Controller
         $this->load->model('model_all');
         $this->load->model('model_proposal');
         $this->load->model('model_upload');     
+        
+        $this->load->model('model_paypal');     
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -68,31 +70,62 @@ class Proposal extends MY_Controller
 	public function submit_award()
 	{
         
+        //DebugBreak();
+        
+        //DebugBreak();
+        $paypal_details = $this->model_proposal->get_admin_paypal_acount();
+        
+        $API_USERNAME = $paypal_details[0]->paypal_acount_email;
+        $API_PASSWORD = $paypal_details[0]->paypal_acount_password;
+        $API_KEY = $paypal_details[0]->paypal_api_key;
+        
+                                                    
+      //  $paypal_obj = new paypal_pro($API_USERNAME,$API_PASSWORD,$API_KEY);
+        $paypal_obj = $this->model_paypal->setvar($API_USERNAME,$API_PASSWORD,$API_KEY,'','');
+        
+        $methodToCall = 'doDirectPayment';
+        $currencyCode="USD";
+        $paymentAction = urlencode("Sale");
+        $firstName = $this->input->request('firstname');
+        $lastName = $this->input->request('lastname');
+        $creditCardType = $this->input->request('creditCardType');
+        $creditCardNumber = $this->input->request('creditCardNumber');
+        $expDateMonth = $this->input->request('expDateMonth');
+        $expDateYear = $this->input->request('expDateYear');
+        $cvv2Number = $this->input->request('cvv2Number'); 
+        $amount = $this->input->request('amount');
+        
+        $nvpstr='&PAYMENTACTION='.$paymentAction.'&AMT='.$amount.'&CREDITCARDTYPE='.$creditCardType.'&ACCT='.$creditCardNumber.'&EXPDATE='.$expDateMonth.$expDateYear.'&CVV2='.$cvv2Number.'&FIRSTNAME='.$firstName.'&LASTNAME='.$lastName.'&CURRENCYCODE='.$currencyCode;
+        
+        $resArray = $this->model_paypal->hash_call($methodToCall,$nvpstr);
+        
+        if($resArray['ACK']=='Failure'){
+          $this->middle_data['status_msg'] = $resArray['L_LONGMESSAGE0'];
+        }
+        else{
+        $transaction_arr =  array(
+                         'payment_date'        => $resArray['TRANSACTIONID']        ,
+                         'price'    => $resArray['AMT']    ,
+                         'ipn_track_id'        => $resArray['TRANSACTIONID']        
+                      );    
+        
+        
         $price = $this->input->request('amount');
-        $aword_id = $this->model_proposal->insert_award_data();
+        $aword_id = $this->model_proposal->insert_award_data($resArray);
         $this->middle_data['price'] = $price;
         $this->middle_data['aword_id'] = $aword_id;
         
         $projectid = $this->input->request('projectid');
         $this->middle_data['projectid'] = $projectid;
-       
-        //DebugBreak();
-        $paypal_details = $this->model_proposal->get_admin_paypal_acount();
-        
-        $paypal_email = $paypal_details[0]->paypal_email;
-        $this->middle_data['paypal_email'] = $paypal_email;
+        }
         
         
-        $project_data = $this->model_project->get_project_data($projectid);
-        
-        $this->middle_data['project_data'] = $project_data; 
-		
-         //$this->template->write_view('content', 'client/award_thanks',    $this->middle_data); 
-         $this->middle_data['award_success_link']    = $this->config->base_url().'proposal/update_award';
-         $this->middle_data['award_notify_link']    = $this->config->base_url().'proposal/notify_award';
          
          
-		 $this->template->write_view('content', 'client/redirect_paypal',    $this->middle_data); 
+		 
+       $this->template->write_view('header',  'common/header',            $this->header_data);
+        $this->template->write_view('content', 'client/award_thanks',    $this->middle_data);
+        $this->template->write_view('footer',  'common/footer',            $this->footer_data); 
          $this->template->render();   
 	}
        

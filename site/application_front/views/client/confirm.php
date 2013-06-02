@@ -57,6 +57,62 @@ return false;
                 <span class="pay-box"><textarea class="pay-textarea" name="comment" id="comment"></textarea></span>
                 
             </div>
+            
+            <div class="pay-block" align="center">
+                <span class="pay-name">Payment Section</span>
+            </div>
+            
+            <div class="pay-block">
+                <span class="pay-name">First Name :</span>
+                <span class="pay-box"><input type=text size=30 maxlength=32 name="firstname"></span>
+                
+            </div>
+            
+            <div class="pay-block">
+                <span class="pay-name">Last Name :</span>
+                <span class="pay-box"><input type=text size=30 maxlength=32 name="lastname"></span>
+                
+            </div>
+            
+            <div class="pay-block">
+                <span class="pay-name">Card Type :</span>
+                <span class="pay-box">
+                <select name="creditCardType">
+                    <option value="Visa">Visa</option>
+                    <option value="MasterCard">MasterCard</option>
+                    <option value="Discover">Discover</option>
+                    <option value="Amex">American Express</option>
+                </select>
+                </span>
+                
+            </div>
+            <div class="pay-block">
+                <span class="pay-name">Card Number :</span>
+                <span class="pay-box">
+                <input type=text size=19 maxlength=19 name=creditCardNumber>
+                </span>
+                
+            </div>
+            <div class="pay-block">
+                <span class="pay-name">Card Verification Number :</span>
+                <span class="pay-box">
+                <input type="text" name="cvv2Number" id="cvv2Number" >
+                </span>
+                
+            </div>
+            <div class="pay-block">
+                <span class="pay-name">Expiration Date :</span>
+                <span class="pay-box">
+                <input type="text" name="expDateMonth" id="expDateMonth" size="2" maxlength="2">
+                <input type="text" name="expDateYear" id="expDateYear" size="4" maxlength="4">
+                </span>
+                
+            </div>
+            
+            
+            
+            
+            
             <br>
             <div class="continue-btn"><input type="submit" name="PayNow" id="PayNow" value="PAY NOW"></div><div class="clear"></div>
             
