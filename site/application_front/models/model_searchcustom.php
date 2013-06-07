@@ -26,9 +26,17 @@ class Model_searchcustom extends CI_Model
         
         $table_ref_name = 's_professional_looking_status';
         
-        $sql_filterlookingfor = "select `lpt`.`s_professional_looking_status_id`,
+        // $sql_filterlookingfor = "select `lpt`.`s_professional_looking_status_id`,
+                // `spls`.`s_professional_looking_status_val` 
+                // from `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spls` on 
+                // `lpt`.`s_professional_looking_status_id`=`spls`.`s_professional_looking_status_id` where ".$final_qry_str." and  
+                // `lpt`.`s_professional_looking_status_id` is not null 
+                // group by `lpt`.`s_professional_looking_status_id`;";
+				
+		//Query change By manish		
+         $sql_filterlookingfor = "select `lpt`.`s_professional_looking_status_id`,
                 `spls`.`s_professional_looking_status_val` 
-                from `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spls` on 
+                from `".$this->table_name."` `lpt` join `".$table_ref_name."` `spls` on 
                 `lpt`.`s_professional_looking_status_id`=`spls`.`s_professional_looking_status_id` where ".$final_qry_str." and  
                 `lpt`.`s_professional_looking_status_id` is not null 
                 group by `lpt`.`s_professional_looking_status_id`;";
@@ -44,8 +52,14 @@ class Model_searchcustom extends CI_Model
         
           $table_ref_name = 's_professional_type';
         
-        $sql_filtertype = "select `lpt`.`s_professional_type_id`,`spt`.`s_professional_type_val` from 
-                `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spt` 
+        // $sql_filtertype = "select `lpt`.`s_professional_type_id`,`spt`.`s_professional_type_val` from 
+                // `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spt` 
+                // on `lpt`.`s_professional_type_id`=`spt`.`s_professional_type_id` where ".$final_qry_str." and  
+                // `lpt`.`s_professional_type_id` is not null group by `lpt`.`s_professional_type_id`;"; 
+				
+				//query change by manish
+				$sql_filtertype = "select `lpt`.`s_professional_type_id`,`spt`.`s_professional_type_val` from 
+                `".$this->table_name."` `lpt` join `".$table_ref_name."` `spt` 
                 on `lpt`.`s_professional_type_id`=`spt`.`s_professional_type_id` where ".$final_qry_str." and  
                 `lpt`.`s_professional_type_id` is not null group by `lpt`.`s_professional_type_id`;";
         
@@ -62,8 +76,14 @@ class Model_searchcustom extends CI_Model
         
           $table_ref_name = 's_professional_coaching_focus';
         
-        $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
-                    `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spcf` 
+        // $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
+                    // `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spcf` 
+                    // on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
+                    // `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
+          // 
+		  //query change by manish
+		  $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
+                    `".$this->table_name."` `lpt` join `".$table_ref_name."` `spcf` 
                     on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
                     `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
         
@@ -80,8 +100,14 @@ class Model_searchcustom extends CI_Model
         
           $table_ref_name = 's_professional_coaching_style';
         
-        $sql_filtercoatchstyle = "select `lpt`.`s_professional_coaching_style_id`,`spcs`.`s_professional_coaching_style_val` from 
-                    `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spcs` 
+        // $sql_filtercoatchstyle = "select `lpt`.`s_professional_coaching_style_id`,`spcs`.`s_professional_coaching_style_val` from 
+                    // `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spcs` 
+                    // on `lpt`.`s_professional_coaching_style_id`=`spcs`.`s_professional_coaching_style_id` where ".$final_qry_str." and 
+                    // `lpt`.`s_professional_coaching_style_id` is not null group by `lpt`.`s_professional_coaching_style_id`;";
+
+		//query change by manish
+		$sql_filtercoatchstyle = "select `lpt`.`s_professional_coaching_style_id`,`spcs`.`s_professional_coaching_style_val` from 
+                    `".$this->table_name."` `lpt` join `".$table_ref_name."` `spcs` 
                     on `lpt`.`s_professional_coaching_style_id`=`spcs`.`s_professional_coaching_style_id` where ".$final_qry_str." and 
                     `lpt`.`s_professional_coaching_style_id` is not null group by `lpt`.`s_professional_coaching_style_id`;";
         

@@ -1,4 +1,8 @@
 <?include('include/adminheader.php');?>
+<?php
+   // $siteURL = $siteURL
+    
+?>
 
 	<!--Page under construction-->
     
@@ -65,7 +69,12 @@
                     <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>PaypalSetting.php">Paypal Setting</a></td>
                     </tr>
-                    
+                     <tr>
+                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>SiteCommission.php">Site Commission</a></td>
+                    </tr>
+                     <tr>
+                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>SitePaymentSetting.php">Site Payment Setting</a></td>
+                    </tr>
                 </table>
           </td>
           <td width="20%" align="center" valign="top" class="td-bor">

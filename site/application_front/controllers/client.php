@@ -52,6 +52,27 @@ class Client extends MY_Controller
 		$this->template->render();
                 
 	}
+	public function show_profile()
+	{
+		 $client_id = $_SESSION[USER_SESSION_ID];
+		 $this->middle_data['client_data']	= $this->model_client->get_client_data($client_id);
+		 $this->middle_data['country_data']	= $this->model_location->get_country_data($this->middle_data['client_data']['ClientCountry']);
+		 $this->middle_data['state_data']	= $this->model_location->get_state_data($this->middle_data['client_data']['ClientState']);
+		 $this->middle_data['fab_prof']      = $this->model_searchcustom->get_fab_professional($client_id);
+		 $this->middle_data['client_invoice'] = $this->model_client->getClientInvoices($client_id);
+		 $this->middle_data['nr_client_invoice'] = $this->model_client->getClientInvoices($client_id)->num_rows();
+
+		 $invoiceProjectArray = $this->middle_data['client_invoice']->row_array();
+		 $invoiceProjectId = $invoiceProjectArray['project_id'];
+		// $checkPayRelease = $this->model_client->checkPayRelease($invoiceProjectId);
+		
+		
+		$this->template->write_view('header',  'common/header',		 $this->header_data);
+		$this->template->write_view('content', 'client/client_profile', $this->middle_data);
+		$this->template->write_view('footer',  'common/footer',		 $this->footer_data);
+		$this->template->render();
+                
+	}
 	
        function check_showhome($invoice_code){
            

@@ -172,13 +172,30 @@ if($lawyerid!="")
           ?>
         </select>
         </td>
-	  <?php }elseif($key == 's_professional_contract_charge'){ ?>
+	  <?php }elseif($key == 'professional_contract_charge'){ ?>
       <td>Contract Charge</td>
+       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
 	  <?php }elseif($key == 'paypal_email'){ ?>
       <td>Paypal E-mail</td>
       
       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
       <?php }elseif($key == 'referral_code'){ ?>
+	  <?php }elseif($key == 'linkedin_url'){ ?>
+      <td>LinkedIn URl</td>
+      
+      <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
+      <?php }
+	   elseif($key == 'company_logo'){ ?>
+      <td>Company logo</td>
+      
+      <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
+      <?php }
+	  elseif($key == 'soft_credit_amount'){ ?>
+      <td>Soft Credit Amount ( USD )</td>
+      
+      <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
+      <?php }
+	  elseif($key == 'referral_code'){ ?>
       <td>Referral Code</td>
       <td><input type="text" name="<?=$key?>" id="<?=$key?>" value="<?php echo $val;?>" size="50"></td>
       <?php }elseif($key == 'p_user'){ ?>

@@ -116,6 +116,8 @@
                 
                 <p class="p-txt">Upload W-9 Form </p>
                 <div><input type="file" name="formimg" id="formimg" class="input-r" ></div>
+                <p class="p-txt">LinkedIn Profile url </p>
+                <div><input type="text" name="linkedin_url" id="linkedin_url" class="input-r" ></div>
                 
                 <p class="dnld"><a href="#">Download Form </a></p>
                 <p class="bold1">Account Type<br>How do you want to represent yourself to clients on Elance?</p>

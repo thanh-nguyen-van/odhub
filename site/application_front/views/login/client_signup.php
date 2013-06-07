@@ -17,6 +17,7 @@
             Have an account? <a href="<?php echo site_url('login/signin'); ?>">Sign In.</a></div>
           <div class="reg-2orng">
             <form name="frmClientSignup" id="frmClientSignup" action="<?php echo $client_signup_submit_link ?>" method="post">
+            <input type="hidden" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>">
               <div>
                 <p class="p-txt">Email Adress</p>	 
                 <div><input type="text" name="email" id="email" value="<?php echo set_value('email') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('email') ?></div>

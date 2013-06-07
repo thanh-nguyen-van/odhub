@@ -72,7 +72,7 @@ class Proposal extends MY_Controller
         
         //DebugBreak();
         
-        //DebugBreak();
+       // DebugBreak();
         $paypal_details = $this->model_proposal->get_admin_paypal_acount();
         
         $API_USERNAME = $paypal_details[0]->paypal_acount_email;
@@ -104,14 +104,14 @@ class Proposal extends MY_Controller
         }
         else{
         $transaction_arr =  array(
-                         'payment_date'        => $resArray['TRANSACTIONID']        ,
+                         'payment_date'        => $resArray['TIMESTAMP']        ,
                          'price'    => $resArray['AMT']    ,
                          'ipn_track_id'        => $resArray['TRANSACTIONID']        
                       );    
         
         
         $price = $this->input->request('amount');
-        $aword_id = $this->model_proposal->insert_award_data($resArray);
+        $aword_id = $this->model_proposal->insert_award_data($transaction_arr);
         $this->middle_data['price'] = $price;
         $this->middle_data['aword_id'] = $aword_id;
         

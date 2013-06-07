@@ -11,6 +11,9 @@ class Login extends MY_Controller
 		$this->load->model('model_login');
 		$this->load->model('model_upload');
         $this->load->model('model_project');  
+        $this->load->model('model_payment_calc');
+        $this->load->model('model_proposal');
+          
         $this->initData();
 	}
 	
@@ -42,6 +45,12 @@ class Login extends MY_Controller
 	
 	public function signup()
 	{
+        
+        $get_data = $this->input->get();
+        $referral_code = $get_data['code'];
+        
+        $this->middle_data['referral_code'] = $referral_code; 
+        
 		$this->middle_data['client_signup_submit_link'] = base_url().$this->middle_data['controller'].'/client_signup_submit';
 		
 		$this->template->write_view('header',  'common/header',$this->header_data);
@@ -154,8 +163,51 @@ class Login extends MY_Controller
 				  }
 			  }
 			//--------- File Upload ------------------------			
-			
-			$this->model_login->insert_prof_data($file_name);
+			   //DebugBreak();
+               
+               
+          // DebugBreak();    
+			$insert_id = $this->model_login->insert_prof_data($file_name);
+            
+            // Commission setup
+            
+               //DebugBreak();
+               
+               $paypal_details = $this->model_proposal->get_admin_paypal_acount();   
+               
+               $default_commission = $paypal_details[0]->default_commission_p_p;
+               
+               $referral_code = $this->input->request('referral_code');
+               if($referral_code != ''){
+               
+               $referral_user_obj = $this->model_payment_calc->get_professional_id_from_code($referral_code);
+               $referral_user_id = $referral_user_obj[0]->ProfessionalId;
+               
+               $data['professional_id'] = $insert_id;
+               $data['referred_professional_id'] = $referral_user_id;
+               $data['reffered_client_id'] = 0;
+               $data['amount'] = $default_commission;
+               $data['commission_type'] = 'referral_professional';
+               $data['redeem_commission'] = 0;
+               
+               $this->model_payment_calc->insert_professional_commission($data);
+               }
+                      
+               // Commission setup end
+            
+            
+            
+            
+            
+            /*
+            $data['get_amount'] = 0;
+            $data['due_amount'] = 25;
+            $data['amount_for'] = 'professiona_affiliate';
+            $data['ref_id_for'] = $insert_id;
+                
+             $this->model_payment_calc->insert_professional_payment($data);
+            */
+            
 			
 			$email = inputEscapeString($this->input->request('email'));
 			$passd = inputEscapeString($this->input->request('passd'));
@@ -193,19 +245,21 @@ class Login extends MY_Controller
 	}	
 	public function signin_submit()
 	{
-		$this->form_validation->set_rules('usertype', 'Usertype', 	'required');
+		//$this->form_validation->set_rules('usertype', 'Usertype', 	'required');
 		$this->form_validation->set_rules('username', 'Username', 	'required');
 		$this->form_validation->set_rules('password', 'Password', 	'required');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
+			
 			$this->signin();
 		}
 		else
 		{
-			$usertype = inputEscapeString($this->input->request('usertype'));
+			//$usertype = inputEscapeString($this->input->request('usertype'));     //commented by manish
+			$usertype = $this->model_login->get_user_data();
 			
-			if($this->model_login->get_user_data()){
+			if($usertype=="Client" || $usertype == "Professional"){
 				if ($usertype == "Client")
 				  redirect('client/show_home');
 				elseif ($usertype == "Professional")
@@ -214,6 +268,7 @@ class Login extends MY_Controller
 				$this->template->render();
 			
 			}else{
+			
 				$this->nsession->set_userdata('errmsg', 'Wrong username/password');
 				
 				redirect('login/signin');

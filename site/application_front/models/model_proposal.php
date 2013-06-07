@@ -80,7 +80,7 @@ class Model_proposal extends CI_Model
         
         
 		
-		$data  = array(
+		$data1  = array(
 						 'project_id'		=> $projectid		,
 						 'proffetional_id'	=> $professionalid	,
 						 'proposal_id'		=> $proposalid		,
@@ -89,7 +89,7 @@ class Model_proposal extends CI_Model
 						 'comment'		=> $comment
 					  );
 					  
-					  
+		$data = array_merge($data,$data1);			  
 		/*$insert_sql = "INSERT INTO `project_aword_map` SET
 													   `project_id`		 = ".$projectid.",
 													   `proffetional_id` = ".$professionalid.",
@@ -137,7 +137,7 @@ where `professional_id`= '".$professional_id."'";
     
     
     function getProfessional_paypalId($search_str=0){
-        $sql_professional_paypal = "select `paypal_email` from `lm_professionaldetail_tbl` where `ProfessionalId` in (".$search_str.")";
+        $sql_professional_paypal = "select `paypal_email`,`ProfessionalId`,`soft_credit_amount` from `lm_professionaldetail_tbl` where `ProfessionalId` in (".$search_str.")";
         $result = $this->db->query($sql_professional_paypal);
         $data_result = $result->result();  
         return $data_result;

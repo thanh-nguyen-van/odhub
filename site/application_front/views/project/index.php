@@ -10,7 +10,7 @@
 
 <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url();?>professional/view_profile">Profile</a></li>
             <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
             <li><a href="<?php echo $this->config->base_url();?>project/aword_project/">Projects</a></li>
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->

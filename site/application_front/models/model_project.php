@@ -201,6 +201,13 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
       $data_result = $result->result(); 
       return($data_result);
   }
+  public function getAllCountry(){
+      $sql_get_state = "select * from `lm_country_tbl`";
+      $result = $this->db->query($sql_get_state);
+          
+      $data_result = $result->result(); 
+      return($data_result);
+  }
     
   public function getProjectType(){
       $sql_get_type = "select * from `project_type`";

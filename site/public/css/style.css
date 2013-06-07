@@ -855,30 +855,28 @@ header, article, section, footer {
 	-moz-border-radius:4px;
 	border-radius:4px;
 	float:right;
-	height:37px;
-	line-height:40px;
 	margin-left:2%;
+	padding:0px 10px;
 }
-.btn1 a:hover {
-	background:none;
-	background-color:#89deff;
-	-moz-border-radius:4px;
-	border-radius:4px;
-	height:21px;
-	padding:10px 0px;
-	line-height:40px;
-	text-shadow:none!important;
-	text-decoration:none;
-}
+
 .buttn {
 	background:none;
 	border:none;
 	cursor:pointer;
 	color:#001d28;
 	font-size:20px;
-	font-family:Tahoma, Geneva, sans-serif;
+	font-family:Tahoma, Geneva, sans-serif!important;
 	text-shadow: 0.03em 0.03em 0 #ccc;
+	line-height:37px;
+	height:37px;
+	padding:0 10px;
 }
+
+
+.btn1 .buttn:hover{
+		text-decoration:none;
+	}
+
 .shdw-im img {
 	width:100%;
 }
@@ -7607,6 +7605,73 @@ in-right h2 {
 	color:#FFF;
 	cursor:pointer;
 }
+
+.edit-name{
+		display:inline-block;
+		width:15%;
+		vertical-align:top;
+	}
+
+.edit-box{
+		display:inline-block;
+		width:40%;
+		margin-bottom:10px;
+	}
+
+.edit-box .input-field{
+		width:100%;
+		border: solid 1px #eee;
+		padding:7px 0px;
+		text-indent:10px;
+	}
+.edit-box .text-field{
+		width:100%;
+		border: solid 1px #eee;
+		height:150px;
+		resize:none;
+	}
+
+.edit-box .select-field{
+		width:100%;
+		border: solid 1px #eee;
+		padding:10px;
+		min-width:100px;
+	}
+.error{
+	color:#F00;
+}
+.sucmsg{
+	color:#019B13;
+}
+
+.chng_img{
+		position:relative;
+		cursor:pointer;
+	}
+
+.pen{
+		bottom:4px;
+		left:2px;
+		position:absolute;
+		display:none;
+		background:#fff;
+		width:97%;
+		opacity:0.5;
+		text-align:center;
+	}
+.hoverstyle:hover .pen{
+		display:block;
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 

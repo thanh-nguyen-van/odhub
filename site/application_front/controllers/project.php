@@ -295,12 +295,23 @@ class Project extends MY_Controller
 			
 			$last_project_id = $this->model_project->insert_project_data($file_name);
 			$this->middle_data['project_id'] = $last_project_id;
+			//
+			$this->middle_data['project_details'] 			 = $this->model_project->get_project_data($last_project_id);
+			$this->middle_data['skill_details']	  			 = $this->model_project->get_project_skills($last_project_id);
+		
+			$this->middle_data['post_project_activate_link'] = base_url().$this->middle_data['controller'].'/post_project_activate';
+			$this->load->view('common/head',		 	$this->header_data);
+			$this->load->view('common/header',			$this->header_data);
+			$this->load->view('project/project_post_2', $this->middle_data);
+			$this->load->view('common/footer',		 	$this->footer_data);
+			$this->load->view('common/foot',		 	$this->footer_data);
 			
+		// commented by manish
 			
-			$this->template->write_view('header',  'common/header',			 $this->header_data);
-			$this->template->write_view('content', 'project/project_post_1', $this->middle_data); 
-			$this->template->write_view('footer',  'common/footer',			 $this->footer_data);
-			$this->template->render();
+		//	$this->template->write_view('header',  'common/header',			 $this->header_data);
+		//	$this->template->write_view('content', 'project/project_post_1', $this->middle_data); 
+		//	$this->template->write_view('footer',  'common/footer',			 $this->footer_data);
+		//	$this->template->render();
 		}
 	}
 	

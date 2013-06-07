@@ -173,8 +173,8 @@ $(".account-d2").attr('id', '');
   <div class="menu">
     <ul class="glossymenu">
         <li class="active"><a>1. Post a Project <span>&nbsp;</span></a></li>
-        <li><a>2. Select posting type <span>&nbsp;</span></a></li>
-        <li><a>3. Preview <span>&nbsp;</span></a></li>
+       
+        <li><a>2. Preview <span>&nbsp;</span></a></li>
     </ul>
   </div>
   <div class="clear"></div>

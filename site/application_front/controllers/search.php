@@ -150,8 +150,8 @@ class Search extends MY_Controller
         
         $data['state_details'] = $this->model_searchcustom->getFilterState($final_qry_str);
         $data['lookingfor_details'] = $this->model_searchcustom->getFilterLookingfor($final_qry_str);
-        $data['type_details'] = $this->model_searchcustom->getFiltertype($final_qry_str);
-        $data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus($final_qry_str);
+		$data['type_details'] = $this->model_searchcustom->getFiltertype($final_qry_str);
+		$data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus($final_qry_str);
         $data['coatchstyle_details'] = $this->model_searchcustom->getFiltercoatchstyle($final_qry_str);
         $data['hourlyrate_details'] = $this->model_searchcustom->getFilterhourlyrate($final_qry_str);
         $data['contractval_details'] = $this->model_searchcustom->getFiltercontractval($final_qry_str);

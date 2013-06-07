@@ -32,7 +32,9 @@ class Model_login extends CI_Model
 		$fname		= inputEscapeString($this->input->request('fname'));
 		$lname		= inputEscapeString($this->input->request('lname'));
 		$phone		= inputEscapeString($this->input->request('phone'));
-		$zip		= inputEscapeString($this->input->request('zip'));
+        $zip        = inputEscapeString($this->input->request('zip'));
+		$referral_code		= inputEscapeString($this->input->request('referral_code'));
+        
        
 		
 		$data  = array(
@@ -41,7 +43,8 @@ class Model_login extends CI_Model
 						 'ClientFirstname'	=> $fname ,
 						 'ClientLastname'	=> $lname ,
                          'ClientZipcode'    => $zip   ,
-						 'ClientUsername'	=> $username   ,
+                         'ClientUsername'    => $username   ,
+						 'referral_prof_code'	=> $referral_code   ,
 						 'ClientJoinDate'	=> date("Y-m-d H:i:s")
 					  );
 		$this->db->insert('lm_clientdetail_tbl', $data); 
@@ -60,6 +63,7 @@ class Model_login extends CI_Model
 		$zip		= inputEscapeString($this->input->request('zip'));
 		$wbsit		= inputEscapeString($this->input->request('wbsit'));
 		$educn		= inputEscapeString($this->input->request('educn'));
+		$linkedin_url		= inputEscapeString($this->input->request('linkedin_url'));
         $credn		= inputEscapeString($this->input->request('credn'));
         $p_user		= inputEscapeString($this->input->request('referral_code'));
 		//$referral_code = inputEscapeString($this->input->request('referral_code'));
@@ -82,11 +86,14 @@ class Model_login extends CI_Model
 						 'ProfessionalJoinDate'		=> date("Y-m-d H:i:s"),
                          'referral_code'            => $referral_code,
                          'ProfessionalUsername'     => $username,
-                         'p_user'                   => $p_user                         
+                         'p_user'                   => $p_user ,
+                    'linkedin_url'                   => $linkedin_url 
 					  );
                       
                       
 		$res = $this->db->insert('lm_professionaldetail_tbl', $data);
+        
+        $prof_id = $this->db->insert_id();
 		
 		if($res){
 			$sql_select_user = "select `user_permissions` from `phpbb_users` where `user_id`='1'";
@@ -172,6 +179,10 @@ class Model_login extends CI_Model
 														 `user_reminded_time`		= '0'";
 			mysql_query($forum_user_sql);
 		}
+        
+        
+        //return $this->db->insert_id();
+        return $prof_id;
 	}
 	
 	public function get_user_data()
@@ -180,28 +191,34 @@ class Model_login extends CI_Model
 		$username = inputEscapeString($this->input->request('username'));
 		$password = inputEscapeString($this->input->request('password'));
 		
-		if($usertype == "Client"){
+		//if($usertype == "Client"){		previous code-------changed By manish
 			
 			$table_name  = "lm_clientdetail_tbl";
 			$select_flds = "ClientId, ClientUsername, ClientFirstname, ClientLastname, ClientEmail";
 			$condition	 = "(ClientUsername = '".$username."' OR ClientEmail = '".$username."') AND ClientPassword = '".$password."'";
+		//Next 4 line of code added by manish
+			$this->db->select($select_flds);
+			$this->db->where($condition);
+			$query	= $this->db->get($table_name);
+			$result = $query->row_array();
 			
-		}elseif($usertype == "Professional"){
-			
-			$table_name	 = 'lm_professionaldetail_tbl';
-			$select_flds = "ProfessionalId, ProfessionalUsername, ProfessionalFirstname, ProfessionalLastname, ProfessionalEmail";
-			$condition	 = "(ProfessionalUsername = '".$username."' OR ProfessionalEmail = '".$username."') AND ProfessionalPassword = '".$password."'";
-		}
-				
+		//}elseif($usertype == "Professional"){			previous code-------changed By manish
 		
-		$this->db->select($select_flds);
-		$this->db->where($condition);
+		if(empty($result)){					//added By manish
+				$table_name	 = 'lm_professionaldetail_tbl';
+				$select_flds = "ProfessionalId, ProfessionalUsername, ProfessionalFirstname, ProfessionalLastname, ProfessionalEmail";
+				$condition	 = "(ProfessionalUsername = '".$username."' OR ProfessionalEmail = '".$username."') AND ProfessionalPassword = '".$password."'";
 		
-		$query	= $this->db->get($table_name);
-		$result = $query->row_array();
+		//}		previous code-------changed By manish
+				$this->db->select($select_flds);
+				$this->db->where($condition);
+				$query	= $this->db->get($table_name);
+				$result = $query->row_array();
+			}
 		
 		if($result){
-			if($usertype == "Client"){
+			//if($usertype=="Client"){      	previous code-------changed By manish
+			if(isset($result['ClientId'])){		//added by Manish
 				
 				$_SESSION[USER_SESSION_ID]		 = $result['ClientId'];
 				$_SESSION[USER_SESSION_NAME]	 = $result['ClientUsername'];
@@ -209,7 +226,8 @@ class Model_login extends CI_Model
 				$_SESSION[USER_SESSION_EMAIL]	 = $result['ClientEmail'];
 				$_SESSION[USER_SESSION_TYPE]	 = "Client";
 				
-			}elseif($usertype == "Professional"){
+			//}elseif($usertype=="Professional"){             previous code-------changed By manish
+			}elseif(isset($result['ProfessionalId'])){		  //added by Manish
 				
 				$_SESSION[USER_SESSION_ID]		 = $result['ProfessionalId'];
 				$_SESSION[USER_SESSION_NAME]	 = $result['ProfessionalUsername'];
@@ -217,7 +235,8 @@ class Model_login extends CI_Model
 				$_SESSION[USER_SESSION_EMAIL]	 = $result['ProfessionalEmail'];
 				$_SESSION[USER_SESSION_TYPE]	 = "Professional";
 			}
-			return true;
+			//return true;     previous code-------changed By manish
+			return $_SESSION[USER_SESSION_TYPE];
 		}else{
 			return false;
 		}

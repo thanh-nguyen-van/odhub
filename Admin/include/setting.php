@@ -14,7 +14,7 @@ if ($_SERVER["HTTP_HOST"] == "localhost" || $_SERVER["HTTP_HOST"] == "192.168.1.
 } 
 else if ($_SERVER["HTTP_HOST"] == "projects.arcinfotec.com") 
 { // for local
-    define("SERVERPATH", "http://" . $_SERVER['HTTP_HOST'] . "/odhub/Admin/");
+    define("SERVERPATH", "http://" . $_SERVER['HTTP_HOST'] . "/odhub/odhub/Admin/");
 
     $siteURL = SERVERPATH;
 

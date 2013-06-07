@@ -51,7 +51,7 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">Projects</a></li>
 <!--            <li><a href="#">Realistic Previews</a></li>-->
@@ -76,7 +76,7 @@
             </div>
             <div class="editSection">
                 <div class="editSec">
-                    <h1><a href="#">Edit Profile</a></h1>
+                    <h1><a href="<?php echo site_url('professional/edit_profile'); ?>">Edit Profile</a></h1>
 
                     <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
@@ -94,7 +94,10 @@
                 </div>
                 <div class="editSec1">
                     <p>REFERRAL CODE: <span><?php echo $prof_data['referral_code']; ?></span></p>
-                    <p>Unique Referral Code Link : <span><a href="<?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
+                    <p>Unique Referral Code Link For Professional : <span><a href="<?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
+                    
+                    <p>Unique Referral Code Link For Client : <span><a href="<?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
+                    
                     <p>Upload Your W - 9 : <span>
                             <input name="" type="file" >
                         </span> </p>
@@ -179,9 +182,9 @@
                         <th width="9%"> Client</th>
                         <th width="8%"> Project </th>
                         <th width="9%">Amount</th>
-                        <th width="9%">Refer</th>
+                       <!-- <th width="9%">Refer</th>-->
                         <th width="9%">Delivery Date</th>
-                        <th width="11%" style="border-right:0;"></th>
+                        <th width="11%" style="border-right:0;"> Conversation</th>
                     </tr>
 
 
@@ -192,7 +195,7 @@
                             <td class="pdngTop"><?php echo $eachResultRow->ClientFirstname." ".$eachResultRow->ClientLastname; ?> </td>
                             <td class="pdngTop"><?php echo $eachResultRow->project_name;?> </td>
                             <td class="pdngTop"><?php echo $eachResultRow->price;?> USD </td>
-                            <td class="pdngTop">
+                            <!--<td class="pdngTop">
                                         <?php $referer = Professional::checkIfReferred($eachResultRow->project_id);
                                         if($referer->num_rows()==1){
                                         ?>
@@ -205,7 +208,7 @@
                                 
                                 <input type="button" class="prof_butt_cls" name="ref_butt_<?php echo $eachResultRow->project_id; ?>" id="ref_butt_<?php echo $eachResultRow->project_id; ?>" value="Refer" onclick="javascript:assignval(refer_id.value,<?php echo $eachResultRow->project_id; ?>,<?php echo $eachResultRow->proposal_id; ?>)">
                                     <?php }else{ $arr = $referer->row_array();echo $arr['ProfessionalFirstname']." ".$arr['ProfessionalLastname'];}?>
-                            </td>
+                            </td>-->
                             <td class="pdngTop"><?php echo date('Y-m-d', strtotime($eachResultRow->dalivery_date));?></td>
                             <td class="pdngTop" style="border-right:0;"><span class="send-btn">  <a href="<?php echo $this->config->base_url().'conversation/project_conversation?projectid='.$eachResultRow->project_id; ?>">Conversation</a></span></td>
                         </tr>
@@ -365,34 +368,95 @@
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
+
+<!--  By manish                       -->
 <?php
-if (count($referal_payment) > 0) {
+if (!empty($refferal_history)) {
     ?>
         <div class="Total-Div-Box">
             <div class="box-head1">
-                <h1>My Referrals</h1>
+                <h1>My Referrals history</h1>
                 <div class="clear"></div>
             </div>
             <div class="tableDiv5">
                 <table>
                     <thead>
                         <tr>
-                            <th width="16%">Client Name </th>
-                            <th width="21%"> Referral Commisions </th>
-                            <th width="16%"> Project Cost</th>
+                            <th width="16%">From User </th>
+                            <th width="21%"> To User </th>
+                            <th width="16%"> Amount</th>
+                            <th width="16%"> Reedem Amount</th>
                             <th width="21%"> Date  </th>
                             
                         </tr>
                     </thead>
                     <tbody>
     <?php
-    foreach ($referal_payment as $key => $val) {
+    for($i=0;$i<count($refferal_history);$i++) {
         ?>
                             <tr>
-                                <td class="pdngTop"><?php echo $val->client_name; ?></td>
-                                <td class="pdngTop"><?php echo $val->amount; ?></td>
-                                <td class="pdngTop"> <?php echo $val->project_cost; ?></td>
-                                <td class="pdngTop"><?php echo $val->date; ?></td>
+                                <td class="pdngTop"><?php echo $refferal_history[$i]['from_user']; ?></td>
+                                <td class="pdngTop"><?php echo $refferal_history[$i]['to_user']; ?></td>
+                                <td class="pdngTop"><?php echo $refferal_history[$i]['amount']; ?></td>
+                                <td class="pdngTop"><?php echo $refferal_history[$i]['redeem_commissoin']; ?></td> 
+								<td class="pdngTop"><?php echo $refferal_history[$i]['date']; ?></td>
+                               
+                            </tr>
+        <?php
+    }
+    ?>
+                    </tbody>
+                </table>
+                <div class="clear"></div>
+                <div class="showmore1">
+                    <ul>
+                        <li><a href="#">Show more</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
+        </div>
+    <?php
+}
+?>
+
+<?php
+if (!empty($Account_history)) {
+    ?>
+        <div class="Total-Div-Box">
+            <div class="box-head1">
+                <h1>My Account history</h1>
+                <div class="clear"></div>
+            </div>
+            <div class="tableDiv5">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="16%"> From User </th>
+                            <th width="21%"> To User </th> 
+							<th width="21%"> Payment Type </th>
+							<th width="16%"> Amount</th>
+                            <th width="16%"> Earned Amount</th>
+                            <th width="21%"> Date  </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+    <?php
+    for($i=0;$i<count($Account_history);$i++) {
+        ?>
+                            <tr>
+                                <td class="pdngTop"><?php echo $Account_history[$i]['from_user']; ?></td>
+                                <td class="pdngTop"><?php echo $Account_history[$i]['to_user']; ?></td>
+                                <td class="pdngTop"><?php 
+								if($Account_history[$i]['commisison_type']=="direct_payment"){
+								echo "Direct Payment";
+								}elseif($Account_history[$i]['commisison_type']=="refer_client_commission"){
+								echo "Client refferal payment";
+								} ?></td>
+                                <td class="pdngTop"><?php echo $Account_history[$i]['amount']; ?></td>
+                                <td class="pdngTop"><?php echo $Account_history[$i]['redeem_commissoin']; ?></td> 
+								<td class="pdngTop"><?php echo $Account_history[$i]['date']; ?></td>
                                
                             </tr>
         <?php
