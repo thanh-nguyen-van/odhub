@@ -1,3 +1,5 @@
+
+
 <header>
 <div class="top-header_bg">
 <div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','<?php echo css_images_js_base_url();?>images/fdbk-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
@@ -50,7 +52,14 @@
     <div class="realize">
     	<h4>Realize your full potential</h4>
         <div class="b-line" align="right"><img src="<?php echo css_images_js_base_url();?>images/b-line.jpg" alt=""></div>
-        <div class="rlze-right"><a href="<?php echo site_url('login/signin'); ?>" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','<?php echo css_images_js_base_url();?>images/s-icon1-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon1.png" alt="" name="Image22" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','<?php echo css_images_js_base_url();?>images/s-icon2-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon2.png" alt="" name="Image23" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','<?php echo css_images_js_base_url();?>images/s-icon3-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon3.png" alt="" name="Image24" width="24" height="30" border="0"></a></div>    
+        <? if(isset($_SESSION['Usertype']) && ($_SESSION['Usertype'] != '' || $_SESSION['Usertype'] == 'admin')){
+			
+			
+			
+			 ?>
+        <div class="rlze-right"><a href="<?php echo site_url('login/signin'); ?>" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','<?php echo css_images_js_base_url();?>images/s-icon1-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon1.png" alt="" name="Image22" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','<?php echo css_images_js_base_url();?>images/s-icon2-h.png',1)">
+        <img src="<?php echo css_images_js_base_url();?>images/s-icon2.png" alt="" name="Image23" width="24" height="30" border="0"></a><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','<?php echo css_images_js_base_url();?>images/s-icon3-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon3.png" alt="" name="Image24" width="24" height="30" border="0"></a></div> 
+        <? } ?>   
     </div>
     <div class="clear"></div>
 </div>

@@ -12,7 +12,7 @@ class Proposal extends MY_Controller
         $this->load->model('model_all');
         $this->load->model('model_proposal');
         $this->load->model('model_upload');     
-        
+        $this->load->model('model_home');
         $this->load->model('model_paypal');     
         $this->initData();
         
@@ -22,6 +22,7 @@ class Proposal extends MY_Controller
 	public function initData()
 	{
 		$this->middle_data['controller'] = 'project';
+			$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
 	
     public function saveproposal(){

@@ -160,7 +160,7 @@ foreach($hourlyrate_details as $key=>$val){
 
 
 
-<h1>Total Contract Value:</h1>
+<!--<h1>Total Contract Value:</h1>-->
 
 <?php
 
@@ -184,10 +184,10 @@ foreach($contractval_details as $key=>$val){
 	$final_str = implode(' - ',$final_arr);
 	
 ?>
-<div class="totaBoxD">
+<!--<div class="totaBoxD">
 <span><input name="contract_val[]" id="contract_val" type="checkbox" value="<?php echo $val->grp;?>" <?php if(in_array($val->grp,$contract_val_arr)){echo "checked";}?> onclick="submit_search_form()"></span><p><?php echo $final_str;?> (<?php echo $val->ct;?>)</p>
 <div class="clear"></div>
-</div>
+</div>-->
 <?php
 }
 ?>

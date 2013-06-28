@@ -40,7 +40,12 @@ if($_POST['hid_name']=='hid_val')
 	}
 	if($_POST['site_prof_client_commission']=='')
 	{
-		$err_msg .= "Please Site Professional Client Commission";
+		$err_msg .= "Please enter Site Professional Client Commission";
+		$validation_err_flag = 1;
+	}
+	if($_POST['site_minmum_project_amount']=='')
+	{
+		$err_msg .= "Please enter minimum amount for project";
 		$validation_err_flag = 1;
 	}
 	
@@ -55,8 +60,11 @@ if($_POST['hid_name']=='hid_val')
 		default_commission_p_p = '".$_POST['default_commission_p_p']."',
 		client_site_commission = '".$_POST['client_site_commission']."',
 		site_prof_client_commission = '".$_POST['site_prof_client_commission']."',
-		prof_client_commission = '".$_POST['prof_client_commission']."'
+		prof_client_commission = '".$_POST['prof_client_commission']."',
+		minimum_project_amount = '".$_POST['site_minmum_project_amount']."',
+		minimum_project_amount_hourly = '".$_POST['minimum_project_amount_hourly']."'
 		";
+		
 		$update_qry = @mysql_query($update_sql);
 		
 	}
@@ -88,7 +96,7 @@ if(mysql_num_rows($select_result)>0)
 				</tr>
                 <?php if($err_msg!=''){?>
                 <tr>
-					<td colspan="2" style="color:#F00:"><?php echo $err_msg; ?></td>
+					<td></td>&nbsp;<td colspan="2" style="color:#F00:"><?php echo $err_msg; ?></td>
 				</tr>
                 <?php }?>
 				<tr>
@@ -125,14 +133,23 @@ if(mysql_num_rows($select_result)>0)
 				<?php
                          //   DebugBreak();
                 ?>
+				
 				<tr>
 					<td>Site Prof Client Commission</td>
 					<td><input type="text" name="site_prof_client_commission" id="site_prof_client_commission" value="<?php echo $re['site_prof_client_commission'];?>"></td>
 				</tr>
 				<tr>
+					<td>Minimum Amount for project</td>
+					<td><input type="text" name="site_minmum_project_amount" id="site_minmum_project_amount" value="<?php echo $re['minimum_project_amount'];?>"></td>
+				</tr>
+				<tr>
+					<td>Minimum Amount for project </td>
+					<td><input type="text" name="minimum_project_amount_hourly" id="minimum_project_amount_hourly" value="<?php echo $re['minimum_project_amount_hourly'];?>"></td>
+				</tr>
+				<tr>
                 <input type="hidden" name="hid_name" value="hid_val">
 					<input type="hidden" name="clientid" value="<?php echo $clientid;?>">
-					<td><input type="submit" name="submit" value="Update" class="buttn"></td>
+					<td>&nbsp;</td><td><input type="submit" name="submit" value="Update" class="buttn"></td>
 				</tr>
 			</table>
             </div>

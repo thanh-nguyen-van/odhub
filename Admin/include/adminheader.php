@@ -36,9 +36,9 @@ include("connect.php");?>
                     </ul></div>
                 </li>
                 <li><a href="<?php echo $siteURL;?>ViewCommissionDetail.php"><span>Commissions</span></a></li>
-                <li><a href="<?php echo $siteURL;?>ViewBidFeeDetail.php"><span>Bid Fees</span></a></li>
+               <!-- <li><a href="<?php echo $siteURL;?>ViewBidFeeDetail.php"><span>Bid Fees</span></a></li>
                 
-                <li><a href="<?php echo $siteURL;?>ViewTopic.php"><span>Topic</span></a></li>
+                <li><a href="<?php echo $siteURL;?>ViewTopic.php"><span>Topic</span></a></li>-->
                 	<div>
                         <ul>
                             <li><a href="<?php echo $siteURL;?>ViewBlog.php"><span>List</span></a></li>

@@ -33,6 +33,9 @@ class Model_login extends CI_Model
 		$lname		= inputEscapeString($this->input->request('lname'));
 		$phone		= inputEscapeString($this->input->request('phone'));
         $zip        = inputEscapeString($this->input->request('zip'));
+//        $referral_code        = inputEscapeString($this->input->request('referral_code'));
+        
+        
 		$referral_code		= inputEscapeString($this->input->request('referral_code'));
         
        
@@ -43,14 +46,37 @@ class Model_login extends CI_Model
 						 'ClientFirstname'	=> $fname ,
 						 'ClientLastname'	=> $lname ,
                          'ClientZipcode'    => $zip   ,
-                         'ClientUsername'    => $username   ,
+                         'ClientUsername'   => $username   ,
 						 'referral_prof_code'	=> $referral_code   ,
 						 'ClientJoinDate'	=> date("Y-m-d H:i:s")
 					  );
 		$this->db->insert('lm_clientdetail_tbl', $data); 
 	}
 	
-	public function insert_prof_data($img_file_name)
+	
+	
+	public function insert_serv_data($professional_id)
+	{
+		
+       $servcs=$this->input->request('servcsn');
+	   
+	   
+      // DebugBreak();
+	   
+	   for($i=0;$i<count($servcs);$i++)
+	   {
+		//$sql="INSERT INTO im_services(Service_Name,Prof_Id) VALUES('".$servcs[$i]."','".$professional_id."')";
+		$sql_insert_services = "insert into `im_services` set `Service_Name`='".$servcs[$i]."',`Prof_Id`='".$professional_id."'";
+		$this->db->query($sql_insert_services);
+		//die();	
+	 	
+		  }
+		 }
+	
+	
+	
+	
+	public function insert_prof_data($img_file_name,$img_file_name2,$img_file_name3)
 	{ 
         $username	= inputEscapeString($this->input->request('email'));
 		$email		= inputEscapeString($this->input->request('email'));
@@ -59,10 +85,12 @@ class Model_login extends CI_Model
 		$lname		= inputEscapeString($this->input->request('lname'));
 		$addrs		= inputEscapeString($this->input->request('addrs'));
 		$city		= inputEscapeString($this->input->request('city'));
+		$country		= inputEscapeString($this->input->request('custom_country')); //added by sk
 		$state		= inputEscapeString($this->input->request('state'));
 		$zip		= inputEscapeString($this->input->request('zip'));
 		$wbsit		= inputEscapeString($this->input->request('wbsit'));
 		$educn		= inputEscapeString($this->input->request('educn'));
+		$company_name		= inputEscapeString($this->input->request('company_name'));
 		$linkedin_url		= inputEscapeString($this->input->request('linkedin_url'));
         $credn		= inputEscapeString($this->input->request('credn'));
         $p_user		= inputEscapeString($this->input->request('referral_code'));
@@ -77,17 +105,21 @@ class Model_login extends CI_Model
 						 'ProfessionalLastname'		=> $lname ,
 						 'ProfessionalAddress'		=> $addrs ,
 						 'ProfessionalCity'			=> $city  ,
+						 'ProfessionalCountry'			=> $country  , //added by sk
 						 'ProfessionalState'		=> $state ,
 						 'ProfessionalZipcode'		=> $zip   ,
 						 'ProfessionalWebsite'		=> $wbsit ,
 						 'ProfessionalDegree'		=> $educn ,
 						 'ProfessionalAchievements'	=> $credn ,
 						 'ProfessionalImage'		=> $img_file_name ,
+						 'company_logo'				=> $img_file_name2 ,
+						 'w9Image'					=> $img_file_name3 ,
 						 'ProfessionalJoinDate'		=> date("Y-m-d H:i:s"),
                          'referral_code'            => $referral_code,
                          'ProfessionalUsername'     => $username,
                          'p_user'                   => $p_user ,
-                    'linkedin_url'                   => $linkedin_url 
+                         'linkedin_url'             => $linkedin_url,
+						 'company_name'             => $company_name
 					  );
                       
                       
@@ -241,6 +273,29 @@ class Model_login extends CI_Model
 			return false;
 		}
 	}
+	
+	
+	
+	public function check_existing_mail()
+			{
+			$mail_id = inputEscapeString($this->input->request('email'));
+			$this->db->select('*');
+			$this->db->where('ClientEmail',$mail_id);
+			$this->db->from('lm_clientdetail_tbl');
+			$query	= $this->db->get();
+			$result = $query->row_array();
+			
+			if(!empty($result))
+				return true;
+			else
+				return false;
+			}
+	
+	
+	
+	
+	
+	
 	
 	public function unset_user_session_data()
 	{

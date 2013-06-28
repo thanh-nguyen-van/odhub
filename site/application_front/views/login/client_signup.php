@@ -5,29 +5,49 @@
   <div class="reg_b">
     <div class="shdw-left"></div>
     <p class="reg-h">Create an OD Hub Account as a Client</p>
-    <div class="linkd2">
+    <!--<div class="linkd2">
       <div class="left bold">Use my info from : </div>
       <div class="left"> <a href="#"><img src="<?php echo css_images_js_base_url();?>images/lnkd.jpg" alt="" width="71" height="24" border="0"></a></div>
-    </div>
+    </div>-->
     <div>
       <div class="left-reg">
         <div class="reg-orng">
           <div class="reg-im"><img src="<?php echo css_images_js_base_url();?>images/login-im3.png" alt=""></div>
-          <div class="link-txt2">Looking for work? <a href="<?php echo site_url('login/prof_signup'); ?>">Sign Up as an OD Professional</a><br>
+          <div class="link-txt2">Looking to develop your business or network? <br />
+<a href="<?php echo site_url('login/prof_signup'); ?>">Sign Up as an OD Professional</a><br>
             Have an account? <a href="<?php echo site_url('login/signin'); ?>">Sign In.</a></div>
           <div class="reg-2orng">
             <form name="frmClientSignup" id="frmClientSignup" action="<?php echo $client_signup_submit_link ?>" method="post">
-            <input type="hidden" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>">
+
               <div>
                 <p class="p-txt">Email Adress</p>	 
-                <div><input type="text" name="email" id="email" value="<?php echo set_value('email') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('email') ?></div>
+                <div><input type="text" name="email" id="email" value="<?php echo set_value('email') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('email'); if(isset($emailExistMsg))echo "<br>".$emailExistMsg;?></div>
                 
                 <p class="p-txt">Password</p>		 
                 <div><input type="password" name="passd" id="passd" value="<?php echo set_value('passd') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('passd') ?></div>
                 
                 <p class="p-txt">Retype Password</p> 
                 <div><input type="password" name="cpass" id="cpass" value="<?php echo set_value('cpass') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('cpass') ?></div>
-                
+                <?php
+					if($referral_code != ''){
+						
+				?>		
+					<p class="p-txt">Referral User</p>		 
+                	<div><?php echo $ref_professional[0]->ProfessionalFirstname.' '.$ref_professional[0]->ProfessionalLastname;?></div>
+                    
+                    <p class="p-txt">REFERRAL CODE</p>		 
+                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o" readonly="readonly"/><span>*</span></div>
+                    
+				<?php		
+					}
+					else{
+				?>		
+					<p class="p-txt">REFERRAL CODE</p>		 
+                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o"/><span>*</span></div>		
+				<?php		
+					}
+				?>
+                              
                 <p class="p-txt">First Name</p>		 
                 <div><input type="text" name="fname" id="fname" value="<?php echo set_value('fname') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('fname') ?></div>
                 

@@ -39,7 +39,14 @@ class Model_location extends CI_Model
 		
 		return $result;
 	}
+	
+	
+	
 }
+
+
+
+
 
 /* End of file model_location.php */
 /* Location: ./application_front/models/model_location.php */

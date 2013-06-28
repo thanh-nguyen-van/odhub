@@ -189,7 +189,7 @@ $sel_video = mysql_query($str_video);
         	<td width="5%">&nbsp;#</td>
             <td width="40%"><?php echo $arr_video['VideoTitle'];?></td>
             <td width="30%"><?php echo $arr_video['VideoFile'];?></td>
-            <td width="15%"><a href="AddVideo.php?editid=<?php echo $arr_video['VideoId'];?>" class="edit">Edit</a> | <a href="AddVideo.php?delid=<?php echo $arr_video['VideoId'];?>" class="edit">Delete</a></td>
+            <td width="15%"><a href="AddVideo.php?editid=<?php echo $arr_video['VideoId'];?>" class="edit">Edit</a> | <a href="AddVideo.php?delid=<?php echo $arr_video['VideoId'];?>"  onclick="return confirm('Are you sure you want to remove it?')" class="edit">Delete</a></td>
         </tr>
 
 <?php

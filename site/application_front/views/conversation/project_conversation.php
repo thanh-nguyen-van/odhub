@@ -24,10 +24,17 @@ return false;
 <section class="container">
   <nav class="clearfix">
     <ul class="clearfix">
+	<?php if($_SESSION['user_session_type']=='Client'){ ?>
       <li><a href="<?php echo $this->config->base_url();?>client/view_profile">Profile</a></li>
       <li><a href="<?php echo $this->config->base_url();?>client/show_home">Account</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>client/proposal_list">Projects</a></li>
-      <li class="last"><a href="#">Realistic Previews</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">Projects</a></li>
+
+	  <? }else{ ?>
+	  <li><a href="<?php echo $this->config->base_url();?>professional/view_profile">Profile</a></li>
+      <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>professional/aword_list">Projects</a></li>
+
+	  <? } ?>
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box">
@@ -36,6 +43,7 @@ return false;
       <div class="clear"></div>
     </div>
     <div class="tableDiv1 proposals2 lowspace">
+   <?=validation_errors()?>
     <?php if($conversation){ //print_r($proposals_data); ?>
         <table>
           <thead>

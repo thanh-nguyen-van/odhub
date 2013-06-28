@@ -1,64 +1,21 @@
 <? include('include/connect.php');
-
+ob_start();
 $title=mysql_real_escape_string(stripslashes(trim($_REQUEST['title'])));
 $content=mysql_real_escape_string(stripslashes(trim($_REQUEST['content'])));
 $testimonials_id=$_REQUEST['testimonials_id']; 
-function name($strg)
-{
-	/*$invalid=0;
-	$allowed=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	for($i=0; $i<strlen($strg); $i++)
-	{
-		for($x=0; $x<strlen($allowed); $x++)
-		{
-			if($strg[$i]==$allowed[$x])
-			{	
-				$invalid++;
-			}
-		}
-		if($invalid==0)
-		{
-			return false;break;break;
-		}
-		$invalid=0;
-	}*/
-	return true;
-}
 
-function numeric($strg)
-{
-	$invalid=0;
-	$allowed="0123456789";
-	for($i=0; $i<strlen($strg); $i++)
-	{
-		for($x=0; $x<strlen($allowed); $x++)
-		{
-			if($strg[$i]==$allowed[$x])
-			{	
-				$invalid++;
-			}
-		}
-		if($invalid==0)
-		{
-			return false;break;break;
-		}
-		$invalid=0;
-	}
-	return true;
-}
 
-if(($title=="") || (name($title)==false))
+
+if(($content==""))
 {
-	$title_label="<font color=red>Check your entry.</font>";
+	$content_label="<font color=red>Please Enter Value.</font>";
 	$set_for_correction=true;
 }
 
-if(($content=="") || (name($content)==false))
+else
 {
-	$content_label="<font color=red>Check your entry.</font>";
-	$set_for_correction=true;
+  $set_for_correction=false;	
 }
-
 if($set_for_correction=="true")
 {
 	include('EditTestimonials.php');
@@ -66,5 +23,7 @@ if($set_for_correction=="true")
 else
 {
 	include('EditTestimonialsInsert.php');
+	header("Location: EditTestimonials.php?testimonials_id=$testimonials_id");	
+	exit;
 }
 ?>

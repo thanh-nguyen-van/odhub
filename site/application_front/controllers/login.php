@@ -13,6 +13,12 @@ class Login extends MY_Controller
         $this->load->model('model_project');  
         $this->load->model('model_payment_calc');
         $this->load->model('model_proposal');
+        $this->load->model('model_professional');
+		$this->load->model('model_home');
+                $this->load->model('model_countrystate');   
+		
+                          
+                
           
         $this->initData();
 	}
@@ -22,6 +28,7 @@ class Login extends MY_Controller
 		$this->middle_data['controller']	= 'login';
 		$this->header_data['content_menu']	= $this->model_content->get_menu("StaticPageType <> 'left_menu'");
 		//$this->leftmenu_data['left_menu']	= $this->model_content->get_menu("= 'left_menu'");
+			$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
         
 	/*function index()
@@ -45,11 +52,24 @@ class Login extends MY_Controller
 	
 	public function signup()
 	{
-        
+        $this->load->model('model_countrystate');      
         $get_data = $this->input->get();
         $referral_code = $get_data['code'];
         
-        $this->middle_data['referral_code'] = $referral_code; 
+        $this->middle_data['referral_code'] = $referral_code;
+        
+		 if(isset($_SESSION['emailExistMsg'])) 
+		 	{
+		 	 $this->middle_data['emailExistMsg'] = $_SESSION['emailExistMsg'];
+			 unset($_SESSION['emailExistMsg']);
+			}
+		
+        $sql_professional = "`referral_code`='".$referral_code."'";
+        $ref_professional_details = $this->model_professional->getAllProfessional($sql_professional);
+        $this->middle_data['ref_professional'] = $ref_professional_details;  
+		
+		/*echo"<pre>";
+		print_r($this->middle_data);*/
         
 		$this->middle_data['client_signup_submit_link'] = base_url().$this->middle_data['controller'].'/client_signup_submit';
 		
@@ -72,24 +92,35 @@ class Login extends MY_Controller
 		}
 		else
 		{
-			$this->model_login->insert_client_data();
-			
-			$email = inputEscapeString($this->input->request('email'));
-			$passd = inputEscapeString($this->input->request('passd'));
-			$fname = inputEscapeString($this->input->request('fname'));
-			
-			$message   = "Hi ".$fname."<br><br>";
-			$message  .= "Thank you for registering with us. Your Login Details as follows : -  <br>";
-			$message  .= "Username : ".$email."    <br>";
-			$message  .= "Password : ".$passd." <br><br>";						
-			$message  .= "Thanks, <br>";
-			$message  .= "Od Hub Team";
-			$this->model_email->sendEmail(FROM_EMAIL_ADDR, $email, 'Thanks For Registration', $message);
-			
-			$this->template->write_view('header',  'common/header',$this->header_data);
-			$this->template->write_view('content', 'login/client_signup_submit',$this->middle_data); 
-			$this->template->write_view('footer',  'common/footer',$this->footer_data);
-			$this->template->render();
+			$idExist = $this->model_login->check_existing_mail();					//--- Checking if mail Id is existing
+						
+			if($idExist)
+				{
+				$_SESSION['emailExistMsg'] = "This mail id is allready exist.";
+				$this->signup();
+				}
+			else
+				{	
+	
+				$this->model_login->insert_client_data();
+				
+				$email = inputEscapeString($this->input->request('email'));
+				$passd = inputEscapeString($this->input->request('passd'));
+				$fname = inputEscapeString($this->input->request('fname'));
+				
+				$message   = "Hi ".$fname."<br><br>";
+				$message  .= "Thank you for registering with us. Your Login Details as follows : -  <br>";
+				$message  .= "Username : ".$email."    <br>";
+				$message  .= "Password : ".$passd." <br><br>";						
+				$message  .= "Thanks, <br>";
+				$message  .= "Od Hub Team";
+				$this->model_email->sendEmail(FROM_EMAIL_ADDR, $email, 'Thanks For Registration', $message);
+				
+				$this->template->write_view('header',  'common/header',$this->header_data);
+				$this->template->write_view('content', 'login/client_signup_submit',$this->middle_data); 
+				$this->template->write_view('footer',  'common/footer',$this->footer_data);
+				$this->template->render();
+				}
 		}
 	}
 	
@@ -104,18 +135,24 @@ class Login extends MY_Controller
          
         $this->middle_data['prof_signup_submit_link'] = base_url().$this->middle_data['controller'].'/prof_signup_submit';
 		$this->middle_data['referral_code'] = $referral_code;
+        $sql_professional = "`referral_code`='".$referral_code."'";
+        $ref_professional_details = $this->model_professional->getAllProfessional($sql_professional);
+        $this->middle_data['ref_professional']        = $ref_professional_details; 
         
-          $this->middle_data['state_data']        = $this->model_project->getAllState();   
-        
+        $this->middle_data['state_data']  = $this->model_project->getAllState();   
+        $this->middle_data['servs_data'] = $this->model_project->getAllServs();
+	
 		
 		$this->template->write_view('header',  'common/header',$this->header_data);
 		$this->template->write_view('content', 'login/prof_signup',$this->middle_data); 
 		$this->template->write_view('footer',  'common/footer',$this->footer_data);
 		$this->template->render();
 	}	
+	
+	
 	public function prof_signup_submit()
 	{
-        
+	
 		$this->form_validation->set_rules('email', 'Email', 	'required|valid_email');
 		$this->form_validation->set_rules('passd', 'Password', 				'required');
 		$this->form_validation->set_rules('cpass', 'Password Confirmation', 'required');
@@ -123,9 +160,10 @@ class Login extends MY_Controller
 		$this->form_validation->set_rules('lname', 'Last Name', 			'required');
 		$this->form_validation->set_rules('addrs', 'Address',	 			'required');
 		$this->form_validation->set_rules('city',  'City',	 				'required');
+		$this->form_validation->set_rules('custom_country', 'Country',	 				'required');
 		$this->form_validation->set_rules('state', 'state',	 				'required');
 		$this->form_validation->set_rules('zip',   'Zip',	 				'required');
-		$this->form_validation->set_rules('wbsit', 'Website', 				'required');
+		
 		$this->form_validation->set_rules('educn', 'Education',	 			'required');
 		$this->form_validation->set_rules('credn', 'Credentials',	 		'required');
 		
@@ -138,9 +176,10 @@ class Login extends MY_Controller
 			
            // DebugBreak();
             
-            //--------- File Upload ------------------------
+            //--------- File Upload User images------------------------
 			  $file_name = '';
-			  if(isset($_FILES['userimg']['name']) && $_FILES['userimg']['name'] <> "")
+			 		  
+			  if(isset($_FILES['userimg']['name']) && $_FILES['userimg']['name'] != "")
 			  {
 				  $field							= 'userimg';
 				  $uploadFileData					= array();
@@ -162,13 +201,71 @@ class Login extends MY_Controller
 					  $this->model_upload->thumbnail($file_name,'userimages');
 				  }
 			  }
+			   //--------- File Upload User images------------------------
+			   
+			   
+			 //--------- File Upload User logo------------------------ 
+			   $file_name2 = '';
+			 		  
+			  if(isset($_FILES['logoimg']['name']) && $_FILES['logoimg']['name'] != "")
+			  {
+				  $field							= 'logoimg';
+				  $uploadFileData					= array();
+				  $uploadFileData[$field.'_err']	= '';
+				  //$userInformation				= $this->model_login->loggedInUserInfo();
+				  
+				  $config1['allowed_types']	= 'gif|jpg|jpeg|png';
+				  $config1['upload_path'] 	= file_upload_absolute_path().'userimages/';
+				  $config1['optional'] 		= true;
+				  $config1['max_size']		= '250';
+                  $config1['max_width']     = '00';
+				  $config1['max_size']  	= '3000';
+				                                        
+				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
+				  if($isUploaded)
+				  {
+					  $file_name2 = $uploadFileData[$field];
+					  $this->model_upload->resized($file_name2,'userimages');
+					  $this->model_upload->thumbnail($file_name2,'userimages');
+				  }
+			  }
+			 //--------- File Upload User logo------------------------ 
+			 
+			//--------- File Upload User W9------------------------ 
+			   $file_name3 = '';
+			 		  
+			  if(isset($_FILES['formimg']['name']) && $_FILES['formimg']['name'] != "")
+			  {
+				  $field							= 'formimg';
+				  $uploadFileData					= array();
+				  $uploadFileData[$field.'_err']	= '';
+				  //$userInformation				= $this->model_login->loggedInUserInfo();
+				  
+				  $config1['allowed_types']	= 'gif|jpg|jpeg|png';
+				  $config1['upload_path'] 	= file_upload_absolute_path().'professionalw9/';
+				  $config1['optional'] 		= true;
+				  $config1['max_size']		= '250';
+                  $config1['max_width']     = '00';
+				  $config1['max_size']  	= '3000';
+				                                        
+				  $isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config1);
+				  if($isUploaded)
+				  {
+					  $file_name3 = $uploadFileData[$field];
+					  $this->model_upload->resized($file_name3,'userimages');
+					  $this->model_upload->thumbnail($file_name3,'userimages');
+				  }
+			  }
+			 //--------- File Upload User logo------------------------ 
+			 
+			 
 			//--------- File Upload ------------------------			
 			   //DebugBreak();
                
                
           // DebugBreak();    
-			$insert_id = $this->model_login->insert_prof_data($file_name);
-            
+			$insert_id = $this->model_login->insert_prof_data($file_name,$file_name2,$file_name3);
+          //  $this->model_login->insert_serv_data($insert_id);
             // Commission setup
             
                //DebugBreak();
@@ -181,7 +278,10 @@ class Login extends MY_Controller
                if($referral_code != ''){
                
                $referral_user_obj = $this->model_payment_calc->get_professional_id_from_code($referral_code);
+			   
+			  
                $referral_user_id = $referral_user_obj[0]->ProfessionalId;
+			   
                
                $data['professional_id'] = $insert_id;
                $data['referred_professional_id'] = $referral_user_id;
@@ -191,7 +291,8 @@ class Login extends MY_Controller
                $data['redeem_commission'] = 0;
                
                $this->model_payment_calc->insert_professional_commission($data);
-               }
+               
+			   }
                       
                // Commission setup end
             
@@ -213,8 +314,9 @@ class Login extends MY_Controller
 			$passd = inputEscapeString($this->input->request('passd'));
 			$fname = inputEscapeString($this->input->request('fname'));
 			
-			$message   = "Hi ".$fname."<br><br>";
-			$message  .= "Thank you for registering with us. Your Login Details as follows : -  <br>";
+			$message   = "Welcome to OD Hub";
+			$message  .= "Hi ".$fname."<br><br>";
+			$message  .= "Thank you for registering with OD Hub. You are on your way to building your business and developiing your network. Please click the link below to verify your account and get started. : -  <br>";
 			$message  .= "Username : ".$email."    <br>";
 			$message  .= "Password : ".$passd." <br><br>";						
 			$message  .= "Thanks, <br>";
@@ -287,6 +389,28 @@ class Login extends MY_Controller
 		$this->template->write_view('footer',  'common/footer',$this->footer_data);
 		$this->template->render();
 	}
+        
+        //added by sk
+        public function ajaxGenerateStatelist(){
+            $htmlString = '<select name="state" id="state" class="input-r">
+                       <option value="0">--Select State--</option>';
+            if(isset($_POST['c_country_id']) && !empty($_POST['c_country_id'])){
+                
+               $c_country_id = addslashes($_POST['c_country_id']);
+               $stateList = $this->model_countrystate->getAllState($c_country_id);
+               
+               if($stateList!=false){
+                   
+                   foreach($stateList as $states){
+                       $htmlString .= '<option value="'.$states->c_state_name.'">'.$states->c_state_name.'</option>';
+                   }
+               }
+               $htmlString .='</select>';
+            }
+            echo $htmlString;
+            exit();
+            
+        }
 }
 
 /* End of file login.php */

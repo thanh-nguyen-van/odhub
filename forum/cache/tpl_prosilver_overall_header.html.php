@@ -393,6 +393,9 @@ if($_SESSION['ci_click_logout']==1){
     
 </div>
 
+<div class="brk-line"></div>
+
+
 	<a name="start_here"></a>
 	<div id="page-body">
 		<?php if ($this->_rootref['S_BOARD_DISABLED'] && $this->_rootref['S_USER_LOGGED_IN'] && ( $this->_rootref['U_MCP'] || $this->_rootref['U_ACP'] )) {  ?>

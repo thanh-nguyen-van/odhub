@@ -7,6 +7,12 @@
     $( "#mydate" ).datepicker();
   });
 </script>
+<script language="javascript">
+    function share(ProjectId) {
+        window.open("<?php echo $this->config->base_url();?>project/share/?ProjectId="+ ProjectId, 'sendmessage', 'height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }
+</script>
 
 
 <div class="clear"></div>
@@ -25,8 +31,12 @@
     <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box-pro">
   
-    <h1><?php /* --if condition added by manish--*/ if(isset($project_data[0]->project_name)){ echo $project_data[0]->project_name; } ?></h1>
-    <div class="share"><a href="mailto:emailaddress">Share</a></div>
+    <h1><?php /* --if condition added by manish--*/ if(isset($project_data[0]->project_name)){ echo $project_data[0]->project_name; } 
+	
+
+	
+	?></h1>
+    <div class="share"><a href="#" onclick="return share(<?php echo $this->request_data ?>);">Share</a></div>
     <aside class="leftCol-pro">
     
     

@@ -69,8 +69,8 @@ foreach($data_result as $key=>$val){
 <div class="clear"></div>
 
 
-<div id="tnt_pagination">
-<span class="disabled_tnt_pagination">Prev</span><span class="active_tnt_link">1</span><a href="#2">2</a><a href="#3">3</a><a href="#4">4</a><a href="#forwaed">Next</a></div>
+<!--<div id="tnt_pagination">
+<span class="disabled_tnt_pagination">Prev</span><span class="active_tnt_link">1</span><a href="#2">2</a><a href="#3">3</a><a href="#4">4</a><a href="#forwaed">Next</a></div>-->
 
 
 <div class="clear"></div>

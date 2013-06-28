@@ -32,37 +32,42 @@
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewBidFeeDetail.php">Bid Fees</a></td>
                     </tr>
                     
-                    <tr>
-                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewTopic.php">Topic</a></td>
-                    </tr>
+                   
                      <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>projectSkills.php">Project Skills</a></td>
 
                     </tr>
+                    
+                    <tr>
+                    	<td align="left" valign="top" style="background:#c5c5c5;"><a href="#">Country State</a></td>
+
+                    </tr>
+                     <tr>
+                    	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>CustomCountryListing.php">Country Management</a></td>
+                    </tr>
+                    
+                     <tr>
+                    	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>CustomStateListing.php">State Management</a></td>
+                    </tr>
+                    
+                    
                     <tr>
                     	<td align="left" valign="top" style="background:#c5c5c5;"><a href="#">News</a></td>
 
                     </tr>
+                    
                     <tr>
                     	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>ViewNews.php">Lists</a></td>
                     </tr>
                     <tr>
                     	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>AddNews.php">Add</a></td>
                     </tr>
-                    <tr>
-                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>Cms.php?page=about_us">About Us</a></td>
+                     <tr>
+                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>SiteContent.php">Site Content</a></td>
                     </tr>
-                    <tr>
+                   <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewTestimonials.php">Testimonials</a></td>
                     </tr>
-                    <tr>
-                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>Cms.php?page=howit_works">How it Works</a></td>
-                    </tr>
-                    
-                    <tr>
-                    	<td align="left" valign="top"><a href="<?php echo $siteURL;?>Cms.php?page=terms_condition">Terms of Service</a></td>
-                    </tr>
-                    
                     <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>ViewLeftMenu.php">Left Menu</a></td>
                     </tr>
@@ -74,6 +79,12 @@
                     </tr>
                      <tr>
                     	<td align="left" valign="top"><a href="<?php echo $siteURL;?>SitePaymentSetting.php">Site Payment Setting</a></td>
+                    </tr>
+                     <tr>
+                    	<td  align="left" valign="top"><a href="<?php echo $siteURL;?>Client_home.php" >Home Content</a></td>
+                    </tr>
+                  
+                    	<td  align="left" valign="top"><a href="<?php echo $siteURL;?>HomeVideo.php" >Home Video</a></td>
                     </tr>
                 </table>
           </td>
@@ -94,6 +105,12 @@
                     <tr>
                     	<td  align="left" valign="top"><a href="<?php echo $siteURL;?>CloseCaseRequest.php" >Close Case Request</a></td>
                     </tr>
+                    
+                    
+                    
+                    
+                    
+                    
                 </table>
           </td>
           <td width="20%" align="center" valign="top" class="td-bor">
@@ -112,6 +129,9 @@
                     </tr>
                     <tr>
                     	<td  align="left" valign="middle"><a href="<?php echo $siteURL;?>LawyerCategoryList.php">Category</a></td>
+                    </tr>
+                    <tr>
+                    	<td  align="left" valign="top"><a href="<?php echo $siteURL;?>ProfessionalServices.php" >Professional Services </a></td>
                     </tr>
                 </table>
           </td>

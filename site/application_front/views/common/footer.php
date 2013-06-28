@@ -1,3 +1,7 @@
+<?php /*?>
+<link rel="stylesheet" href="<?php echo css_images_js_base_url();?>css/video-js.css" />
+
+<script src="<?php echo css_images_js_base_url();?>js/video.js"></script><?php */?>
 <section class="blue-bg">
 	<div class="container">
         <article class="left-part">
@@ -21,7 +25,20 @@ of the printing and typesetting industry. Lorem Ipsum has been the industry's st
 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
               <p class="more"><a href="#">More...</a></p>
           </div>
-            <div class="video"><img src="<?php echo css_images_js_base_url();?>images/video.jpg" alt=""></div>
+            <div class="video">
+            
+            <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100"
+              poster="http://video-js.zencoder.com/oceans-clip.png"
+              data-setup="{}">
+            <source src="<?=file_upload_base_url()."video/".$video['video_file']?>" type='video/mp4' />
+         <!--  /* <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+            <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+            <track kind="captions" src="demo.captions.vtt" srclang="en" label="English" />*/-->
+          </video>
+            
+            <!--<a href="http://youtu.be/uuoBnTc2dYo"><img src="<?php echo css_images_js_base_url();?>images/video.jpg" alt=""></a>-->
+            
+            </div>
         </article>
         <div class="clear"></div>
     </div>
@@ -35,7 +52,7 @@ Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           <a href="<?php if(isset($content_menu['about_us'])) echo site_url('static_content/index/'.$content_menu['about_us']['StaticPageId']); ?>">
             <?php if(isset($content_menu['about_us'])) echo $content_menu['about_us']['StaticPageName']; ?>
           </a> 
-          <a href="#">Testimonials</a> 
+          <a href="<?php echo site_url('testimonial/Mytestimonial'); ?>">Testimonials</a> 
           <a href="<?php if(isset($content_menu['terms_of_service'])) echo site_url('static_content/index/'.$content_menu['terms_of_service']['StaticPageId']); ?>">
             <?php if(isset($content_menu['terms_of_service'])) echo $content_menu['terms_of_service']['StaticPageName']; ?>
           </a>

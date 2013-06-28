@@ -34,7 +34,7 @@ foreach($category_details as $category){
 }
 ?>
 
-<h2>Credential:</h2>
+<h2>Skills:</h2>
 
 <?php
 
@@ -77,7 +77,11 @@ foreach($project_leadership_coaching as $projecttype){
 
 </div>
 
+
 <div class="clear"></div>
+<div class="block-btn">
+	<span><a href="<?=base_url('project/')?>">Reset</a></span>
+</div>
 </div>
 
 
@@ -177,9 +181,7 @@ foreach($project_leadership_coaching as $projecttype){
 <div class="startdate"> <input type="radio" value="noimmediate" name="immediate" />start date</div>
 <div class="cal">
  <input type="text" id="mydate" name="mydate" gldp-id="mydate" />
-    <div gldp-el="mydate"
-         style="width:260px; height:160px; position:absolute; top:70px; left:30px;">
-    </div>
+    
     
    
   

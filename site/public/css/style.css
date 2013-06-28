@@ -442,7 +442,9 @@ header, article, section, footer {
 	float:left;
 }
 .video {
-	width:240px;
+	width:239px;
+	margin-top:20px;
+	border: solid 3px #fff;
 	float:right;
 }
 .footer {
@@ -1015,7 +1017,7 @@ a.inline:hover {
 	border: 1px solid #3997bd;
 	border-radius:6px;
 	-moz-border-radius: 6px;
-	color: #000000;
+	color: #fff;
 	height:33px;
 	padding: 2px;
 	width:88%;
@@ -1421,12 +1423,12 @@ a.inline:hover {
 .send-btn1 a:hover {
 	color:#000;
 }
-.tableDiv, .tableDiv1, .tableDiv2, .tableDiv3, .tableDiv4, .tableDiv5, .tableDiv6 {
+.tableDiv, .tableDiv1, .tableDiv2, .tableDiv3, .tableDiv4, .tableDiv5, .tableDiv6, .tableDiv7 {
 	width: 100%;
 	background: #ececec;
 	padding-bottom:50px;
 }
-.tableDiv table, .tableDiv1 table, .tableDiv2 table, .tableDiv3 table, .tableDiv4 table, .tableDiv5 table, .tableDiv6 table {
+.tableDiv table, .tableDiv1 table, .tableDiv2 table, .tableDiv3 table, .tableDiv4 table, .tableDiv5 table, .tableDiv6 table, .tableDiv7 {
 	width: 100%;
 	border-collapse: collapse;
 	background: #ececec;
@@ -1435,13 +1437,14 @@ a.inline:hover {
 	.tableDiv tr:nth-of-type(odd), .tableDiv1 tr:nth-of-type(odd), .tableDiv2 tr:nth-of-type(odd), .tableDiv3 tr:nth-of-type(odd), .tableDiv4 tr:nth-of-type(odd), .tableDiv5 tr:nth-of-type(odd), .tableDiv6 tr:nth-of-type(odd) {
 	background: #ececec;
 }
-.tableDiv th, .tableDiv1 th, .tableDiv2 th, .tableDiv3 th, .tableDiv4 th, .tableDiv5 th, .tableDiv6 th {
+.tableDiv th, .tableDiv1 th, .tableDiv2 th, .tableDiv3 th, .tableDiv4 th, .tableDiv5 th, .tableDiv6 th, {
 	background: #494949;
 	color: white;
 	font-weight:normal;
 	text-align: center;
 	font-size:14px;
 }
+
 .proposals td, th{  
     border-bottom: 1px dashed #CCCCCC;
     border-right: 1px solid #CCCCCC;
@@ -1546,7 +1549,7 @@ img {
 	margin:15px auto 0 auto;
 	background:#fafafa;
 	padding:13px;
-	border:2px solid #cfcfcf;
+/*	border:2px solid #cfcfcf;*/
 	border-radius:8px;
 }
 .pro-pic1 {
@@ -7663,11 +7666,207 @@ in-right h2 {
 		display:block;
 	}
 
+.select-name{
+		float:left;
+		width:20%;
+		margin-top:10px;
+		font-size:17px;
+	}
+
+.catagorie-area{
+		float:left;
+		width:50%;
+	}	
+	
+
+.select-catagorie{
+		border: solid 1px #ccc;
+		padding:10px;
+		width:99%;
+	}
+
+.price-area{
+		float:left;
+		margin-left:3%;
+		width:27%;
+		margin-top:10px;
+		font-size:17px;
+	}
+
+.centeraligne{
+		text-align:center;
+		margin-top:20px;
+	}
+	
+.testimonial-area{
+		margin:30px 0;
+		width:1004px;
+		margin:0 auto;
+	}	
+
+.textimonial-block img{
+		border: solid 2px #999;
+		float:left;
+		margin-right:15px;
+	}
+
+.textimonial-block{
+		margin:10px 0;
+		border-bottom: solid 1px #ccc;
+		padding-bottom:10px;
+		
+	}
+
+.select-box-area{
+		height:100px;
+		width:420px;
+		overflow:auto;
+		background:#015170;
+		padding:5px 0  0;
+	}
+
+.review-block{
+		padding:10px;
+		background:#ECECEC;
+	}
+
+.review-form-name{
+		float:left;
+		width:25%;
+		float:left;
+		margin-top:7px;
+		font-size:14px;
+	}
+.review-form-box{
+		float:left;
+		margin-left:3%;
+		width:40%;
+		
+	}
+.formbox{
+		border: solid 1px #b4b4b4;
+		padding:10px 1%;
+		width:8%;
+	}	
+	
+	.review-btn .sbn-btn{
+	background:none;
+	border:none;
+	cursor:pointer;
+	}
+	
+.review-form{
+		margin-bottom:7px;
+	}	
+.formarea{
+		height:150px;
+		resize:none;
+		border: solid 1px #b4b4b4;
+		width:98%;
+		padding:10px 1%;
+	}	
+	
+.review-btn{
+		float:right;
+		text-align:center;
+		background:#fc9f28;
+		
+	}	
+.review-btn a,.review-btn a:hover{
+		color:#fff;
+		text-decoration:none;
+		display:block;
+	}
+.msg{
+color: white;
+}	
+
+
+/*client review css*/
+
+.box-head5 {
+	margin:0 auto;
+	height:20px;
+	border-radius:10px 10px 0px 0px;
+	padding:12px 17px 12px 17px;
+	background:#025D89;
+}
+.box-head5 h1 {
+	font-size:1.5em;
+	color:#9FCFE7;
+	text-transform:uppercase;
+	text-align:left;
+	width:100%;
+	float:left;
+}
+.box-head5 h1 span {
+	font-size:1em;
+	color:#9FCFE7;
+	text-transform:uppercase;
+	text-align:right;
+	width:60%;
+	float:right;
+}
 
 
 
+.proposals-c th {
+    background: none repeat scroll 0 0 #494949;
+}
+.proposals-c td{font-size:14px; color:#191919; margin:5px 10px;}
+.proposals-c tr{ background:#d2edfb;}
 
 
+.total-reviewBox{ width:700px; float:left;}
+
+.proposals-c td p{font-size:14px; color:#191919; padding:15px 10px; border-bottom:1px solid #fff;}
+.proposals-c td p span{ font-size:14px; font-weight:bold; }
+
+
+.total-reviewBoxR{ width:168px; float:right;}
+.date-Div{ width:144px; background: #3AB5F1; border-radius:4px; padding:5px; text-align:center; margin-top:15px;}
+
+.block-btn{
+	text-align:right;
+	margin:15px 0 0 0;
+}
+
+.block-btn span{
+	background:url(../images/sm-blue.png) repeat-x;
+	height:21px;
+	display:inline-block;
+	padding: 2px 15px;
+	border-radius:5px;
+}
+
+.block-btn span a{
+	text-decoration:none;
+	color:#fff;
+}
+
+.minhight{
+		height:450px;
+	}
+
+
+.form-title{ color: #fff;
+    float: right;
+    font-family: 'open_sansregular';
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    text-align: right;
+    width: 424px;}
+
+.total-2btns{ width:79%; margin:0 auto 0 auto;}
+
+.left-Btn{ width:38.2%; float:left; margin:10px 15px 15px 0; background:#2B89B7; padding:10px; border-radius:5px; border:1px solid #025D89;text-align:center;}
+.left-Btn a{ color:#fff; font-size:17px; text-decoration:none; }
+.left-Btn a:hover{color:#000;}
+
+.right-Btn{ width:51.8%; float:left;  margin:10px 0px 15px 0; background:#2B89B7;padding:10px; border-radius:5px;border:1px solid #025D89; text-align:center;}
+.right-Btn a{ color:#fff;font-size:17px;text-decoration:none;}
+.right-Btn a:hover{color:#000;}
 
 
 

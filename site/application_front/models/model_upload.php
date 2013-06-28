@@ -10,9 +10,12 @@ class Model_upload extends CI_Model
 	
 	public function fileUpload(&$uploadFileData,$field,$config1)
 	{
-		$this->upload->set_config($config1);
 	
+		$this->upload->set_config($config1);
+
 		$r = $this->upload->do_upload($field,true);
+		// var_dump($r);
+		// die();
 
 		$uploadFileData[$field]			= $this->upload->file_name;
 		$uploadFileData[$field.'_err']	= $this->upload->display_errors();

@@ -23,7 +23,7 @@ class Model_searchproject extends CI_Model
     public function getCategoryInfo($final_qry_str = 1){
         $table_ref_name = 'project_category';
       
-        $sql_category_info = "select `pd`.`project_category`,`pc`.`pr_cat_name` from `".$this->table_name."` `pd` left join 
+        $sql_category_info = "select `pd`.`project_category`,`pc`.`pr_cat_name` from `".$this->table_name."` `pd` join 
 `".$table_ref_name."` `pc` on `pd`.`project_category` = `pc`.`pr_cat_id` where ".$final_qry_str." group by `pd`.`project_category`";
        
        $result = $this->db->query($sql_category_info);

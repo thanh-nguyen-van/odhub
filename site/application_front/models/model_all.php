@@ -103,7 +103,7 @@ class Model_all extends CI_Model
     
     
     public function relese_payment($receivers,$projectId,$invoice_code){
-        
+       
          $sql_get_aword_details = "select * from `project_aword_map` where `project_id`='".$projectId."'";
          $result = $this->db->query($sql_get_aword_details);
         
@@ -128,7 +128,10 @@ class Model_all extends CI_Model
              $to_acount = $receivers[$i]['receiverEmail'];
                           
              $sql_insert_payrelese_history = "insert into `payrelese_history` set `project_id`='".$projectId."',`client_id`='".$client_id."',`professional_id`='".$professional_id."',`amount`='".$amount."',`project_cost`='".$project_cost."',`from_acount`='".$from_acount."',`to_acount`='".$to_acount."',`date`='". date('Y-m-d H:i:s')."',`invoice_code`='".$invoice_code."'";
-             $this->db->query($sql_insert_payrelese_history);
+            
+			
+
+			$this->db->query($sql_insert_payrelese_history);
               $i = $i + 1;
          }
          
@@ -171,5 +174,11 @@ class Model_all extends CI_Model
        $state_info = $state_result->result(); 
        return $state_info;
     }
+	public function get_All_skills_set(){
+	$this->db->select('*');
+	
+	return $this->db->get('project_skill')->result_array();
+	
+	}
     
 }

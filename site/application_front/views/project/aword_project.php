@@ -10,9 +10,12 @@
 
 <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url();?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
-            <li><a href="<?php echo $this->config->base_url();?>project/aword_project/">Projects</a></li>
+           
+			 <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+		
+
 			
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
             <li class="last"><a href="<?php echo $this->config->base_url();?>project/">  Find Projects  </a></li>
@@ -40,6 +43,7 @@
 <?php
 //debugbreak();
 $data_result = $awarded_projects->result();
+if(!empty($data_result)){
 foreach($data_result as $result){
 ?>
 <div class="total-right-pro-Div fullwidth">
@@ -120,8 +124,10 @@ foreach($data_result as $result){
 </div>
 <?php
 }
+}
+
 ?>
- 
+<!--<div style="text-align:center;font-size:12px;color:#F00; min-height:450px;">No Records Found</div>-->
  </div>
  
  

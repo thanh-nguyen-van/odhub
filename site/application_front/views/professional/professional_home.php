@@ -29,7 +29,7 @@
                         //alert(ajaxRequest.responseText);
                         if(ajaxRequest.responseText==1)
                             {
-			ajaxDisplay.innerHTML = "Project referred successfully.";
+								ajaxDisplay.innerHTML = "Project referred successfully.";
                             }else{
                                ajaxDisplay.innerHTML = "Project already referred to this professional."; 
                             }
@@ -43,6 +43,60 @@
 	ajaxRequest.open("GET", "<?php echo base_url()?>professional/refer_user/" + queryString, true);
 	ajaxRequest.send(null); 
     }
+	
+	
+	function UpdateLookingStatus(elem)
+    {
+      
+	var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){			
+                        if(ajaxRequest.responseText==1)
+						{	
+								if(elem==1)
+									alert("You are now searchable as Coach");
+								else
+									alert("You are now searchable as Expert"); 
+								location.reload(); 
+                            }else{
+                               alert("Something goes wrong from the server side.");
+                            }
+		
+		}
+	}
+	ajaxRequest.open("GET", "<?php echo base_url()?>professional/updateLookingstatus/" + elem, true);
+	ajaxRequest.send(null); 
+    }
+	
+	
+	
+	function show_client_info(ClientID){
+	window.open("<?php echo $this->config->base_url(); ?>client/show_profile?client_id=" + ClientID, 'sendmessage', 'height=500,width=500,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+	}
+	 function view_invoice(value) {
+        window.open("<?php echo $this->config->base_url(); ?>professional/showinvoice/?invsid=" + value, 'sendmessage', 'height=220,width=600,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }	
        
 </script>
 <div class="clear"></div>
@@ -51,16 +105,17 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">Projects</a></li>
-<!--            <li><a href="#">Realistic Previews</a></li>-->
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>professional/invoice">Create Invoices</a></li>
+			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>			
+            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">
         <div class="box-head">
-            <h1>MY ACCOUNT (PROFESSIONAL) <span><a href="#">D Hub Previews = # 45</a></span> </h1>
+            <h1>MY ACCOUNT (PROFESSIONAL) <span><a href="<?php echo $this->config->base_url(); ?>professional/review/">OD Hub Previews =  <?if(isset($average_review)) echo $average_review; else echo "0";?> </a></span> </h1>
         </div>
         <div class="listingDiv">
             <div class="pro-pic">
@@ -74,6 +129,7 @@
                 ?>"   alt="" border="0">
 
             </div>
+            
             <div class="editSection">
                 <div class="editSec">
                     <h1><a href="<?php echo site_url('professional/edit_profile'); ?>">Edit Profile</a></h1>
@@ -98,15 +154,37 @@
                     
                     <p>Unique Referral Code Link For Client : <span><a href="<?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
                     
-                    <p>Upload Your W - 9 : <span>
-                            <input name="" type="file" >
-                        </span> </p>
+                    <p>Send email: <span><a href="javascript:void(0);" onclick='window.open("<?php echo base_url("professional/popUpEmail/?code=".$prof_data['referral_code']);?>","_blank","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=400, height=400");'>Click</a></p>
+                    
+                    <p><a target="_blank" href="<?php echo file_upload_base_url().'professionalw9/'.$prof_data['w9Image'];?>">Download file W-9</a></p>
+                    <p>&nbsp;</p>
                 </div>
-                <div class="company-im"><a href="#"><img src="<?php echo css_images_js_base_url(); ?>images/comp-im.jpg" width="134" height="134" alt="" border="0"></a></div>
+                <div class="company-im"><a href="#"><img src="
+				<?php
+                if ($prof_data['company_logo']) {
+                    echo file_upload_base_url() . 'userimages/' . $prof_data['company_logo'];
+                } else {
+                    echo css_images_js_base_url() . 'images/comp-im.jpg';
+                }
+                ?>
+				" width="134" height="134" alt="" border="0"></a></div>
                 <div class="clear"> </div>
                 <div class="clear"></div>
             </div>
+            
             <div class="clear"></div>
+            
+            
+           <? if($prof_data['s_professional_looking_status_id'] ==''){?> 
+          <div class="total-2btns">
+            	<div class="left-Btn"><a href="#" onclick="UpdateLookingStatus(1);">BECOME SEARCHABLE AS A COACH</a></div>
+                <div class="right-Btn"><a href="#" onclick="UpdateLookingStatus(2);">BECOME SEARCHABLE FOR YOUR OD EXPERTISE</a></div>
+                
+                <div class="clear"></div>
+          </div>
+            
+            <? } ?>
+            
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png" alt="" border="0"></div>
     </div>
@@ -131,9 +209,10 @@
                     </tr>
                 </thead>
                 <tbody> <?php 
+
 				for($i=0;$i<count($awarded_projects_details);$i++){?>
                        <tr>
-                        <td class="pdng"><?php echo $awarded_projects_details[$i]['ClientFirstname'].$awarded_projects_details[$i]['ClientLastname'];  ?></td>
+                        <td class="pdng"><a href="<?php echo base_url('client/show_profile/')?>?client_id=<?php echo $awarded_projects_details[$i]['ClientId'];?>" onclick="return show_client_info(<?php echo $awarded_projects_details[$i]['ClientId'];?>);"><?php echo $awarded_projects_details[$i]['ClientFirstname'].$awarded_projects_details[$i]['ClientLastname'];  ?></a></td>
                         <td class="pdng"><?php echo $awarded_projects_details[$i]['ClientEmail'];?> </td>
 
                         <td class="pdng"><?php echo $awarded_projects_details[$i]['price'];?></td>  
@@ -224,9 +303,15 @@
                         <?php
                 } else {
                     ?>
-                    <tr>
-                        <td class="pdngTop">No record found</td>
-                    </tr>  
+					<tr>
+                        <th width="9%"> Client</th>
+                        <th width="8%"> Project </th>
+                        <th width="9%">Amount</th>
+                       <!-- <th width="9%">Refer</th>-->
+                        <th width="9%">Delivery Date</th>
+                        <th width="11%" style="border-right:0;"> Conversation</th>
+                    </tr>
+                   
 <?php }
 ?>
                 </tbody>
@@ -246,34 +331,29 @@
             <table>
                 <thead>
                     <tr>
-                        <th width="13%">Date</th>
+                      
                         <th width="15%"> Due Date </th>
                         <th width="15%"> Invoice# </th>
                         <th width="13%"> Amount $ </th>
-                        <th width="14%">Balance $ </th>
+                     
                         <th width="12%">Client </th>
                         <th width="18%" style="border-right:0;">Send reminder</th>
                     </tr>
                 </thead>
                 <tbody>
+                   <?
+				 
+				   for($i=0;$i<count($invoice_details);$i++){ ?>
                     <tr>
-                        <td class="pdngTop">12/5/12</td>
-                        <td class="pdngTop">12/5/12</td>
-                        <td class="pdngTop"><a href="#">8120912</a></td>
-                        <td class="pdngTop"> $100</td>
-                        <td class="pdngTop">OD Hub </td>
-                        <td class="pdngTop">Kate Morse </td>
-                        <td class="pdngTop" style="border-right:0;"><span class="send-btn"><a href="#">Email</a></span></td>
+                        <td class="pdngTop"><? echo date('Y-m-d',strtotime($invoice_details[$i]['cr_date']));?></td>
+                       
+                        <td class="pdngTop"><a href="#" onclick="return view_invoice('<?=$invoice_details[$i]['invoice_number']?>')"><?=$invoice_details[$i]['invoice_number']?></a></td>
+                        <td class="pdngTop"> <?=$invoice_details[$i]['amount']?></td>
+                      
+                        <td class="pdngTop"><?=$invoice_details[$i]['ClientFirstname']." ".$invoice_details[$i]['ClientLastname']?></td>
+                        <td class="pdngTop" style="border-right:0;"><span class="send-btn"><a href="mailto:<?=$invoice_details[$i]['ClientEmail']?>">Send Reminder</a></span></td>
                     </tr>
-                    <tr>
-                        <td class="pdng">12/5/12 </td>
-                        <td class="pdng"><span class="pdngTop">12/5/12</span></td>
-                        <td class="pdng"><a href="#">8120912</a></td>
-                        <td class="pdng"> $100 </td>
-                        <td class="pdng">OD Hub </td>
-                        <td class="pdng">Kate Morse </td>
-                        <td class="pdng" style="border-right:0;"><span class="send-btn"><a href="#">Email</a></span></td>
-                    </tr>
+                    <? } ?>
                 </tbody>
             </table>
             <div class="clear"></div>
@@ -285,7 +365,7 @@
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
-	 <div class="Total-Div-Box">
+	 <!--<div class="Total-Div-Box">
         <div class="box-head1">
             <h1>My OD HUB Account </h1>
             <div class="clear"></div>
@@ -330,9 +410,9 @@
             </div>
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png" width="839" height="11" alt="" border="0"></div>
-    </div>
+    </div>-->
 	
-    <div class="Total-Div-Box">
+   <!-- <div class="Total-Div-Box">
         <div class="box-head1">
             <h1>My Realistic Previews</h1>
             <div class="clear"></div>
@@ -368,7 +448,7 @@
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
-
+-->
 <!--  By manish                       -->
 <?php
 if (!empty($refferal_history)) {

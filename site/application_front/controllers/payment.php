@@ -15,7 +15,7 @@ class Payment extends MY_Controller
         $this->load->model('model_client');
         $this->load->model('model_professional');
         $this->load->model('model_payment_calc');
-        
+        $this->load->model('model_home');
         
         $this->initData();
         
@@ -25,6 +25,7 @@ class Payment extends MY_Controller
     public function initData()
     {
         $this->middle_data['controller'] = 'project';
+			$this->footer_data['video'] 		= $this->model_home->get_foot_video();
     }
     
     
@@ -104,11 +105,12 @@ class Payment extends MY_Controller
     
    
    public function relese_process($arr_professional,$price=0,$projectId){
-       
+       print_r($arr_professional); die;
       // DebugBreak();
        $search_str = implode(',',$arr_professional);
+	 
        $professional_paypal = $this->model_proposal->getProfessional_paypalId($search_str);
-       
+      
        $soft_credit_amount = $professional_paypal[0]->soft_credit_amount;
         
        
@@ -422,9 +424,8 @@ else
     // die;
        $projectId = $this->input->get('projectid');
        $invoice_code = $this->input->get('invoice_code');
-       
        $professional_details = $this->model_proposal->getProfessionalInfo($projectId);
-       
+		
        $arr_professional = array();
        $price = 0;
        //DebugBreak();
@@ -440,9 +441,9 @@ else
       
      //  DebugBreak();
       $this->model_all->relese_payment($receivers,$projectId,$invoice_code);
-       
-       redirect('client/show_home', 'refresh');   
-       
+         
+       redirect('client/give_review?projectid='.$projectId, 'refresh');   
+      // redirect('client/show_home, 'refresh');
       // $this->test_process();
        
        

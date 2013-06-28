@@ -214,10 +214,7 @@ $(".account-d2").attr('id', '');
         <div class="clear"></div>
       </div>
 	  <?php } ?>
-      <div class="total-job-form">
-        <div class="jobT">Work View Tm: </div> <div class="jobR"> Enabled</div>
-        <div class="clear"></div>
-      </div>
+    
       <div class="total-job-form">
         <div class="jobT">Category: </div> <div class="jobR"><?php echo ($project_details[0]->project_category == 1?'Leadership Coaching':'Workshops')?></div>
         <div class="clear"></div>

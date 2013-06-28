@@ -3,16 +3,24 @@
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
+
 <section class="container">
+<?php 
+$professional_id = $this->input->get('professional_id');
+if(!$professional_id){ ?>
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">Projects</a></li>
-<!--            <li><a href="#">Realistic Previews</a></li>-->
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
+		 <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+		
+            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
+
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
+        <?php
+			}
+		?>
   <div class="Total-Div-Box">
         
         <div class="listingDiv">
@@ -35,9 +43,10 @@
                 </form>
               </div>
             </div>
+			
             <div class="editSection">
                 <div class="editSec">
-                    <h1>View Profile</h1>(<a href="<?php echo site_url('professional/edit_profile'); ?>">Edit Profile</a>)
+                    <h1><a href="<?php echo site_url('professional/edit_profile'); ?>">Edit Profile</a></h1>
 
                     <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
@@ -56,12 +65,23 @@
                 
                 <!--<div class="editSec1">sujit</div>-->
                 
-                <div class="company-im chng_img">
+                 <div class="company-im chng_img">
                 <div class="hoverstyle">
                 	
-                <img src="<?php echo site_url('public/images/comp-im.jpg'); ?>"  alt="pen" />
-                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" /></div>
-                
+                <img src="<?php
+                if ($prof_data['company_logo']) {
+                    echo file_upload_base_url() . 'userimages/' . $prof_data['company_logo'];
+                } else {
+                    echo css_images_js_base_url() . 'images/comp-im.jpg';
+                }
+                ?>"  alt="Company Logo" />
+                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('company_logo').click();"/></div>
+				
+                <div style="display:none;">
+                  <form name="company_logo_up" id="company_logo_up" action="<?php echo site_url('professional/edit_profile_save/company_logo_up');?>" method="post" enctype="multipart/form-data">
+                      <input type="file" name="company_logo" id="company_logo" onchange="document.getElementById('company_logo_up').submit();">
+                </form>
+              </div>
                 </div>
                 
                 </div>
@@ -82,7 +102,7 @@
             	  <ul class="TabbedPanelsTabGroup">
             	    <li class="TabbedPanelsTab" tabindex="0">General Info</li>
             	    <li class="TabbedPanelsTab" tabindex="0">Skills & Experience</li>                   
-                    <li class="TabbedPanelsTab" tabindex="0">Contacts</li>
+                    <!--<li class="TabbedPanelsTab" tabindex="0">Contacts</li>-->
                     <!--<li class="TabbedPanelsTab" tabindex="0">More</li>-->
           	    </ul>
                       
@@ -175,12 +195,12 @@
                         <form name="skill_expertise" id="skill_expertise" action="<?php echo site_url('professional/edit_profile_save/skill_expertise');?>" method="post" enctype="multipart/form-data">                     
                        <div class="edit-form">
                         	<div class="edit-name">Professional Expertise</div>
-                                <div class="edit-box"><?php echo $prof_data['ProfessionalExpertise'];?></div>
+                                <div class="edit-box">&nbsp;<?php echo $prof_data['ProfessionalExpertise'];?></div>
                             
                         </div>
                         <div class="edit-form">
                         	<div class="edit-name">Year(s) of experience</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                    
                                         <?php for($yr = 0; $yr<=10;$yr++){?>
                                        <?php if($yr==$prof_data['ProfessionalYear'])echo $yr;?>
@@ -189,34 +209,45 @@
                                 </div>
                             
                         </div>
+                        
                         <div class="edit-form">
                         	<div class="edit-name">Degree</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                     <?php echo $prof_data['ProfessionalDegree'];?>
                                 </div>                           
                         </div>
+                        
                         <div class="edit-form">
                         	<div class="edit-name">Specialization</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                     <?php echo $prof_data['ProfessionalSpecialization'];?>
                                 </div>
                             
                         </div>
+                        
+                        <div class="edit-form">
+                        	<div class="edit-name">Skills</div>
+                                <div class="edit-box">&nbsp;
+                                    <?php echo $professional_skills;?>
+                                </div>
+                            
+                        </div>
+                        
                         <div class="edit-form">
                         	<div class="edit-name">Achievement</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                     <?php echo $prof_data['ProfessionalAchievements'];?>
                                 </div>              
                         </div>
                         <div class="edit-form">
                         	<div class="edit-name">Short description</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                     <?php echo $prof_data['ProfessionalDescription'];?>
                                 </div>              
                         </div>
                         <div class="edit-form">
                         	<div class="edit-name">Keywords</div>
-                                <div class="edit-box">
+                                <div class="edit-box">&nbsp;
                                     <?php echo $prof_data['ProfessionalKeyword'];?>
                                 </div>              
                         </div>                    
@@ -232,18 +263,18 @@
                         <form name="contact" id="contact" action="<?php echo site_url('professional/edit_profile_save/contact');?>" method="post" enctype="multipart/form-data">
 
                        
-                        <div class="edit-form">
+                        <!--<div class="edit-form">
                         	<div class="edit-name">E-mail</div>
                             <div class="edit-box">
                                 <?php echo $prof_data['ProfessionalEmail'];?>
                                 
                             </div>
                             
-                        </div>
-                        <div class="edit-form">
+                        </div>-->
+                        <!--<div class="edit-form">
                         	<div class="edit-name">Paypal E-mail Address</div>
                             <div class="edit-box">
-                                <?php echo $prof_data['paypal_email'];?>
+                                <?php //echo $prof_data['paypal_email']; ?>
                                 
                             </div>
                             
@@ -251,12 +282,12 @@
                         <div class="edit-form">
                         	<div class="edit-name">LinkedIn Profile url</div>
                             <div class="edit-box">
-                               <a href="<?php echo $prof_data['linkedin_url'];?>" target="_blank"> <?php echo $prof_data['linkedin_url'];?></a>
+                               <a href="<?php //echo $prof_data['linkedin_url'];?>" target="_blank"> <?php //echo $prof_data['linkedin_url'];?></a>
                                 
                             </div>
                             
                         </div>
-                        
+                        -->
                         <div class="edit-form">
                         	<div class="edit-name">&nbsp;</div>
                            

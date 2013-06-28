@@ -59,28 +59,21 @@ $update_query="UPDATE  ".$table['testimonials']."  SET title='".$title."',
  
 $update_result=mysql_query($update_query);
 ?>
-<table width="100%">
-<tr>
-	<td colspan="5"><h3>Edit Testimonials</h3></td>
-</tr>
+
 <?
 if($update_result)
 {
-	?>
-	<tr>
-		<td>Testimonial successfully edited.</td>
-	</tr>
-	<?
+	$_SESSION['M_msg'] = "Testimonial successfully edited";	
 }
 else
 {
-	?>
-	<tr>
-		<td>Testimonial is not edited.Try Again</td>
-	</tr>
-	<?
+	$_SESSION['M_msg'] = "Testimonial successfully edited";	
 }
 ?>
+
+<tr>
+	<td><a href="ViewTestimonials.php" class="back-btn">Back</a></td>
+</tr>
 </table>
 
 <? mysql_close($connect);?>

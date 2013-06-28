@@ -119,24 +119,64 @@ error_reporting(false);
 
 ?>
 
-	<form method="post" action="projectSkills.php">
+	<form method="post" action="projectSkills.php" name="form1" id="form1">
 		<input type="hidden" name="mode" value="edit_validate" />
         <h2>Edit Project Skill</h2>
 		<div class="wht-bg">
-       		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="td-bor td-bor12">
-				<tr>
-					<td>Skill Name :</td>
-					<td><input type="text" name="skill_name" value="<?php echo $rc['skill_name'];?>" ></td>
-					<td><?=$msg?></td>
-				</tr>
-				<tr>
-					<input type="hidden" name="caseid" value="<?=$rc['pr_skill_id']?>">
-					<td style="padding:10px 0px;">
-					   <input type="submit" name="submit" value="Update" class="buttn">&nbsp;&nbsp;&nbsp; <input type="button" name="cancel" value="Cancel" class="buttn" onclick="location.href='projectSkills.php';" />
-					</td>
-				</tr>
-			</table>
-            </div>
+<?php if( $msg != ''){?>
+<div style="font-size:13px; font-weight:600; background-color:#FFFFDD;">&nbsp;&nbsp;<?=$msg;?></div>
+<?php } ?>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px solid #6d6d6d;">
+	<tr>
+	  <td align="left" valign="middle" class="td-hd">No</td>
+	  <td align="left" valign="middle" class="td-hd">Skill Name</td>
+	  <td align="left" valign="middle" class="td-hd">Action</td>
+	</tr>
+    
+    <?php
+	
+	
+	
+	
+	
+	$project_qry = "Select * FROM `project_skill` WHERE `pr_skill_id`=".$_REQUEST['caseid'];
+	$prject_res=mysql_query($project_qry);
+	
+	$i=1;
+	while($rprojects=mysql_fetch_array($prject_res))
+{
+	?>
+	<tr>
+		<td align="left" valign="middle" class="td-bor1"><?echo $i++;?>.</td>
+		<td align="left" valign="middle" class="td-bor1"><input type="text" name="skill_name" value="<?php echo $rprojects['skill_name'];?>" ><input type="hidden" name="caseid" value="<?=$rprojects['pr_skill_id']?>"></td>
+		<td align="left" valign="middle" class="td-bor1"><a href="" class="edit" onclick="document.forms['form1'].submit(); return false;">Update</a> | <a href="#" onclick="location.href='projectSkills.php';" class="edit">Cancel</a></td>
+</tr>
+	<?
+}
+?>
+<?php
+	
+	
+	
+	
+	
+	$project_qry = "Select * FROM `project_skill` WHERE `pr_skill_id`!=".$_REQUEST['caseid'];
+	$prject_res=mysql_query($project_qry);
+	
+	$i=2;
+	while($rprojects=mysql_fetch_array($prject_res))
+{
+	?>
+	<tr>
+		<td align="left" valign="middle" class="td-bor1"><?echo $i++;?>.</td>
+		<td align="left" valign="middle" class="td-bor1"><a href="<?echo $siteURL;?>/CaseDetail.php?caseid=<?echo $rprojects['project_id'];?>" target="_blank"><?echo $rprojects['skill_name'];?></a></td>
+		<td align="left" valign="middle" class="td-bor1"><a href="projectSkills.php?mode=edit&caseid=<?echo $rprojects['pr_skill_id'];?>" class="edit">Edit</a> | <a href="projectSkills.php?mode=delete&caseid=<?echo $rprojects['pr_skill_id'];?>" onclick="return confirm('Are you sure you  wanna to remove  it?')" class="edit">Delete</a></td>
+</tr>
+	<?
+}
+?>
+</table>
+</div>
          </form>   
 	
 <?php	

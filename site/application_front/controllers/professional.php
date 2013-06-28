@@ -14,7 +14,9 @@ class Professional extends MY_Controller {
         $this->load->model('model_upload');
         $this->load->model('model_all');
         $this->load->model('model_project');
-
+		$this->load->helper('download');
+		$this->load->model('model_home');
+		
         $this->initData();
     }
 
@@ -22,6 +24,7 @@ class Professional extends MY_Controller {
         $this->middle_data['controller'] = 'professional';
         //$this->header_data['content_menu']	= $this->model_content->get_menu("StaticPageType <> 'left_menu'");
         //$this->leftmenu_data['left_menu']	= $this->model_content->get_menu("= 'left_menu'");
+		$this->footer_data['video'] 		= $this->model_home->get_foot_video();
     }
 
     public function forum_login() {
@@ -71,7 +74,19 @@ class Professional extends MY_Controller {
 
 		$this->middle_data['refferal_history'] = $this->model_professional->Refferal_history($_SESSION[USER_SESSION_ID]);
 		$this->middle_data['Account_history'] = $this->model_professional->Account_history($_SESSION[USER_SESSION_ID]);
-
+		//review part
+		$review_details = $this->model_professional->get_review($_SESSION[USER_SESSION_ID]);
+		$temp_review = 0;
+		for($i=0;$i<count($review_details);$i++){
+		
+		$temp_review += $review_details[$i]['rating'];
+		
+		}
+		if(count($review_details)>0)
+		$this->middle_data['average_review'] = $temp_review/count($review_details);
+		
+		$this->middle_data['invoice_details'] = $this->model_professional->getProfessionalInvoices($_SESSION[USER_SESSION_ID]);
+	
         $this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/professional_home', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
@@ -149,7 +164,7 @@ class Professional extends MY_Controller {
             $this->model_professional->SaveInvoiceData($request_data);
         }
         $this->template->write_view('header', 'common/header', $this->header_data);
-        $this->template->write_view('content', 'professional/send_invoice.php', $this->middle_data);
+        $this->template->write_view('content', 'professional/final_send_invoice.php', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
         $this->template->render();
     }
@@ -170,10 +185,14 @@ class Professional extends MY_Controller {
         }
        // print_r($this->middle_data['prof_data']); 
         $this->middle_data['country_data'] = $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
-        $this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
+       
+		$this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
         $this->middle_data['state_data1']        = $this->model_project->getAllState();   
         $this->middle_data['country_data1']        = $this->model_project->getAllCountry();   
-        $this->template->write_view('header', 'common/header', $this->header_data);
+		$this->middle_data['professional_skill_deatails'] = $this->model_professional->get_professional_skills_set($_SESSION[USER_SESSION_ID]);
+		$this->middle_data['skill_set'] = $this->model_all->get_All_skills_set();
+	
+		$this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/edit_profile', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
         $this->template->render();
@@ -207,20 +226,22 @@ class Professional extends MY_Controller {
                     }
                 }
                 if($formName=='skill_expertise'){
-                    $this->form_validation->set_rules('ProfessionalYear', 'Expertise year',    'required');
-                    $this->form_validation->set_rules('ProfessionalDegree', 'Degree',      'required');
-                    $this->form_validation->set_rules('ProfessionalSpecialization', 'Specialization',               'required');
-                    $this->form_validation->set_rules('ProfessionalAchievements', 'Achievement',        'required');
-                    $this->form_validation->set_rules('ProfessionalDescription', 'Short description',    'required');
-                    $this->form_validation->set_rules('ProfessionalKeyword', 'Keywords',    'required');
+                    // $this->form_validation->set_rules('ProfessionalYear', 'Expertise year',    'required');
+                    // $this->form_validation->set_rules('ProfessionalDegree', 'Degree',      'required');
+                    // $this->form_validation->set_rules('ProfessionalSpecialization', 'Specialization',               'required');
+                    // $this->form_validation->set_rules('ProfessionalAchievements', 'Achievement',        'required');
+                    // $this->form_validation->set_rules('ProfessionalDescription', 'Short description',    'required');
+                    // $this->form_validation->set_rules('ProfessionalKeyword', 'Keywords',    'required');
                     
                     $this->form_validation->set_error_delimiters('<div class=" ">', '</div>');
-                    if ($this->form_validation->run() == FALSE)
+                   // if ($this->form_validation->run() == FALSE)
+                    if (0)
                     {   
                             $this->edit_profile();
                     }
                     else
                     {
+						
                         if($this->model_professional->update_info($this->input->post()))
                         {
                            $_SESSION['succ_msg'] = "Information updated successfully !";
@@ -249,17 +270,18 @@ class Professional extends MY_Controller {
                     }
                 }
                 if($formName=='prof_img_up'){
-                    die('dbhgasda');
+                  
                     $this->form_validation->set_rules('ProfessionalImage', 'Select image',    'required');                                    
                     $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-                    if ($this->form_validation->run() == FALSE)
+                    if ( 0 )
                     {   
                             $this->edit_profile();
                     }
                     else
                     {
-                       echo $_FILES['ProfessionalImage']['name'];exit;
-                        if($_FILES['ProfessionalImage']['name']!=''){
+                      
+                    if($_FILES['ProfessionalImage']['name']!=''){
+					$field = 'ProfessionalImage';
 					$cut_pdf = explode(".",$_FILES['ProfessionalImage']['name']);
 					$file_name = explode(" ",$cut_pdf[0]);
 					$array_count = count($file_name);
@@ -267,32 +289,73 @@ class Professional extends MY_Controller {
 					for($i=0;$i<$array_count;$i++){
 						$file_name_pdf = implode("_",$file_name);
 						}
-					}else{$file_name_pdf = $cut_pdf;}
+					}else{
+						$file_name_pdf = $cut_pdf;
+					}
+					
 					$randdom_no = rand('0000','9999');
 					$config['file_name'] = $file_name_pdf.$randdom_no;
-					$config['upload_path'] = 'upload/userimages';
+					$config['upload_path'] = file_upload_absolute_path().'userimages/';
 					$config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
 					$config['max_size']	= '999999999999';
-					$this->load->library('upload', $config);
-					$this->upload->initialize($config);
-										
-					if ( ! $this->upload->do_upload('ProfessionalImage',true))
-													{
-														$error = array('error' => $this->upload->display_errors());
-														
-													}
-													else
-													{
-														$pdf_data = array('upload_data' => $this->upload->data());
-														
-													}
-					$ProfessionalImage = $pdf_data['upload_data']['file_name'];   
+					
+					$isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config);
+                     if($isUploaded)
+                      {
+                   		 $ProfessionalImage = $uploadFileData[$field];                        
+					 }
+				}else{
+				 $ProfessionalImage = '';
 				}
-				
-				else $ProfessionalImage = '';
-                        if($this->model_professional->update_info(array("ProfessionalImage"=>$ProfessionalImage)))
+				if($this->model_professional->update_info(array("ProfessionalImage"=>$ProfessionalImage)))
                         {
-                           $_SESSION['succ_msg'] = "Information updated successfully !";
+                       	 $_SESSION['succ_msg'] = "Information updated successfully !"; 
+   
+                            redirect(site_url('professional/edit_profile'));
+                        }
+                    }
+                }
+				if($formName=='company_logo_up'){
+                  
+                    $this->form_validation->set_rules('company_logo', 'Select image',    'required');                                    
+                    $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+                    if ( 0 )
+                    {   
+                            $this->edit_profile();
+                    }
+                    else
+                    {
+                      
+                    if($_FILES['company_logo']['name']!=''){
+					$field = 'company_logo';
+					$cut_pdf = explode(".",$_FILES['company_logo']['name']);
+					$file_name = explode(" ",$cut_pdf[0]);
+					$array_count = count($file_name);
+					if($array_count>0){
+					for($i=0;$i<$array_count;$i++){
+						$file_name_pdf = implode("_",$file_name);
+						}
+					}else{
+						$file_name_pdf = $cut_pdf;
+					}
+					
+					$randdom_no = rand('0000','9999');
+					$config['file_name'] = $file_name_pdf.$randdom_no;
+					$config['upload_path'] = file_upload_absolute_path().'userimages/';
+					$config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+					$config['max_size']	= '999999999999';
+					
+					$isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config);
+                     if($isUploaded)
+                      {
+                   		 $ProfessionalImage = $uploadFileData[$field];                        
+					 }
+				}else{
+				 $ProfessionalImage = '';
+				}
+				if($this->model_professional->update_info(array("company_logo"=>$ProfessionalImage)))
+                        {
+                       	 $_SESSION['succ_msg'] = "Information updated successfully !"; 
    
                             redirect(site_url('professional/edit_profile'));
                         }
@@ -301,16 +364,116 @@ class Professional extends MY_Controller {
                 
     }
 	public function view_profile(){
-		$this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
-		$this->middle_data['country_data'] = $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
-        $this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
+        
+        $professional_id = $this->input->get('professional_id');
+        
+        if(!$professional_id){
+            $professional_id = $_SESSION[USER_SESSION_ID];  
+        }
+        
+        
+		$this->middle_data['prof_data']			 = $this->model_professional->get_professional_data($professional_id);
+		$this->middle_data['country_data']		 = $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
+        $this->middle_data['state_data'] 		 = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
         $this->middle_data['state_data1']        = $this->model_project->getAllState();   
-        $this->middle_data['country_data1']        = $this->model_project->getAllCountry();   
-        $this->template->write_view('header', 'common/header', $this->header_data);
+        $this->middle_data['country_data1']      = $this->model_project->getAllCountry();
+		$professional_skill_deatails = $this->model_professional->get_professional_skills_set($professional_id);
+		$skills_string = '';
+		
+		for($i=0;$i<count($professional_skill_deatails);$i++){
+			$skills[] = $this->model_professional->get_professional_skills_details($professional_skill_deatails[$i]['skill_id']);
+			if(array_key_exists('skill_name',$skills[$i]))
+			$skills_string .= $skills[$i]['skill_name'].",";
+		}
+		$this->middle_data['professional_skills'] = substr($skills_string,0,-1);
+
+			$this->load->view('common/head',		 	$this->header_data);
+			
+			$professional_id = $this->input->get('professional_id');
+			if(!$professional_id){ 
+				$this->load->view('common/header',			$this->header_data);
+			}
+			$this->load->view('professional/view_profile', $this->middle_data);
+			if(!$professional_id){ 
+				$this->load->view('common/footer',		 	$this->footer_data);
+			}
+			$this->load->view('common/foot',		 	$this->footer_data);
+		
+		
+       /* $this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/view_profile', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
+		
         $this->template->render();
+		*/
 		}
+	public function invoice(){
+		 $this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
+        $project_id = $this->input->get('projectid');
+        	$prof_data = $this->middle_data['prof_data'];
+        $this->middle_data['country_data'] = $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
+        $this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
+		
+		
+				
+		$this->middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID])->result_array();
+		
+        $this->template->write_view('header', 'common/header', $this->header_data);
+        $this->template->write_view('content', 'professional/send_invoice', $this->middle_data);
+        $this->template->write_view('footer', 'common/footer', $this->footer_data);
+        $this->template->render();
+	}
+	public function review(){
+	 $professional_id = $this->input->get('professional_id');
+        
+        if(!$professional_id){
+            $professional_id = $_SESSION[USER_SESSION_ID];  
+        }
+	$review_details = $this->model_professional->get_review($professional_id);
+	$this->middle_data['review_details'] = $review_details;
+	$temp_review = 0;
+		for($i=0;$i<count($review_details);$i++){
+		
+		$temp_review += $review_details[$i]['rating'];
+		
+		}
+	if(count($review_details)>0)
+	$this->middle_data['average_review'] = $temp_review/count($review_details);
+	
+			$this->load->view('common/head',		 	$this->header_data);
+			
+			$professional_id = $this->input->get('professional_id');
+			if(!$professional_id){ 
+				$this->load->view('common/header',			$this->header_data);
+			}
+			$this->load->view('professional/review', $this->middle_data);
+			if(!$professional_id){ 
+				$this->load->view('common/footer',		 	$this->footer_data);
+			}
+			$this->load->view('common/foot',		 	$this->footer_data);
+	
+	}
+	function showinvoice(){
+        $this->middle_data['invs_details'] = $this->model_professional->get_inv_details($this->input->get('invsid'));
+		$this->load->view('professional/show_invoice', $this->middle_data); 
+	  
+    }
+    
+    
+    public function popUpEmail(){
+        //echo $professional_id = $_SESSION[USER_SESSION_ID];
+        //echo '<pre>';print_r($_POST);
+        //$this->template->write_view('header', 'common/header', $this->header_data);
+        $this->template->write_view('content', 'professional/popup_referal', $this->middle_data);
+       // $this->template->write_view('footer', 'common/footer', $this->footer_data);
+        $this->template->render();
+    } 
+	public function updateLookingstatus(){     //ajax call
+	
+        if($this->model_professional->update_lookng(array("s_professional_looking_status_id"=>$this->uri->segment(3, 0))))
+		echo true;
+		exit;
+    }
 
 }
 

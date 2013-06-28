@@ -7,7 +7,10 @@ $testimonials_query="SELECT * FROM ".$table['testimonials']." WHERE testimonials
 $testimonials_result=mysql_query($testimonials_query);
 ?>
 <script src="<?php echo $siteURL;?>public/ckeditor/ckeditor.js" type="application/javascript" ></script>
-<table width="100%">
+<table width="100%" class="whitetable">
+<tr>
+	<td colspan="5"> <font color="#FF0000"> <?php if((isset($_SESSION['M_msg']))) { echo $_SESSION['M_msg']; unset($_SESSION['M_msg']); } ?></font></td>
+</tr>
 <tr>
 	<td colspan="5"><h3>Edit Testimonial</h3></td>
 </tr>
@@ -32,7 +35,7 @@ if(mysql_num_rows($testimonials_result))
             
 			<tr>
 				<td class="tdhead">Images:</td>
-                <td><img src="../Upload/testimonials/thumb/<? echo $testimonials['image_path'];?>"  /></td>
+                <td><img src="../upload/testimonials/thumb/<? echo $testimonials['image_path'];?>"  /></td>
 			</tr>
             
 			<tr>

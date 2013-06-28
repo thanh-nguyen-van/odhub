@@ -6,9 +6,12 @@
         return false;
     }
 </script>
+
 <div class="clear"></div>
 <div class="brk-line"></div>
-</header>
+</header><?php 
+$client = $this->input->get('client_id');
+if(!$client){ ?>
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
@@ -18,6 +21,11 @@
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
+		
+		
+<? } ?>
+
+		
     <div class="Total-Div-Box">
         <div class="listingDiv1">
             <div class="pro-pic1">
@@ -30,8 +38,6 @@
 
 
 
-
-
             </div>
             <div class="editSection1">
                 <div class="editSec2">
@@ -39,13 +45,16 @@
                     <p>Country :	<span> <?php if ($country_data != NULL) {  echo $country_data['Country'];} ?> </span> </p>
                     <p>Email :	<span> <?php echo $_SESSION[USER_SESSION_EMAIL] ?> </span> </p>
                     <p>Location : <span> <?php if ($state_data != NULL) { echo $state_data['StateName'];} ?>, Postalcode / Zipcode - <?php echo $client_data['ClientZipcode'] ?> </span> </p>
-                </div>
-                <div class="editSec3">
+                </div><?php 
+$client = $this->input->get('client_id');
+if(!$client){ ?>
+                 <div class="editSec3">
                     <ul>
                         <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/show_profile">Your Public Profile </a></li>
-                        <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
+                       <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
                     </ul>
                 </div>
+                <? } ?>
                 <div class="clear"> </div>
                 <div class="clear"></div>
             </div>
@@ -56,7 +65,7 @@
            	  <div id="TabbedPanels1" class="TabbedPanels">
             	  <ul class="TabbedPanelsTabGroup">
             	    <li class="TabbedPanelsTab" tabindex="0">General Info</li>
-            	    <li class="TabbedPanelsTab" tabindex="0">More</li>
+            	    <!--<li class="TabbedPanelsTab" tabindex="0">More</li>-->
           	    </ul>
             	  <div class="TabbedPanelsContentGroup">
             	    <div class="TabbedPanelsContent">
@@ -65,12 +74,15 @@
                         	<div class="edit-name">UserName</div>
                                 <div class="edit-box"><?php echo $client_data['ClientUsername']; ?></div>
                             
-                        </div>
+                        </div><?php 
+$client = $this->input->get('client_id');
+if(!$client){ ?>
 						<div class="edit-form">
                         	<div class="edit-name">Password</div>
                                 <div class="edit-box"><?php echo $client_data['ClientPassword']; ?></div>
                             
                         </div>
+                        <? }?>
 						<div class="edit-form">
                         	<div class="edit-name">First Name</div>
                                 <div class="edit-box"><?php echo $client_data['ClientFirstname']; ?></div>
@@ -118,7 +130,7 @@
                         </div>
                         
                     </div>
-            	    <div class="TabbedPanelsContent">
+            	    <!--<div class="TabbedPanelsContent">
                        <div class="edit-form">
                         	<div class="edit-name">more</div>
                             <div class="edit-box">More</div>
@@ -130,7 +142,7 @@
                             
                         </div>
                     
-                    </div>
+                    </div>-->
                    
                    
                   

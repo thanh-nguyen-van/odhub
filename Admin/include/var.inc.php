@@ -57,6 +57,10 @@
 	$table['topic'] 			    = 'lm_topic_tbl';
 	$table['userstatus'] 			= 'lm_userstatus_tbl';
 	$table['testimonials'] 			= 'lm_testimonials_tbl';
+	$table['home'] 			        = 'im_home_page';
+	$table['services'] 			    = 'im_service_list';
+	$table['homevideo'] 			    = 'im_home_video';
+
 
 
 ?>

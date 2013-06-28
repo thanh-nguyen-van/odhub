@@ -49,6 +49,34 @@ class Model_professional extends CI_Model {
         $result = $query->row_array();
 
         return $result;
+    } 
+	public function get_professional_skills_set($prof_id) {
+        $table_name = "professional_skill_map";
+        $select_flds = "*";
+        $condition = "professional_id = '" . $prof_id . "'";
+
+
+        $this->db->select($select_flds);
+        $this->db->where($condition);
+
+        $query = $this->db->get($table_name);
+        $result = $query->result_array();
+
+        return $result;
+    } 
+	public function get_professional_skills_details($skill_id) {
+        $table_name = "project_skill";
+        $select_flds = "*";
+        $condition = "pr_skill_id = '" . $skill_id . "'";
+
+
+        $this->db->select($select_flds);
+        $this->db->where($condition);
+
+        $query = $this->db->get($table_name);
+        $result = $query->row_array();
+
+        return $result;
     }
 
     public function getMyAwardedProjects($professionalUserId) {
@@ -115,9 +143,30 @@ class Model_professional extends CI_Model {
     }
 
     public function update_info($postdata) {
+	
+	$this->db->delete('professional_skill_map', array('professional_id' => $_SESSION[USER_SESSION_ID])); 
+		for($i=0;$i<count($postdata['skills']);$i++){
+			$data = array(
+				   'professional_id' => $_SESSION[USER_SESSION_ID],
+				   'skill_id' => $postdata['skills'][$i]
+				);
+			
+			$this->db->insert('professional_skill_map', $data); 
+		}
+		unset($postdata['skills']);
         //foreach($postdata as $postdata){$data["$postdata"] = $postdata;}
        $this->db->where('ProfessionalId', $_SESSION[USER_SESSION_ID]);
        $this->db->update('lm_professionaldetail_tbl', $postdata); 
+	   
+       return true;
+    }
+	public function update_lookng($postdata) {
+	
+	
+        //foreach($postdata as $postdata){$data["$postdata"] = $postdata;}
+       $this->db->where('ProfessionalId', $_SESSION[USER_SESSION_ID]);
+       $this->db->update('lm_professionaldetail_tbl', $postdata); 
+	   
        return true;
     }
 	public function Refferal_history($proffessional_id){
@@ -141,6 +190,33 @@ select `professional_id`,`referral_professional_id`,`referral_client_id`,`amount
 (`professional_id`='".$proffessional_id."' or `referral_professional_id` = '".$proffessional_id."')) t1";
 	$result = $this->db->query($sql_getMyAccountHistory);
 	return $result->result_array();
+	}
+	 public function get_review($professional_id){
+		$sql = "SELECT l.* , pd.project_name,concat(cl.ClientFirstname,' ',cl.ClientLastname) client_name FROM lm_professional_review_tbl l left join project_details pd on
+l.project_id = pd.project_id left join lm_clientdetail_tbl cl on l.client_id = cl.ClientId where prof_id = '".$professional_id."'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+	
+        return $result;
+	  }
+	  public function getProfessionalInvoices($professionalID) {
+      
+        $this->db->where("lm_invoice.professional_id",$professionalID);
+        $this->db->join("lm_clientdetail_tbl","lm_clientdetail_tbl.ClientId = lm_invoice.client_id","left");
+        return $this->db->get('lm_invoice')->result_array();   
+        
+    }
+	public function get_inv_details($invNumber)
+	{
+	  //	$this->db->select('*');
+	  	$this->db->select('lm_invoice.project_id,lm_invoice.professional_id,lm_invoice.invoice_number,lm_invoice.amount,lm_invoice.cr_date,lm_clientdetail_tbl.ClientFirstname,lm_clientdetail_tbl.ClientLastname,project_details.project_name');
+		$this->db->from('lm_invoice');
+		$this->db->join('lm_clientdetail_tbl', 'lm_clientdetail_tbl.ClientId = lm_invoice.client_id');
+		$this->db->join('project_details', 'project_details.project_id = lm_invoice.project_id');
+		$this->db->where('invoice_number', $invNumber);
+		$query = $this->db->get();
+	
+		return $query->row_array();
 	}
 
 }

@@ -1,9 +1,24 @@
 <script language="javascript">
     function contact_professional(ProfessionalId) {
-        window.open("<?php echo $this->config->base_url(); ?>search/sendmessage/?ProfessionalId=" + ProfessionalId, 'sendmessage', 'height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        window.open("<?php echo $this->config->base_url(); ?>search/sendmessage/?ProfessionalId=" + ProfessionalId, 'sendmessage', 'height=250,width=500,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }
+
+    function view_invoice(value) {
+        window.open("<?php echo $this->config->base_url(); ?>client/showinvoice/?invsid=" + value, 'sendmessage', 'height=220,width=600,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }
+	function show_client_info(ProfessionalId) {
+        window.open("<?php echo $this->config->base_url(); ?>professional/view_profile/?professional_id=" + ProfessionalId, 'sendmessage', 'height=500,width=500,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }
+	function show_realistic_preview(ProfessionalId) {
+        window.open("<?php echo $this->config->base_url(); ?>professional/review/?professional_id=" + ProfessionalId, 'sendmessage', 'height=600,width=900,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
         return false;
     }
 </script>
+
+
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
@@ -33,6 +48,9 @@
             <div class="editSection1">
                 <div class="editSec2">
                     <h3> Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?> </h3>
+                    
+                    From your home page, you can Search OD Hub Professionals to find the right person for your career development needs by clicking SEARCH PROFESSIONALS. If you'd rather the professionals find you, POST A PROJECT. Once you've started looking, you can track who you like, who you've worked with before, and your invoices.  Remember, we're always here to help. Just shoot us an email.
+                    
                     <p>Country :	<span> <?php if ($country_data != NULL) {
     echo $country_data['Country'];
 } ?> </span> </p>
@@ -44,8 +62,7 @@
                 <div class="editSec3">
                     <ul>
                         <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Your Public Profile </a></li>
-                        <li class="bb"><a href="#">Your Public Profile </a></li>
-                        <li class="cc"><a href="#">Your Public Profile </a></li>
+                         <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
                     </ul>
                 </div>
                 <div class="clear"> </div>
@@ -56,7 +73,7 @@
     </div>
     <div>
              <span class="org-btn squreshape"  style="float: left; padding-right: 20px; width: 150px !important; vertical-align: top;">
-             <a href="<?php echo site_url('search');?>"> Search Professional </a> 
+             <a href="<?php echo site_url('search');?>"> Search Professionals </a> 
         </span>
         <span class="org-btn squreshape"  style="float: left; padding-right: 20px; width: 120px !important; vertical-align: top;">
              <a href="<?php echo site_url('project/post_project');?>"> Post a Project </a> 
@@ -82,10 +99,11 @@
                 <tbody>
 <?php
 foreach ($fab_prof as $key => $val) {
+
     ?>
                         <tr>
-                            <td class="pdngTop"><a href="#"><?php echo $val->ProfessionalFirstname . ' ' . $val->ProfessionalLastname ?></a></td>
-                            <td class="pdngTop"><a href="#">See Preview</a></td>
+                            <td class="pdngTop"><a href="<?php echo site_url('professional/view_profile');?>/?professional_id=<?php echo $val->ProfessionalId;?>" onclick="return show_client_info(<?php echo $val->ProfessionalId;?>);"><?php echo $val->ProfessionalFirstname . ' ' . $val->ProfessionalLastname ?></a></td>
+                            <td class="pdngTop"><a href="<?php echo site_url('professional/review/');?>/?professional_id=<?php echo $val->ProfessionalId;?>" onclick="return show_realistic_preview(<?php echo $val->ProfessionalId;?>);">See Preview</a></td>
                             <td class="pdngTop"><span class="org-btn"><a href="#" onclick="return contact_professional('<?php echo $val->ProfessionalId; ?>')">Contact</a></span></td>
                             <td class="pdngTop" style="border-right:0;"><span class="org-btn"><a href="<?php echo $this->config->base_url(); ?>client/remove_fav/?professional_id=<?php echo $val->ProfessionalId; ?>">Remove</a></span></td>
                         </tr>
@@ -129,7 +147,7 @@ foreach ($fab_prof as $key => $val) {
     <?php foreach ($client_invoice->result() as $eachInvoice) { ?>
                             <tr>
                                 <td class="pdngTop"><?php echo date('d/m/y', strtotime($eachInvoice->cr_date)); ?></td>
-                                <td class="pdngTop"><a href="#"><?php echo $eachInvoice->invoice_number; ?></a></td>
+                                <td class="pdngTop"><a href="#" onclick="return view_invoice('<?php echo $eachInvoice->invoice_number; ?>')"><?php echo $eachInvoice->invoice_number; ?></a></td>
                                 <td class="pdngTop"> <?php echo $eachInvoice->amount; ?> USD</td>
                     <!--            <td class="pdngTop">$100</td>-->
                                 <td class="pdngTop"><?php echo $eachInvoice->ProfessionalFirstname . " " . $eachInvoice->ProfessionalLastname; ?> </td>
@@ -165,7 +183,7 @@ foreach ($fab_prof as $key => $val) {
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
-    <div class="Total-Div-Box">
+  <!--  <div class="Total-Div-Box">
         <div class="box-head2">
             <h1>My OD Consultants </h1>
             <div class="clear"></div>
@@ -247,8 +265,8 @@ foreach ($fab_prof as $key => $val) {
           
           </div>--> 
 
-        </div>
+        <!--</div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0" /></div>
-    </div>
+    </div>-->
 </section>
 <div class="clear"></div>

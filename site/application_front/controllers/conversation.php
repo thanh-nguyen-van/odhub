@@ -17,6 +17,7 @@ class conversation extends MY_Controller
 		$this->load->model('model_location');
         $this->load->model('model_upload');
 		$this->load->model('model_searchcustom');
+		$this->load->model('model_home');
         $this->load->library('form_validation');
         $this->initData();
 	}
@@ -26,6 +27,7 @@ class conversation extends MY_Controller
 		$this->middle_data['controller']	= 'conversation';
 		//$this->header_data['content_menu']	= $this->model_content->get_menu("StaticPageType <> 'left_menu'");
 		//$this->leftmenu_data['left_menu']	= $this->model_content->get_menu("= 'left_menu'");
+		$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
 	public function proposal_list()
 	{
@@ -50,8 +52,10 @@ class conversation extends MY_Controller
 	}
     
 
-public function project_conversation()
-	{
+public function project_conversation($projectId='')
+	{	if($projectId!='')
+		$project_id = $projectId;
+		else
 		$project_id = $this->input->get('projectid');
         $this->middle_data['project_id']	 	= $project_id;
 		
@@ -84,10 +88,19 @@ public function project_conversation()
 		$this->template->render();
 	}
 public function add_conversation(){
-		$text_message			= $this->input->post('text_message');	
-		$project_id 			= $this->input->post('project_id');
+		$text_message			= $this->input->post('text_message');
 		
+		$this->form_validation->set_rules('text_message', 'Message',    'required');	
+		if ($this->form_validation->run() == FALSE)
+                    {   
+                            $this->project_conversation($this->input->post('project_id'));
+                    }
+			else
+			{		
+					
+			$project_id 			= $this->input->post('project_id');
 		
+			
 			//--------- File Upload ------------------------
 			  $file_name = '';
 			  if(isset($_FILES['atchmnt1']['name']) && $_FILES['atchmnt1']['name'] <> "")
@@ -143,6 +156,7 @@ public function add_conversation(){
 				} */
 				$last_project_id = $this->model_conversation->insert_conversation_data($file_name);
 				redirect($this->config->base_url()."conversation/project_conversation?projectid=".$project_id, "location");
+	}
 }
 	
     

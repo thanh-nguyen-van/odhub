@@ -17,3 +17,76 @@
 	color: #18374a;
 	text-decoration: none;
 }
+
+.whitetable{
+		background:#FFFFFF;
+    border-radius: 10px;
+    margin-top: 15px;
+    padding: 10px;
+
+	}
+
+.content td a.back-btn{
+		background:#0facf7;
+		color:#fff ;
+		text-decoration:none ;
+		padding:10px 20px;
+		margin-top:20px;
+		border-radius:5px;
+		line-height:45px;
+	}
+
+.content td a.back-btn:hover{
+		background:#0d94d7;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

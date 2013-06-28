@@ -9,7 +9,8 @@ class Search extends MY_Controller
 		parent::__construct();
         $this->load->model('model_professional');
         $this->load->model('model_searchcustom');
-        $this->initData();
+		$this->load->model('model_home');
+	   $this->initData();
 	}
 	
     public function initData(){
@@ -23,7 +24,7 @@ class Search extends MY_Controller
         else{
             redirect('/login/signin/', 'refresh');
         } 
-          
+          	$this->footer_data['video'] 		= $this->model_home->get_foot_video();
         
     }
 
@@ -145,7 +146,7 @@ class Search extends MY_Controller
         
         $this->final_qry_str = $final_qry_str;
         
-        
+       // echo $final_qry_str;
         // DebugBreak();
         
         $data['state_details'] = $this->model_searchcustom->getFilterState($final_qry_str);
@@ -175,6 +176,8 @@ class Search extends MY_Controller
            $to = $post_data['to'];
            $content = $post_data['content'];
            
+		
+		 
            
            
             $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -202,6 +205,10 @@ class Search extends MY_Controller
         $this->load->view('search/send_message_prof',$data); 
     }
     
+	
+
+	
+	
     
     function search_result(){  
         

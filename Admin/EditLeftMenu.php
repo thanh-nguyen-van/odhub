@@ -9,7 +9,7 @@ $leftmenu_query="SELECT * FROM ".$table['staticpage']." WHERE StaticPageId=$Stat
 $leftmenu_result=mysql_query($leftmenu_query);
 ?>
 <script src="<?php echo $siteURL;?>public/ckeditor/ckeditor.js" type="application/javascript" ></script>
-<table width="100%">
+<table width="100%" class="whitetable">
 <tr>
 	<td colspan="5"><h3>Edit Left Menu</h3></td>
 </tr>

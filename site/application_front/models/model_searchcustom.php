@@ -131,7 +131,7 @@ class Model_searchcustom extends CI_Model
                 WHEN `ProfessionalCharges` < 500 THEN '400-500'
                 ELSE '1000+'
              END AS grp
-             FROM `".$this->table_name."` `lpt` where ".$final_qry_str." group by `grp`";
+             FROM `".$this->table_name."` `lpt` where ".$final_qry_str." AND `ProfessionalCharges` !='' group by `grp`";
          
          
         

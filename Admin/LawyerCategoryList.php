@@ -1,4 +1,5 @@
-<?include('include/adminheader.php');
+<? 
+include('include/adminheader.php');
 include('include/connect.php');
 $categoryid=$_REQUEST['categoryid'];
 if($categoryid!=0)
@@ -29,8 +30,8 @@ $i=1;
 					?>
 					<tr>
 						<td align="center"><?echo $i++;?>.</td>
-						<td><?echo $re['LawyerCategoryName'];?></td>
-						<td><a href="LawyerCategoryAddEdit.php?categoryid=<?echo $re['LawyerCategoryId'];?> " class="edit">Edit</a> | <a href="LawyerCategoryList.php?categoryid=<?echo $re['LawyerCategoryId'];?> " onclick="return confirm('Are you sure you  wanna to remove it?')" class="edit">Remove</td>
+						<td><? echo $re['LawyerCategoryName'];?></td>
+						<td><a href="LawyerCategoryAddEdit.php?categoryid=<? echo $re['LawyerCategoryId'];?> " class="edit">Edit</a> | <a href="LawyerCategoryList.php?categoryid=<? echo $re['LawyerCategoryId'];?> " onclick="return confirm('Are you sure you  wanna to remove it?')" class="edit">Remove</td>
 					</tr>
 					<?
 				}
@@ -46,5 +47,5 @@ $i=1;
 			?>
 	</table>
 
-<?mysql_close($connect);?>
-<?include('include/adminfooter.php');?>
+<? mysql_close($connect);?>
+<? include('include/adminfooter.php');?>

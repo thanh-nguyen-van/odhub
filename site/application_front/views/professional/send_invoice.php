@@ -38,6 +38,20 @@
 	ajaxRequest.open("GET", "<?php echo base_url()?>professional/refer_user/" + queryString, true);
 	ajaxRequest.send(null); 
     }
+	
+	$(document).ready(function(){
+	$('#on_change').change(function(){
+	if($('#on_change').val()!=''){
+		var project_id = $('#project_id').val();
+		var project_price = $('#project_price').val();
+			$('#price').html("Price : "+project_price);
+			var html_content = '<span class="send-btn"><a href="<?php echo base_url()?>professional/send_invoice?projectid='+project_id+'">Send Invoice</a>';
+			$('#send_invoice').html(html_content);
+		}
+		});
+	});
+	
+
        
 </script>
 <div class="clear"></div>
@@ -46,11 +60,12 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>project/">Projects</a></li>
-            <li><a href="#">Realistic Previews</a></li>
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
+           <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+		
+      			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>			
+            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">
@@ -102,68 +117,26 @@
         </div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png" alt="" border="0"></div>
     </div>
-
-    <div class="Total-Div-Box">
-        <div class="box-head1">
-            <h1>Invoice</h1>
-            <div class="clear"></div>
-            
-        </div>
     
-        <div class="invoice-table">
-            	<table>
-                <thead>
-                	<tr>
-                    	<td><span class="bold">Bill To</span> :   <?php echo $project_details['ClientFirstname']." ".$project_details['ClientLastname'];?></td>
-                    </tr>
-                </thead>
-                	
-                </table>
-                
-                <table>
-                <thead>
-                	<tr>
-                    	<td>Project Name </td>
-                        <td>Date </td>
-                        <td>Price</td>
-                        <td>Client Name </td>
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-                    	<td width="25%"><?php echo $project_details['project_name'];?></td>
-                        <td width="25%"><?php echo $project_details['aword_date'];?></td>
-                        <td width="25%"><?php echo $project_details['price'];?></td>
-                        <td width="25%"><?php echo $project_details['ClientFirstname']." ".$project_details['ClientLastname'];?></td>
-                    </tr>
-                    
-                    <table class="second-table">
-                     <tr>
-                    	<td width="25%">&nbsp;</td>
-                        <td width="25%">&nbsp;</td>
-                        <td width="25%">Total</td>
-                        <td width="25%">  <? echo $project_details['price']; ?></td>
-                    </tr>
-                    </table>
-                    
-                    
-                    
-                 </tbody>
-                </table>
-				<div class="centeralign">
-				
-				<form action="" method="post">
-				<input type="hidden" name="send_and_insert" value="send_and_insert">
-				<input type="hidden" name="project_id" value="<? echo $project_details['project_id'] ; ?>">
-				<input type="hidden" name="date" value="<? echo $project_details['aword_date'] ; ?>">
-				<input type="hidden" name="ClientId" value="<? echo $project_details['ClientId']; ?>">
-				<input type="hidden" name="amount" value="<? echo $project_details['price']; ?>">
-				<input type="hidden" name="proffessionalId" value="<? echo $project_details['proffetional_id']; ?>">
-				<span class="send-btn"><input type="submit" class="sendbutton" value="Send Invoice" /></span>
-				</form>
-            </div></div>
-            <div class="clear"></div>
-        
+    <div class="listingDiv">
+
+   <div class="select-name">Select the project: </div>
+   <div class="catagorie-area">
+   <select class="select-catagorie" id="on_change"> 
+   <option value="">Select the project</option>
+   <?php for($i=0;$i<count($awarded_projects);$i++){ ?>
+	<option value="<?php echo $awarded_projects[$i]['project_id']; ?>"><?php echo $awarded_projects[$i]['project_name']; ?></option>
+	<input type="hidden" name="project_id" id="project_id" value="<?php echo $awarded_projects[$i]['project_id']; ?>" />
+    <input type="hidden" name="project_price" id="project_price" value="<?php echo $awarded_projects[$i]['price']; ?>" />
+	<?php } ?>
+  </select>
+  </div> 
+   
+	 <div id="price" class="price-area"></div>
+     <div class="clear"></div>
+     
+     <div class="centeraligne" id="send_invoice"></div>
+	</div> 
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
     </div>
 

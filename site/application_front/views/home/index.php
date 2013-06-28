@@ -11,38 +11,55 @@
 </div>
 </header>
 <section class="container">
-  <div class="parts">
-        <div class="lft-img"><img src="<?php echo css_images_js_base_url();?>images/img1.jpg" ></div>
+
+<?php 
+				$num=0;	
+				for($i=0;$i<count($home);$i++)
+				{
+					$z=$num++;
+					if(($z%2) == 0)
+					{
+					
+					?>
+               
+               
+               
+       <div class="parts">
+      <div class="lft-img"><img src="<?php echo css_images_js_base_url();?>images/<?php  echo $home[$i]['image_path'] ?>" ></div>
         <div class="rit-txt">
-        <h1>The Referral Network</h1>
-        <p>Creating a community of clients and Organizational Development Professionals that allows everyone to find the right fit for their needs</p>
+        <h1><?php  echo $home[$i]['title'] ?></h1>
+        <p><?php  echo $home[$i]['content'] ?></p>
         </div>
         <div class="clear"></div>
   </div>
-  <div class="parts">
+		
+<?php
+					}
+					else
+					{
+						?>
+                      
+                      
+                      <div class="parts">
         <div class="lft-txt">
-        <h1>Manage Your OD</h1>
-        <p>Utilize OD Hub to manage connections and payments</p>
+       <h1><?php  echo $home[$i]['title'] ?></h1>
+        <p><?php  echo $home[$i]['content'] ?></p>
         </div>
-        <div class="rht-img" align="right"><img src="<?php echo css_images_js_base_url();?>images/img2.jpg" border="0"></div>
-        <div class="clear"></div>
-  </div> 
-  <div class="parts">
-        <div class="lft-img"><img src="<?php echo css_images_js_base_url();?>images/img3.jpg" border="0"></div>
-        <div class="rit-txt">
-        <h1>Post OD Projects </h1>
-        <p>Creating a community of clients and Organizational Development Professionals that allows everyone to find the right fit for their needs</p>
-        </div>
+      <div class="rht-img" align="right"><img src="<?php echo css_images_js_base_url();?>images/<?php  echo $home[$i]['image_path'] ?>" border="0"></div>
         <div class="clear"></div>
   </div>
-  <div class="parts">
-        <div class="lft-txt">
-        <h1>Pay It Forward</h1>
-        <p>OD Hub supports the development of those that cannot afford development via donating 15% of profits.</p>
-        </div>
-        <div class="rht-img" align="right"><img src="<?php echo css_images_js_base_url();?>images/img4.jpg" alt=""></div>
-        <div class="clear"></div>
-  </div>    
+                        
+                        
+                        <?php
+					}
+					
+}
+?>
+
+  
+  
+  
+      
 </section>
 <section class="line-brk">
 	<div class="container">

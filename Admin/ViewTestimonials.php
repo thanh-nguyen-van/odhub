@@ -16,6 +16,11 @@ $i=1;
 <h2>Testimonials List</h2>
 <div class="wht-bg">
 <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="td-bor td-bor12">
+
+<tr>
+	<td colspan="5"> <font color="#FF0000"> <?php if((isset($_SESSION['T_msg']))) { echo $_SESSION['T_msg']; unset($_SESSION['T_msg']); } ?></font></td>
+</tr>
+
 <tr>
 	<td colspan="5"></td>
 </tr>
@@ -37,7 +42,7 @@ while($testimonials=mysql_fetch_array($testimonials_result))
         <td align="left" valign="middle"><? echo substr($testimonials['content'],0,100)."..."?></td>
         
 		<td align="left" valign="middle">
-        <img src="../Upload/testimonials/thumb/<? echo $testimonials['image_path'];?>"  />
+        <img src="http://projects.arcinfotec.com/odhub/odhub/upload/testimonials/thumb/<? echo $testimonials['image_path'];?>"  />
         </td>
         
 		<td align="left" valign="middle">

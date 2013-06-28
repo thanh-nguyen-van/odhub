@@ -6,11 +6,12 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">Projects</a></li>
-<!--            <li><a href="#">Realistic Previews</a></li>-->
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>professional/invoice">Create Invoices</a></li>
+			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>			
+            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
   <div class="Total-Div-Box">
@@ -37,7 +38,7 @@
             </div>
             <div class="editSection">
                 <div class="editSec">
-                    <h1><a href="<?php echo site_url('professional/edit_profile'); ?>">Edit Profile</a></h1>
+                    <h1><a href="<?php echo site_url('professional/view_profile'); ?>">View Profile</a></h1>
 
                     <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
@@ -59,9 +60,20 @@
                 <div class="company-im chng_img">
                 <div class="hoverstyle">
                 	
-                <img src="<?php echo site_url('public/images/comp-im.jpg'); ?>"  alt="pen" />
-                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" /></div>
-                
+                <img src="<?php
+                if ($prof_data['company_logo']) {
+                    echo file_upload_base_url() . 'userimages/' . $prof_data['company_logo'];
+                } else {
+                    echo css_images_js_base_url() . 'images/comp-im.jpg';
+                }
+                ?>"  alt="Company Logo" />
+                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('company_logo').click();"/></div>
+				
+                <div style="display:none;">
+                  <form name="company_logo_up" id="company_logo_up" action="<?php echo site_url('professional/edit_profile_save/company_logo_up');?>" method="post" enctype="multipart/form-data">
+                      <input type="file" name="company_logo" id="company_logo" onchange="document.getElementById('company_logo_up').submit();">
+                </form>
+              </div>
                 </div>
                 
                 </div>
@@ -82,7 +94,7 @@
             	  <ul class="TabbedPanelsTabGroup">
             	    <li class="TabbedPanelsTab" tabindex="0">General Info</li>
             	    <li class="TabbedPanelsTab" tabindex="0">Skills & Experience</li>                   
-                    <li class="TabbedPanelsTab" tabindex="0">Contacts</li>
+                    <li class="TabbedPanelsTab" tabindex="0">email</li>
                     <!--<li class="TabbedPanelsTab" tabindex="0">More</li>-->
           	    </ul>
                       
@@ -144,22 +156,12 @@
                         <div class="edit-form">
                         	<div class="edit-name">Country</div>
                                 <div class="edit-box">
-                                    <!--<input type="radio" class="radio-field" /> Male <input type="radio" class="radio-field" value="<?php ?>" /> Female-->
-                                    
                                   <select class="select-field" name="ProfessionalCountry" id="ProfessionalCountry">                  
-                                          <?php
-				  for($i=0;$i<count($country_data1);$i++){
-				  ?>
-                 
+                                  <?php for($i=0;$i<count($country_data1);$i++){ ?>
                                       <option value="<?php echo $country_data1[$i]->FIPS104?>" <?php if($prof_data['ProfessionalCountry']==$country_data1[$i]->FIPS104){ echo 'selected="selected"';}?>><?php echo $country_data1[$i]->Country;?></option>
-                  
-                  <?php
-				  }
-                                 
-				  ?>   
-                         </select>
-                        </div>
-                            
+                                    <?php } ?>   
+								</select>
+							</div>
                         </div>
                         
                        
@@ -173,6 +175,7 @@
                         </div>
                       </form>  
                     </div>
+					
             	    <div class="TabbedPanelsContent">
                         <form name="skill_expertise" id="skill_expertise" action="<?php echo site_url('professional/edit_profile_save/skill_expertise');?>" method="post" enctype="multipart/form-data">                     
                        <div class="edit-form">
@@ -202,6 +205,32 @@
                                 <div class="edit-box">
                                      <input type="text"name="ProfessionalSpecialization" id="ProfessionalSpecialization" class="input-field" value="<?php echo $prof_data['ProfessionalSpecialization'];?>" >
                                 </div>
+                            
+                        </div>
+                         <div class="edit-form">
+                        	<div class="edit-name">Skills</div>
+                                <div class="edit-box">
+                                    <? 
+									$professional_selected_skill = array();
+									foreach($professional_skill_deatails as $key=>$val){
+										array_push($professional_selected_skill,$val['skill_id']);
+										
+										
+									}
+									
+									
+									for($i=0;$i<count($skill_set);$i++){ 
+										
+									?>
+                                    	
+                                    <input type="checkbox" name="skills[]" value="<?=$skill_set[$i]['pr_skill_id']?>"
+                                     <? if(in_array($skill_set[$i]['pr_skill_id'],$professional_selected_skill)){?>
+                                      checked="checked"
+                                       <?  } ?>
+                                     
+                                     ><?=$skill_set[$i]['skill_name']?><br>
+									<?  } ?>
+                                    </div>
                             
                         </div>
                         <div class="edit-form">
@@ -289,6 +318,7 @@
                             
                         </div>
                     </div>-->
+					</div>
           	    </div>
           	  </div>
             </div>

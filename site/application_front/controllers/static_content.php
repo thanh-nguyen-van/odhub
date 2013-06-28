@@ -7,12 +7,14 @@ class Static_content extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('model_content');
+		$this->load->model('model_home');
         $this->initData();
 	}
 	private function initData()
 	{
 		$this->middle_data['controller']	= 'static_content';
 		$this->header_data['content_menu']	= $this->model_content->get_menu("StaticPageType <> 'left_menu'");
+			$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
         
 	public function index()

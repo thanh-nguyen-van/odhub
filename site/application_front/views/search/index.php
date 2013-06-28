@@ -3,7 +3,13 @@
 
 
 <div class="Total-Div-Box">
-
+<nav class="clearfix">
+        <ul class="clearfix">
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">Account</a></li>
+            <li class="last"><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
+        </ul>
+        <a href="#" id="pull">Menu</a> </nav>
     <div class="box-head3">
         <h1>MEET OUR PROFESSIONALS
         
@@ -115,7 +121,7 @@ function trigger_fav(professional_id,obj){
 </div>
 
 
-<div class="drop-shadow"><img src="images/drop-shadow.png" alt="" border="0"></div>
+<div class="drop-shadow"><img src="<?=css_images_js_base_url()?>images/drop-shadow.png" alt="" border="0"></div>
 </div>
 
 

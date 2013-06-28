@@ -53,20 +53,16 @@ $insert_result=mysql_query($insert_query);
 <?
 if($insert_result)
 {
-	?>
-	<tr>
-		<td>Testimonial successfully added.</td>
-	</tr>
-	<?
+	
+	$_SESSION['T_msg'] = "Testimonial successfully added";	
+	
 }
 else
 {
-	?>
-	<tr>
-		<td>Testimonial is not added.Try Again</td>
-	</tr>
-	<?
+	$_SESSION['T_msg'] = "Testimonial is not added.Try Again";
+	
 }
+
 ?>
 </table>
 </div>

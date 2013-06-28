@@ -29,7 +29,7 @@ else
 }
 $config['From_Mail'] = 'admin@odhub.com';
 $config['From_Name'] = 'OD hub team';
-$config['UPLOAD_PATH'] = $_SERVER['DOCUMENT_ROOT']."/odhub/Upload/";
+$config['UPLOAD_PATH'] = $_SERVER['DOCUMENT_ROOT']."/odhub/upload/";
 $config['UPLOAD_URL']="http://" .$_SERVER['HTTP_HOST']."/odhub/upload/";
 $config['RESIZEDWIDTH']="988";
 $config['RESIZEDHEIGHT']="415";

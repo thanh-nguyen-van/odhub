@@ -13,7 +13,7 @@ class Project extends MY_Controller
         $this->load->model('model_all');
         $this->load->model('model_proposal');  
         $this->load->model('model_professional');  
-        
+         $this->load->model('model_home');
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -38,6 +38,7 @@ class Project extends MY_Controller
        } 
         
 		$this->middle_data['controller'] = 'project';
+		$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
 	    
 	function index()
@@ -149,6 +150,36 @@ class Project extends MY_Controller
         $this->load->view('common/foot',			 $this->footer_data);
 	}
     
+    public function share(){
+        //DebugBreak();
+      
+	   
+	     
+       $project_id = $this->input->get('ProjectId'); 
+       $post_data = $this->input->post();
+       
+       if(isset($post_data['send_message'])){
+           $subject = $post_data['subject'];
+           $to = $post_data['to'];
+           $content = $post_data['content']."<br/> Here is the URL for Project:-".base_url('project/details?projectid=').$project_id; 
+           $url = $post_data['url'];
+			
+		
+			
+		   $headers  = 'MIME-Version: 1.0' . "\r\n";
+           $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            // Additional headers
+            $headers .= 'To: '.$to . "\r\n";
+            $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
+            
+			@mail($to, $subject, $content, $headers);
+			
+            $this->middle_data['mail_send'] = '1';
+       }
+	   $this->load->view('project/send_message_prof', $this->middle_data);
+		
+    }
     
     public function getSkill($professional_id){
         
@@ -223,7 +254,11 @@ class Project extends MY_Controller
         $this->middle_data['project_skills_data']       = $this->model_project->get_project_skills_data();
         $this->middle_data['state_data']        		= $this->model_project->getAllState();
 		$this->middle_data['projecttype']				= $this->model_project->getProjectType();
-		
+		$this->middle_data['minimum_amount']				= $this->model_project->checkMinimumProjectAmount();
+		if(isset($_SESSION['less_amount'])){
+		$this->middle_data['less_minimum_amount_msg'] = $_SESSION['less_amount'];
+		unset($_SESSION['less_amount']);
+		}
 		$this->middle_data['project_details']	= $this->model_project->get_project_data($this->input->get('projectid'));
 		if($this->middle_data['project_details']){
 			$project_skills						= $this->model_project->get_project_skills($this->input->get('projectid'));
@@ -252,7 +287,7 @@ class Project extends MY_Controller
 	
 	public function post_project_submit()
 	{
-		//echo ($_FILES['atchmnt']['name']); die();
+
 		$this->request_data			= $this->input->post();		
 		$this->request_skills_data	= $this->input->post('skills');
 		
@@ -272,6 +307,15 @@ class Project extends MY_Controller
 		}
 		else
 		{
+			$minimum_amount = $this->model_project->checkMinimumProjectAmount();
+			if(($this->input->post('start_price1')!='') && ($this->input->post('start_price1') < $minimum_amount['minimum_project_amount'])){
+			$_SESSION['less_amount'] = "Please Give more than or equal to minimum price for project"; 
+			$this->post_project();
+			}elseif(($this->input->post('start_price2')!='') && ($this->input->post('start_price2') < $minimum_amount['minimum_project_amount_hourly'])){
+			$_SESSION['less_amount'] = "Please Give more than or equal to minimum price for project"; 
+			$this->post_project();
+			}else{
+			
 			//--------- File Upload ------------------------
 			  $file_name = '';
 			  if(isset($_FILES['atchmnt']['name']) && $_FILES['atchmnt']['name'] <> "")
@@ -313,6 +357,7 @@ class Project extends MY_Controller
 		//	$this->template->write_view('footer',  'common/footer',			 $this->footer_data);
 		//	$this->template->render();
 		}
+		}
 	}
 	
 	public function post_project_2()
@@ -331,7 +376,7 @@ class Project extends MY_Controller
 	public function post_project_activate()
 	{		
 		$this->request_data = $this->input->post();
-		$last_project_id	= $this->model_project->activate_project_data();
+		$this->middle_data['last_project_id']	= $this->model_project->activate_project_data();
 			
 			
 		$this->template->write_view('header',  'common/header',			 	 $this->header_data);

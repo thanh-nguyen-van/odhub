@@ -1,7 +1,16 @@
 <?
 include('include/connect.php');
 
+if(isset($_REQUEST['categoryid']))
+
+{
 $categoryid=$_REQUEST['categoryid'];
+}
+else
+{
+	$categoryid="";
+}
+
 $LawyerCategoryName=$_REQUEST['LawyerCategoryName'];
 $msg="";
 
@@ -10,12 +19,15 @@ if(trim($LawyerCategoryName==""))
 	$category_label="<font color=red>Please check your entry</font>";
 	$set_for_correction=true;
 }
-else {
-	if($categoryid=="") {
+else 
+  {
+	if($categoryid=="") 
+	{
 		$select_query="select * from ".$table['lawyercategory']." where LawyerCategoryName='" .$LawyerCategoryName. "'";
 		$select_result=mysql_query($select_query);
+		
 		if($select_result && mysql_num_rows($select_result)>0) {
-			$category_label="<font color=red>This Lawyer Category already exists.</font>";
+			$category_label="<font color=red> This Lawyer Category already exists.</font>";
 			$set_for_correction=true;
 		}
 		else {
@@ -25,7 +37,10 @@ else {
 				$msg="<font color=red>Could not create Lawyer Category.</font>";
 			}
 			else {
+				
 				$msg="Lawyer Category added successfully.";
+					$set_for_correction=false;
+			
 			}
 		}
 	}
@@ -43,7 +58,8 @@ else {
 				$msg="<font color=red>Could not update Lawyer Category.</font>";
 			}
 			else {
-				$msg="Lawyer Category updated successfully.";
+				$msg="&nbsp;"."Lawyer Category updated successfully.";
+				$set_for_correction=false;
 			}
 		}
 	}
@@ -57,5 +73,6 @@ if($set_for_correction=="true")
 else
 {
 	include("LawyerCategoryAddEditUpdate.php");
+	
 }
 ?>

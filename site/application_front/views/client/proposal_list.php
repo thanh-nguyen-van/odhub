@@ -36,14 +36,16 @@ return false;
             </tr>
           </thead>
           <tbody>
-          	<?php foreach($proposals_data as $each_proposal){ ?>
+          	<?php
+			
+			foreach($proposals_data as $each_proposal){ ?>
             <tr>
               <form name="awardform" id="awardform<?=$each_proposal->proposal_id?>" action="<?=$award_submit_link?>" method="post">
               <input type="hidden" name="professionalid" id="professionalid" value="<?=$each_proposal->ProfessionalId?>" />
               <input type="hidden" name="proposalid" id="proposalid" value="<?=$each_proposal->proposal_id?>" />
               <input type="hidden" name="projectid" id="projectid" value="<?=$project_id?>" />
               <td class="bold3"><p><?=$each_proposal->fullname?> (<?=$each_proposal->StateName?>)</p></td>
-              <td><p> Microsoft Access Administration, MySQL Administration, PHP</p></td>
+              <td><p><?=$professional_skills?></p></td>
               <td><p><?=$each_proposal->proposal_description?></p></td>
               <td align="center"><p>
                   <?php if($each_proposal->attachment!=''){?>

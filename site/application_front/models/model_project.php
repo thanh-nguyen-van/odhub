@@ -201,6 +201,16 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
       $data_result = $result->result(); 
       return($data_result);
   }
+  
+  
+  
+   public function getAllServs(){
+      $sql_get_servs = "select * from `im_service_list`";
+      $result = $this->db->query($sql_get_servs);
+      $data_result = $result->result(); 
+      return($data_result);
+  }
+  
   public function getAllCountry(){
       $sql_get_state = "select * from `lm_country_tbl`";
       $result = $this->db->query($sql_get_state);
@@ -226,6 +236,12 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
             $this->db->where("project_id",$project_id);
             $this->db->join("lm_professionaldetail_tbl","project_aword_map.proffetional_id = lm_professionaldetail_tbl.ProfessionalId","left");
             return $this->db->get();
+        } 
+		
+	public function checkMinimumProjectAmount(){
+            $this->db->select("odhub_payment_setting.minimum_project_amount,odhub_payment_setting.minimum_project_amount_hourly");    
+            $this->db->from("odhub_payment_setting"); 
+           return $this->db->get()->row_array();
         }
     
 }

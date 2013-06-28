@@ -8,7 +8,12 @@
   });
 </script>
 
-
+<script language="javascript">
+    function share(ProfessionalId) {
+        window.open("<?php echo $this->config->base_url();?>project/share/?ProfessionalId=0", 'sendmessage', 'height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');
+        return false;
+    }
+</script>
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
@@ -26,7 +31,7 @@
   <div class="Total-Div-Box-pro">
   
     <h1><?php /* --if condition added by manish--*/ if(isset($project_data[0]->project_name)){ echo $project_data[0]->project_name; } ?></h1>
-    <div class="share"><a href="mailto:emailaddress">Share</a></div>
+    <div class="share"><a onclick="return share();">Share</a></div>
     <aside class="leftCol-pro">
     
     
