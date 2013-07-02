@@ -16,6 +16,8 @@ class Professional extends MY_Controller {
         $this->load->model('model_project');
 		$this->load->helper('download');
 		$this->load->model('model_home');
+		$this->load->model('model_message');
+		$this->load->model('model_client');
 		
         $this->initData();
     }
@@ -86,6 +88,9 @@ class Professional extends MY_Controller {
 		$this->middle_data['average_review'] = $temp_review/count($review_details);
 		
 		$this->middle_data['invoice_details'] = $this->model_professional->getProfessionalInvoices($_SESSION[USER_SESSION_ID]);
+		
+		$this->middle_data['number_of_unread_message']= $this->model_message->getMessageSet($_SESSION[USER_SESSION_ID],'unread','professional');
+		
 	
         $this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/professional_home', $this->middle_data);
@@ -164,7 +169,7 @@ class Professional extends MY_Controller {
             $this->model_professional->SaveInvoiceData($request_data);
         }
         $this->template->write_view('header', 'common/header', $this->header_data);
-        $this->template->write_view('content', 'professional/final_send_invoice.php', $this->middle_data);
+        $this->template->write_view('content', 'professional/final_send_invoice', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
         $this->template->render();
     }
@@ -407,7 +412,29 @@ class Professional extends MY_Controller {
         $this->template->render();
 		*/
 		}
+		public function message(){
+        $this->model_message->UpdateMessageView($_SESSION[USER_SESSION_ID]);
+		$this->middle_data['message_data_set']= $this->model_message->getMessageSet($_SESSION[USER_SESSION_ID],'','professional');
+			
+			$this->load->view('common/head',		 	$this->header_data);
+			$this->load->view('common/header',			$this->header_data);
+			$this->load->view('professional/message', $this->middle_data);
+			$this->load->view('common/footer',		 	$this->footer_data);
+			$this->load->view('common/foot',		 	$this->footer_data);
+		
+		
+      		}
 	public function invoice(){
+        //DebugBreak();
+        
+        
+        $post_data = $this->input->post();
+        $client_id = "all";                      
+        if(isset($post_data['client_info'])){
+            $client_id = $post_data['client_info'];
+           
+        }
+        
 		 $this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
         $project_id = $this->input->get('projectid');
         	$prof_data = $this->middle_data['prof_data'];
@@ -415,8 +442,11 @@ class Professional extends MY_Controller {
         $this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
 		
 		
+        //DebugBreak();
 				
-		$this->middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID])->result_array();
+        $this->middle_data['awarded_projects'] = $this->model_professional->getMyAwardedProjects($_SESSION[USER_SESSION_ID],$client_id)->result_array();
+		$this->middle_data['awarded_projects_client'] = $this->model_professional->getMyAwardedProjectsClient($_SESSION[USER_SESSION_ID])->result_array();
+        $this->middle_data['client_id_sel'] = $client_id;
 		
         $this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/send_invoice', $this->middle_data);
@@ -458,6 +488,7 @@ class Professional extends MY_Controller {
 		$this->load->view('professional/show_invoice', $this->middle_data); 
 	  
     }
+	
     
     
     public function popUpEmail(){
@@ -474,6 +505,49 @@ class Professional extends MY_Controller {
 		echo true;
 		exit;
     }
+	
+	public function sendmessage(){
+		$this->load->helper('url');
+		$client_id = $this->uri->segment(3);
+        $post_data = $this->input->post();
+	   
+       if(isset($post_data['send_message'])){
+	   
+	   //id, sender_id, reciever_id, sender_type, date, status, reciever, subject, message
+	   $message_details = array('subject' => $post_data['subject'],
+								'message' => $post_data['content'],		   
+								'reciever_id' => $post_data['Client_id'],
+								'reciever_type' => 'client',
+								'sender_id' => $_SESSION['user_session_id'],
+								'sender_type' => 'professional',
+								'date' => date("Y-m-d H:i:s")
+							);
+			
+			
+			
+			
+			$to  = $post_data['to'];
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            //Additional headers
+            $headers .= 'To: '.$to . "\r\n";
+            $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
+            $subject = "New Message From Professional";
+			$content = "Sir,<br/> You have a new message from Professional .Please login to OD Hub to view message.";
+
+           // Mail it
+           @mail($to, $subject, $content, $headers);
+           if($this->model_message->SavemessageDetails($message_details)) 
+            $data['mail_send'] = '1';
+           
+       }
+	   
+        
+       $data['client_details'] = $this->model_client->get_client_data($client_id);
+       $this->load->view('professional/send_message_client',$data); 
+	   }
+       
 
 }
 

@@ -243,6 +243,13 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
             $this->db->from("odhub_payment_setting"); 
            return $this->db->get()->row_array();
         }
+		
+		public function checkProjectAward($projectId){
+            $this->db->select("*");    
+            $this->db->from("project_aword_map");
+			$this->db->where('project_id',$projectId);
+           return $this->db->get()->row_array();
+        }
     
 }
 

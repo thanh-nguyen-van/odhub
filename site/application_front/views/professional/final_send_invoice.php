@@ -46,11 +46,12 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">Account</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>project/">Projects</a></li>
-            <li><a href="#">Realistic Previews</a></li>
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">Forum</a></li>
+        
+			<li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+            <li ><a href="<?php echo $this->config->base_url(); ?>professional/invoice">Create Invoices</a></li>
+            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">

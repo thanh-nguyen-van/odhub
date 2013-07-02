@@ -43,7 +43,7 @@ class Project extends MY_Controller
 	    
 	function index()
 	{    
-
+		
         $this->request_data = $this->input->post();
         
         $this->load->view('common/head',$this->header_data);
@@ -80,7 +80,7 @@ class Project extends MY_Controller
        $final_qry_str = 1;
 	   $final_qry_str_2 = 1;
        $this->request_data = $this->input->post();
-        
+       
         //DebugBreak();
         
         
@@ -92,7 +92,7 @@ class Project extends MY_Controller
         $data['projecttypeInfo']	= $this->model_searchproject->getProjecttypeInfo($final_qry_str);
         $data['project_leadership_coaching']	= $this->model_searchproject->project_leadership_coaching($final_qry_str);
 		$data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
-        
+		$data['pr_cat_name'] = $this->input->post('pr_cat_name');
         
      
         $this->load->view('project/project_left',$data);  
@@ -102,19 +102,18 @@ class Project extends MY_Controller
 	{
 		$data = "";
          $this->request_data = $this->input->post();
-        
+         $pagination_value = $this->request_data['pagination'];
         //DebugBreak();
         
         
         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
         
         
-         $data_result = $this->model_searchproject->getProjectDetails_short($final_qry_str);
+         $data_result = $this->model_searchproject->getProjectDetails_short($final_qry_str,$pagination_value);
          $data['data_result'] = $data_result;
-        
+         $data['number_of_project'] = $this->model_searchproject->num_record;
+         $data['present_selection'] = $pagination_value;
          
-         
-    
         
         $this->load->view('project/project_content',$data);  
     }
@@ -381,6 +380,17 @@ class Project extends MY_Controller
 			
 		$this->template->write_view('header',  'common/header',			 	 $this->header_data);
 		$this->template->write_view('content', 'project/project_post_thank', $this->middle_data); 
+		$this->template->write_view('footer',  'common/footer',			 	 $this->footer_data);
+		$this->template->render();
+	}
+	public function proposal_submit()
+	{		
+
+		$this->middle_data['project_link']	= base_url('project/details/?projectid='.$this->input->get('projectid'));
+			
+			
+		$this->template->write_view('header',  'common/header',			 	 $this->header_data);
+		$this->template->write_view('content', 'professional/proposalthanks', $this->middle_data); 
 		$this->template->write_view('footer',  'common/footer',			 	 $this->footer_data);
 		$this->template->render();
 	}

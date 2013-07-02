@@ -76,7 +76,7 @@ class Model_login extends CI_Model
 	
 	
 	
-	public function insert_prof_data($img_file_name,$img_file_name2,$img_file_name3)
+	public function insert_prof_data($img_file_name,$img_file_name2,$img_file_name3,$activation_code)
 	{ 
         $username	= inputEscapeString($this->input->request('email'));
 		$email		= inputEscapeString($this->input->request('email'));
@@ -119,7 +119,8 @@ class Model_login extends CI_Model
                          'ProfessionalUsername'     => $username,
                          'p_user'                   => $p_user ,
                          'linkedin_url'             => $linkedin_url,
-						 'company_name'             => $company_name
+						 'company_name'             => $company_name,
+						 'ProfessionalActivationcode' => $activation_code
 					  );
                       
                       

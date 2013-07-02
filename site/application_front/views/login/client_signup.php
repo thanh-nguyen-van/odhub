@@ -20,7 +20,7 @@
             <form name="frmClientSignup" id="frmClientSignup" action="<?php echo $client_signup_submit_link ?>" method="post">
 
               <div>
-                <p class="p-txt">Email Adress</p>	 
+                <p class="p-txt">Email Address </p>	 
                 <div><input type="text" name="email" id="email" value="<?php echo set_value('email') ?>" class="input-r in-o" /><span>*</span><?php echo form_error('email'); if(isset($emailExistMsg))echo "<br>".$emailExistMsg;?></div>
                 
                 <p class="p-txt">Password</p>		 

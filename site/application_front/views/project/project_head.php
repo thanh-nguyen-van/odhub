@@ -16,9 +16,7 @@
           <div class="clear"></div>
           <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon5.png" width="16" height="20" alt="" border="0"></div>
           <div class="l-iconR"><?=$project_details[0]->job_type;?></div>
-          <div class="clear"></div>
-          <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon6.png" width="18" height="20" alt="" border="0"></div>
-          <div class="l-iconR"><?=$project_details[0]->w9_status;?></div>
+        
           <div class="clear"></div>
         </section>
         <div class="clear"></div>

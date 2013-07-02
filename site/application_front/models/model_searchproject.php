@@ -3,6 +3,7 @@
 class Model_searchproject extends CI_Model
 {
 	public $table_name = "";
+    public $num_record = 0;
     
 	function __construct()
 	{
@@ -59,14 +60,38 @@ class Model_searchproject extends CI_Model
     }
     
     
-    public function getProjectDetails_short($final_qry_str=1){
+    public function getProjectDetails_short($final_qry_str=1,$limit=0){
+        
+        $start = 0;
+        $number_of_record = 25;
+        
+        if($limit!=0){
+           $start = $number_of_record*$limit; 
+        }
+        
+        $limit_sql = " limit ".$start.",".$number_of_record;   
+        
+        //DebugBreak();
+        
+        $sql_numproject = "select `project_id`,`project_filename`,`project_name`,`job_type`,`project_description`,`pc`.`pr_cat_name` `project_category`,`lst`.`StateName`,
+                            `start_price`,`end_price`,concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `cl_name`,`skills`,`post_date`,
+                            `pt`.`project_type_txt` from `project_details` `pd` left join 
+                            `project_category` `pc` on `pd`.`project_category` = `pc`.`pr_cat_id` left join `lm_state_tbl` `lst` on 
+                            `pd`.`state` = `lst`.`StateId` left join `lm_clientdetail_tbl` `lct` on `pd`.`post_by` = `lct`.`ClientId`
+                            left join `project_type` `pt` on `pd`.`project_type_id` = `pt`.`project_type_id` where ".$final_qry_str;
+                            
+        $num_result = $this->db->query($sql_numproject);
+        
+        $this->num_record = $num_result->num_rows;
+        
         
          $sql_getproject = "select `project_id`,`project_filename`,`project_name`,`job_type`,`project_description`,`pc`.`pr_cat_name` `project_category`,`lst`.`StateName`,
                             `start_price`,`end_price`,concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `cl_name`,`skills`,`post_date`,
                             `pt`.`project_type_txt` from `project_details` `pd` left join 
                             `project_category` `pc` on `pd`.`project_category` = `pc`.`pr_cat_id` left join `lm_state_tbl` `lst` on 
                             `pd`.`state` = `lst`.`StateId` left join `lm_clientdetail_tbl` `lct` on `pd`.`post_by` = `lct`.`ClientId`
-                            left join `project_type` `pt` on `pd`.`project_type_id` = `pt`.`project_type_id` where ".$final_qry_str;
+                            left join `project_type` `pt` on `pd`.`project_type_id` = `pt`.`project_type_id` where ".$final_qry_str.$limit_sql;
+                            
         $result = $this->db->query($sql_getproject);
           
         $data_result = $result->result();  

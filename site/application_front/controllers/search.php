@@ -10,6 +10,7 @@ class Search extends MY_Controller
         $this->load->model('model_professional');
         $this->load->model('model_searchcustom');
 		$this->load->model('model_home');
+		$this->load->model('model_message');
 	   $this->initData();
 	}
 	
@@ -48,10 +49,10 @@ class Search extends MY_Controller
     function index_left(){ 
     
         $this->request_data = $this->input->post();
-        
+		$looking_for = $this->input->post('looking_for');
          
         
-        
+
 
         
         if($this->request_data != NULL){
@@ -148,12 +149,14 @@ class Search extends MY_Controller
         
        // echo $final_qry_str;
         // DebugBreak();
-        
+   
         $data['state_details'] = $this->model_searchcustom->getFilterState($final_qry_str);
         $data['lookingfor_details'] = $this->model_searchcustom->getFilterLookingfor($final_qry_str);
 		$data['type_details'] = $this->model_searchcustom->getFiltertype($final_qry_str);
+		
 		$data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus($final_qry_str);
         $data['coatchstyle_details'] = $this->model_searchcustom->getFiltercoatchstyle($final_qry_str);
+		
         $data['hourlyrate_details'] = $this->model_searchcustom->getFilterhourlyrate($final_qry_str);
         $data['contractval_details'] = $this->model_searchcustom->getFiltercontractval($final_qry_str);
         
@@ -170,27 +173,36 @@ class Search extends MY_Controller
         
        $get_arr = $this->input->get(); 
        $post_data = $this->input->post();
+	   
        
        if(isset($post_data['send_message'])){
-           $subject = $post_data['subject'];
-           $to = $post_data['to'];
-           $content = $post_data['content'];
-           
-		
-		 
-           
-           
+	   
+	   //id, sender_id, reciever_id, sender_type, date, status, reciever, subject, message
+	   $message_details = array('subject' => $post_data['subject'],
+								'message' => $post_data['content'],		   
+								'reciever_id' => $post_data['proffessional_id'],
+								'reciever_type' => 'professional',
+								'sender_id' => $_SESSION['user_session_id'],
+								'sender_type' => 'client',
+								'date' => date("Y-m-d H:i:s")
+							);
+			
+			
+			
+			
+			$to  = $post_data['to'];
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-            // Additional headers
+            //Additional headers
             $headers .= 'To: '.$to . "\r\n";
             $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
-            
+            $subject = "New Message From Client";
+			$content = "Sir,<br/> You have a new message from client .Please login to OD Hub to view message.";
 
-            // Mail it
-            @mail($to, $subject, $content, $headers);
-            
+           // Mail it
+           @mail($to, $subject, $content, $headers); 
+           if($this->model_message->SavemessageDetails($message_details)) 
             $data['mail_send'] = '1';
            
        }
@@ -215,9 +227,9 @@ class Search extends MY_Controller
         
         
         $this->request_data = $this->input->post();
-        
+         $pagination_value = $this->request_data['pagination'];   
          
-        
+         //DebugBreak();
         
 
         
@@ -318,9 +330,12 @@ class Search extends MY_Controller
         
         
         
-        $data_result = $this->model_professional->getAllProfessional($this->final_qry_str);
+        $data_result = $this->model_professional->getAllProfessional($this->final_qry_str,$pagination_value);
         $data['data_result'] = $data_result;
+        $data['number_of_project'] = $this->model_professional->num_record;
+        $data['present_selection'] = $pagination_value;
         
+        //print_r($data); die;
         $this->load->view('search/search_result',$data);  
     } 
     

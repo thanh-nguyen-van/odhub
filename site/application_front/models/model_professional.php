@@ -4,6 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Model_professional extends CI_Model {
+     public $num_record = 0;                                
 
     function __construct() {
         parent::__construct();
@@ -24,11 +25,27 @@ class Model_professional extends CI_Model {
         return $result;
     }
 
-    public function getAllProfessional($final_qry_str = 1) {
+    public function getAllProfessional($final_qry_str = 1,$limit=0) {
 
+        //DebugBreak();
+        
+        $start = 0;
+        $number_of_record = 25;
+        
+        if($limit!=0){
+           $start = $number_of_record*$limit; 
+        }
+        
+        $limit_sql = " limit ".$start.",".$number_of_record;  
+         
+        
         $_tablename = 'lm_professionaldetail_tbl';
+        
+        $sql_getAllProfessional_num = "select * from `" . $_tablename . "` `lpt` where " . $final_qry_str;
+        $result_num = $this->db->query($sql_getAllProfessional_num);
+        $this->num_record = $result_num->num_rows;
 
-        $sql_getAllProfessional = "select * from `" . $_tablename . "` `lpt` where " . $final_qry_str;
+        $sql_getAllProfessional = "select * from `" . $_tablename . "` `lpt` where " . $final_qry_str.$limit_sql;
         $result = $this->db->query($sql_getAllProfessional);
 
         $data_result = $result->result();
@@ -79,7 +96,26 @@ class Model_professional extends CI_Model {
         return $result;
     }
 
-    public function getMyAwardedProjects($professionalUserId) {
+    public function getMyAwardedProjects($professionalUserId,$client_id="all") {
+        $this->db->select("*");
+        $this->db->from("project_aword_map");
+        if($client_id!="all"){
+            $this->db->where(array("project_aword_map.proffetional_id" => $professionalUserId, "project_aword_map.ipn_track_id !=" => '',"lm_clientdetail_tbl.ClientId"=>$client_id));
+        }
+        else{
+            $this->db->where(array("project_aword_map.proffetional_id" => $professionalUserId, "project_aword_map.ipn_track_id !=" => ''));
+        }
+        
+        $this->db->join('project_details', 'project_details.project_id = project_aword_map.project_id', 'left');
+        $this->db->join('proposal', 'proposal.proposal_id = project_aword_map.proposal_id', 'left');
+        $this->db->join('lm_clientdetail_tbl', 'lm_clientdetail_tbl.ClientId = project_details.post_by', 'left');
+        $this->db->order_by('project_aword_map.aword_id', 'desc');
+        $result = $this->db->get();
+        //echo $this->db->last_query();
+        return $result;
+    }
+
+     public function getMyAwardedProjectsClient($professionalUserId) {
         $this->db->select("*");
         $this->db->from("project_aword_map");
         $this->db->where(array("project_aword_map.proffetional_id" => $professionalUserId, "project_aword_map.ipn_track_id !=" => ''));
@@ -91,7 +127,8 @@ class Model_professional extends CI_Model {
         //echo $this->db->last_query();
         return $result;
     }
-
+    
+    
     public function getMyReferals($professionalUserId) {
         // -------------Select current user referrel code ------------//
 

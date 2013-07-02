@@ -19,7 +19,7 @@ document.form1.submit();
         <li>Enter your proposal details</li>
         <li>Don't know pricing details yet? Ask for more info below and submit. [?]</li>
       </ul>
-      <form action="<?php echo $this->config->base_url();?>proposal/saveproposal/" method="post" name="form1" id="form1" enctype="multipart/form-data">
+      <form action="<?php echo $this->config->base_url();?>proposal/showproposal/" method="post" name="form1" id="form1" enctype="multipart/form-data">
       <input type="hidden" name="project_id" id="project_id">
         <div class="white-field">
           <textarea name="proposal_description" id="proposal_description" cols="" rows=""></textarea>

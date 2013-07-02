@@ -16,8 +16,8 @@
     ?>
     <form name="form1" id="form1" method="post" action="">
 
-    <input type="hidden" name="to" id="to" value="<?php echo $professional_details['ProfessionalEmail'];?>">
-    <input type="hidden" name="proffessional_id" id="proffessional_id" value="<?php echo $professional_details['ProfessionalId'];?>">
+    <input type="hidden" name="to" id="to" value="<?php echo $client_details['ClientEmail'];?>">
+    <input type="hidden" name="Client_id" id="Client_id" value="<?php echo $client_details['ClientId'];?>">
     
     <table border="0" cellpadding="0" cellspacing="4" width="100%" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; background:#f0f0f0; border: solid 1px #ccc; border-radius:3px;">
     	

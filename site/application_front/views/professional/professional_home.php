@@ -105,14 +105,19 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>professional/invoice">Create Invoices</a></li>
 			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>			
-            <li class="last"><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
+            <li><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
+            <li class="last"><a href="<?php echo $this->config->base_url('professional/message'); ?>" <? if($number_of_unread_message>0){ ?>style="color:red;" <?}?>>Inbox(<?=$number_of_unread_message?>)</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
+        <div class="clear"></div>
+                <div class="menu-bot-Btn"><a href="<?php echo $this->config->base_url(); ?>project/">EXPLORE POSTED PROJECTS</a></div>
+        <div class="clear"></div>
+
     <div class="Total-Div-Box">
         <div class="box-head">
             <h1>MY ACCOUNT (PROFESSIONAL) <span><a href="<?php echo $this->config->base_url(); ?>professional/review/">OD Hub Previews =  <?if(isset($average_review)) echo $average_review; else echo "0";?> </a></span> </h1>
@@ -168,8 +173,8 @@
                 }
                 ?>
 				" width="134" height="134" alt="" border="0"></a></div>
-                <div class="clear"> </div>
                 <div class="clear"></div>
+               
             </div>
             
             <div class="clear"></div>

@@ -4,7 +4,9 @@
 ?> 
 <aside class="leftCol-projects">
 
-
+<div class="block-btn">
+	<span><a href="<?=base_url('project/')?>">Reset</a></span>
+</div>
 <div class="selc-projects">
     <h1>category</h1>
 
@@ -33,7 +35,21 @@ foreach($category_details as $category){
 <?php
 }
 ?>
+<? if($pr_cat_name!=2){?>
+<h2>Coaching Type:</h2>
+<div class="totaBoxD-pro"><span>
+  <input name="coaching_type" id="pr_cat_name" type="radio"  value="inperson" onclick="submit_search_form();"/>
+</span>
+  <p>In person</p>
+  <span>
+  <input name="coaching_type" id="pr_cat_name" type="radio"  value="inphone" onclick="submit_search_form();"/>
+</span>
+  <p>Phone</p>
+<div class="clear"></div>
+</div>
 
+<? } ?> 
+<? if($pr_cat_name!=1){?>
 <h2>Skills:</h2>
 
 <?php
@@ -54,7 +70,8 @@ foreach($projecttypeInfo as $projecttype){
 }
 ?>
 <!-- Project Leader ship -->
-
+<? } ?>
+<? if($pr_cat_name!=2){?>
 <h2>Coaching Focus:</h2>
 
 <?php
@@ -74,14 +91,12 @@ foreach($project_leadership_coaching as $projecttype){
 <?php
 }
 ?>
-
+<? } ?>
 </div>
 
 
 <div class="clear"></div>
-<div class="block-btn">
-	<span><a href="<?=base_url('project/')?>">Reset</a></span>
-</div>
+
 </div>
 
 
@@ -143,7 +158,7 @@ foreach($project_leadership_coaching as $projecttype){
 
 </aside>
 
-
+<input type="button" name="go" id="go" value="Go" onclick="submit_search_form()" class="btnB"/>
 
 <aside class="pricingBox-Total">
 <h1>Location Preference</h1>
@@ -211,4 +226,4 @@ foreach($project_leadership_coaching as $projecttype){
 
 
 <div class="clear"></div>
-<input type="button" name="go" id="go" value="Go" onclick="submit_search_form()" class="btnB"/>
+

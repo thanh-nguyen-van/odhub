@@ -14,6 +14,7 @@ class Proposal extends MY_Controller
         $this->load->model('model_upload');     
         $this->load->model('model_home');
         $this->load->model('model_paypal');     
+        $this->load->model('model_professional');     
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -24,24 +25,11 @@ class Proposal extends MY_Controller
 		$this->middle_data['controller'] = 'project';
 			$this->footer_data['video'] 		= $this->model_home->get_foot_video();
 	}
-	
-    public function saveproposal(){
-
-       $this->request_data = $this->input->post(); 
-       
-       $data_arr = array()  ;
-       $data_arr['proposal_description'] = $this->request_data['proposal_description'];
-       $data_arr['price'] = $this->request_data['price'];
-       $data_arr['project_id'] = $this->request_data['project_id'];
-       
-       $date = $this->request_data['dalivery_date'];
-       $date_arr = explode('/',$date);
-       $date_final = $date_arr[2].'-'.$date_arr[1].'-'.$date_arr[0];
-       
-       
-       $data_arr['dalivery_date'] = $date_final;
-       $data_arr['proposed_by']	  = $_SESSION[USER_SESSION_ID];
-       //        file attachment upload
+	 public function showproposal(){
+	 //Array ( [project_id] => 1 [proposal_description] => dscdcsdc [price] => sdcdsc [dalivery_date] => 06/30/2013 )
+	 $this->middle_data['proposal_data'] = $this->input->post();
+	  
+	   //        file attachment upload
                     $file_name = '';
 			  if(isset($_FILES['proposal_attach']['name']) && $_FILES['proposal_attach']['name'] <> "")
 			  {
@@ -62,10 +50,36 @@ class Proposal extends MY_Controller
 				  }
 
                           }
+						  
+		// $this->load->view('common/header',            $this->header_data);
+      // $this->load->view('project/showproposal',    $this->middle_data);
+     // $this->load->view('common/footer',            $this->footer_data); 
+	  $this->template->write_view('header',  'common/header',            $this->header_data);
+        $this->template->write_view('content', 'project/showproposal',    $this->middle_data);
+        $this->template->write_view('footer',  'common/footer',            $this->footer_data); 
+         $this->template->render();
+	   
+	 }
+    public function saveproposal(){
+
+       $this->request_data = $this->input->post();
+       $data_arr = array()  ;
+       $data_arr['proposal_description'] = $this->request_data['proposal_description'];
+       $data_arr['price'] = $this->request_data['price'];
+       $data_arr['project_id'] = $this->request_data['project_id'];
+       
+       $date = $this->request_data['dalivery_date'];
+       $date_arr = explode('/',$date);
+       $date_final = $date_arr[2].'-'.$date_arr[1].'-'.$date_arr[0];
+       
+       
+       $data_arr['dalivery_date'] = $date_final;
+       $data_arr['proposed_by']	  = $_SESSION[USER_SESSION_ID];
+       
                                  
        $this->model_proposal->add_proposal($data_arr); 
        
-       redirect('project/details/?projectid='.$this->request_data['project_id'], 'refresh');
+       redirect('project/proposal_submit/?projectid='.$this->request_data['project_id'], 'refresh');
     }
 	
 	public function submit_award()
@@ -119,7 +133,26 @@ class Proposal extends MY_Controller
         $projectid = $this->input->request('projectid');
         $this->middle_data['projectid'] = $projectid;
         }
-        
+        //mail to professional
+		$professional_deatails = $this->model_professional->get_professional_data($this->input->request('professionalid'));
+		
+		$to  = $professional_deatails['ProfessionalUsername'] ; // note the comma
+		// subject
+		$subject = "Congrats, You've been awarded an OD Hub Project";
+
+		// message
+		$message =  $professional_deatails['ProfessionalFirstname'].",<br/>Congratulations! You've been awarded a new project on OD Hub. Your client is expecting you to contact them within two business days to get started. Click here to login for more details.  Let us know if we can be of assistance, The OD Hub Team";
+
+		// To send HTML mail, the Content-type header must be set
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+		// Additional headers
+		$headers .= 'To: '.$professional_deatails['ProfessionalFirstname'].' <'.$professional_deatails['ProfessionalUsername'].'>' . "\r\n";
+		$headers .= 'From: OD Hub webteam <ODHub@noreply.com>' . "\r\n";
+		
+		// Mail it
+		@mail($to, $subject, $message, $headers);
         
          
          

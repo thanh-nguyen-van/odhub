@@ -13,16 +13,22 @@
            
 			 <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
+            <li class="last"><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
 		
 
 			
-<!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
-            <li class="last"><a href="<?php echo $this->config->base_url();?>project/">  Find Projects  </a></li>
+<!--            <li class="last"><a href="#">Realistic Previews</a></li>
+            <li ><a href="<?php echo $this->config->base_url();?>project/">  Find Projects  </a></li>-->
         </ul>
         <a href="#" id="pull">Menu</a>
+        
+  
     </nav>
-
+    
+      
+         <div class="menu-bot-Btn"><a href="<?php echo $this->config->base_url();?>project/">EXPLORE POSTED PROJECTS</a></div>  
+         
+         <div class="clear"></div>
 
 <div class="Total-Div-Box-pro2">
 
@@ -127,7 +133,17 @@ foreach($data_result as $result){
 }
 
 ?>
-<!--<div style="text-align:center;font-size:12px;color:#F00; min-height:450px;">No Records Found</div>-->
+<div style="text-align:center;font-size:12px;color:#F00; min-height:450px;">
+<div class="total-right-pro-Div fullwidth">
+<section class="rightCol-R">
+<div class="box-head-proR">
+        <h1>No projects awarded.</h1>
+<div class="clear"></div>
+ 
+    </div></section>
+
+</div>
+</div>
  </div>
  
  

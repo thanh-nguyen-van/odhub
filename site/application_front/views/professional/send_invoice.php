@@ -42,14 +42,16 @@
 	$(document).ready(function(){
 	$('#on_change').change(function(){
 	if($('#on_change').val()!=''){
-		var project_id = $('#project_id').val();
-		var project_price = $('#project_price').val();
+		var project_id = $('#on_change').val();
+		var price_var = '#project_price' + project_id;
+		var project_price = $(price_var).val();
 			$('#price').html("Price : "+project_price);
 			var html_content = '<span class="send-btn"><a href="<?php echo base_url()?>professional/send_invoice?projectid='+project_id+'">Send Invoice</a>';
 			$('#send_invoice').html(html_content);
 		}
 		});
 	});
+	
 	
 
        
@@ -60,7 +62,7 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-           <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+           <li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
 		
@@ -119,18 +121,97 @@
     </div>
     
     <div class="listingDiv">
-
+	
+    <?php
+   //debugbreak();
+   
+   $arr_client_details = array();
+   for($i=0;$i<count($awarded_projects_client);$i++){
+		$client_name = $awarded_projects_client[$i]['ClientFirstname'].' '.$awarded_projects_client[$i]['ClientLastname'];
+		$client_id =    $awarded_projects_client[$i]['ClientId'];
+		$arr_client_details[$client_id] = $client_name;
+   }
+   
+   ?>
+   <script language="javascript">
+	function submit_clientinfo(){
+		//alert("test");
+		var client_id = $('#client_info').val();
+		$('#client_info').val(client_id);
+		document.invoice_filter.submit();
+	}
+	</script>
+	<form name="invoice_filter" id="invlice_filter" action="" method="post">
+    	<input type="hidden" name="client_id" id="client_id" value="all" />
+    
+    
+    
+    
+    <div class="select-name">Select the client: </div>
+   <div class="catagorie-area">
+      
+  
+   <select id="client_info" name="client_info" onchange="submit_clientinfo();"> 
+   <option value="all" <?php if($client_id_sel == 'all'){echo "selected";}?>>Select the client</option>
+   <?php foreach($arr_client_details as $key=>$val){ ?>
+	<option value="<?php echo $key; ?>" <?php if($client_id_sel == $key){echo "selected";}?>><?php echo $val; ?>
+	
+	</option>
+		
+	<?php } ?>
+	
+  </select>
+  
+  </div>
+    <div class="clear"></div>
    <div class="select-name">Select the project: </div>
    <div class="catagorie-area">
+      
+   
    <select class="select-catagorie" id="on_change"> 
    <option value="">Select the project</option>
-   <?php for($i=0;$i<count($awarded_projects);$i++){ ?>
-	<option value="<?php echo $awarded_projects[$i]['project_id']; ?>"><?php echo $awarded_projects[$i]['project_name']; ?></option>
-	<input type="hidden" name="project_id" id="project_id" value="<?php echo $awarded_projects[$i]['project_id']; ?>" />
-    <input type="hidden" name="project_price" id="project_price" value="<?php echo $awarded_projects[$i]['price']; ?>" />
+   <?php 
+   			$display_project = 0;
+   	for($i=0;$i<count($awarded_projects);$i++){ 
+   		$checkIfinvoiceSend = Professional::checkIfinvoiceSend($awarded_projects[$i]['project_id']);
+		if(empty($checkIfinvoiceSend)){
+			$display_project = 1;
+	?>	
+			<option value="<?php echo $awarded_projects[$i]['project_id']; ?>"><?php echo $awarded_projects[$i]['project_name']; ?></option>    	 
+	<?php		 
+		 }
+   ?>
+
+		
 	<?php } ?>
+	
   </select>
+  <div id="no_project_found" style="display:none">No Project Found to send Invoice</div>
+  
+   <?php 
+   	for($i=0;$i<count($awarded_projects);$i++){ 
+      $checkIfinvoiceSend = Professional::checkIfinvoiceSend($awarded_projects[$i]['project_id']);
+      if(empty($checkIfinvoiceSend)){
+   ?>
+	<input type="hidden" name="project_id" id="project_id" value="<?php echo $awarded_projects[$i]['project_id']; ?>">
+    <input type="hidden" name="project_price" id="project_price<?php echo $awarded_projects[$i]['project_id'];?>" value="<?php echo $awarded_projects[$i]['price']; ?>">
+	<?php
+	  }
+	}
+	?>
   </div> 
+   </form>
+   <?php
+
+   if($display_project == 0){
+	?>
+    <script language="javascript">
+	document.getElementById('on_change').style.display = "none";
+	document.getElementById('no_project_found').style.display = "block";
+    </script>   
+   <?php	   
+   }
+   ?>
    
 	 <div id="price" class="price-area"></div>
      <div class="clear"></div>

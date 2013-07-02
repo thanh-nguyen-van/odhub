@@ -63,6 +63,7 @@
                     <ul>
                         <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Your Public Profile </a></li>
                          <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
+                         <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/message" <?if($number_of_unread_message>0){?> style="color:red;"<?}?>>Inbox(<? echo $number_of_unread_message ?>) </a></li>
                     </ul>
                 </div>
                 <div class="clear"> </div>

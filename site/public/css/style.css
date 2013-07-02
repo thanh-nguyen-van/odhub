@@ -1956,7 +1956,7 @@ img {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
 	font-weight:normal;
-	width:45%;
+	width:60%;
 	float:right;
 }
 #tnt_pagination a:link, #tnt_pagination a:visited {
@@ -7867,6 +7867,66 @@ color: white;
 .right-Btn{ width:51.8%; float:left;  margin:10px 0px 15px 0; background:#2B89B7;padding:10px; border-radius:5px;border:1px solid #025D89; text-align:center;}
 .right-Btn a{ color:#fff;font-size:17px;text-decoration:none;}
 .right-Btn a:hover{color:#000;}
+
+
+
+.menu-bot-Btn{ width:22.2%; float:left; margin:0px 15px 15px 0; background:#2B89B7; padding:6px; border-radius:5px; border:1px solid #025D89;text-align:center;}
+.menu-bot-Btn a{ color:#fff; font-size:14px; text-decoration:none; }
+.menu-bot-Btn a:hover{color:#000;}
+
+
+
+.total-h-Div{ width:100%; margin:0 auto 30px auto;}
+.box_prop{ width:80%; margin:0 auto;}
+.box_prop h1{ font-size:25px; color:#06C; text-transform:capitalize; font-family: Helvetica,Arial,Tahoma,sans-serif; margin-bottom:15px; }
+
+.bottom_Box{ width:100%; background:#F4F6F5; padding:15px; border:1px solid #e1e1e1;}
+
+
+
+.tx-pr{ width:46%; padding:10px; float:left; border-radius:5px; background:#fff; border:1px solid #dedede; text-align:left; font-size:14px; margin-bottom:20px; }
+.tx-prR{ width:46%; padding:10px; float:right; border-radius:5px; background:#fff;border:1px solid #dedede; text-align:left; font-size:14px;margin-bottom:20px; }
+
+.button_classTotal{ float: right;
+    width: 208px;}
+.submitDiv{  float:left;}
+.submitDiv input[type="submit"]{ background:#025D89;width:88px; padding:10px; border:none; cursor:pointer; font-size:14px; color:#fff; border-radius:4px; text-transform:capitalize; text-align:center;}
+
+
+.cancelDiv{width:88px;float:right; padding:10px;background:#ccc;border-radius:4px;text-align:center;} 
+.cancelDiv a{font-size:14px; color:#595959; text-decoration:none; } 
+.cancelDiv a:hover{color:#000;} 
+
+
+/*-------01-07-2013 css susmita-------*/
+.container_message {
+	width:1004px;
+	max-height:629px;
+overflow-x: hidden;
+overflow-y: auto;
+	margin:0 auto;
+}
+.container_message h1{ font-size:22px; text-transform:capitalize; font-weight:normal; color:#0094CF; margin-bottom:10px;}
+
+.total_Box_Div{ width:97%; background:#ECECEC; padding:15px; border-radius:5px; margin-bottom:10px; }
+.total_Left{ width:80%; float:left;}
+
+.total_Box_Div p{ width:38%; float:left; background:#fff; border-radius:5px; padding:8px; margin:0 15px 5px 0; border:1px solid #ddd; font-weight:bold;}
+.total_Box_Div span{width:52%; float:left; background:#fff; border-radius:5px;padding:8px; margin:0 15px 5px 0; border:1px solid #ddd;}
+
+.total_Right{ width:20%; float:right;}
+.total_Right p{ width:116px;background:#fff; float:right; background:#015C8B; border-radius:5px; padding:8px; margin:0 0px 5px 0; text-align:right; color:#fff;  font-weight:bold; font-size:12px;}
+
+.reply_Div{ width:52px; float: left; padding:5px; border-radius:5px; background:#494949; text-align:center; margin:5px 0; }
+.reply_Div a{ color:#fff;text-decoration:none; font-size:12px; font-weight:bold;}
+.reply_Div a:hover{ color:#000;} 
+
+
+
+
+
+
+
 
 
 

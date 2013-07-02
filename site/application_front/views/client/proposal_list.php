@@ -53,9 +53,13 @@ return false;
                   <?php }else{echo "No Attachment";}?></p></td>
               <td class="bold3">$<?=$each_proposal->price?></td>
               <td class="pdngTop" style="border-right:0;">
-              <?php if($each_proposal->awords == 0){ ?>
+              <?php if($each_proposal->awords == 0){ 
+			  $projectaword = $this->model_project->checkProjectAward($project_id);
+			  if(empty($projectaword)){
+			  ?>
+			  
               <span class="prop-btn"><a href="#" onclick="document.getElementById('awardform<?=$each_proposal->proposal_id?>').submit();">Award</a></span>
-              <?php } ?>
+              <?php } }?>
               </td>
               </form>
             </tr>

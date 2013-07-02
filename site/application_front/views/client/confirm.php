@@ -114,7 +114,7 @@ return false;
             
             
             <br>
-            <div class="continue-btn"><input type="submit" name="PayNow" id="PayNow" value="PAY NOW"></div><div class="clear"></div>
+            <div class="continue-btn"><input type="submit" name="PayNow" id="PayNow" value="AWARD NOW"></div><div class="clear"></div>
             
         </div>   
 

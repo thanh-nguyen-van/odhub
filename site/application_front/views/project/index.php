@@ -22,7 +22,10 @@
 
 <div class="Total-Div-Box-pro2">
 
-   <form action="<?php echo $this->config->base_url();?>project/index_left/" id="search_form" method="post">   
+   <form action="<?php echo $this->config->base_url();?>project/index_left/" id="search_form" method="post">
+   <input  type="hidden" name="pagination" id="pagination" value="0" />
+   
+      
    <div class="total-left-col" id="left_content">
     
    <?php
@@ -47,9 +50,25 @@
  
 <script>
 /* attach a submit handler to the form */
-
+ 
+ function set_page(page_id){
+	document.getElementById('pagination').value = page_id; 
+	submit_search_form();
+ }
+ 
  function submit_search_form(){
-     
+    $("#search_form").submit(); 
+ }
+ 
+ function nextpage(){
+	 page_id = document.getElementById('pagination').value;
+	document.getElementById('pagination').value = parseInt(page_id) + 1;
+    $("#search_form").submit(); 
+ }
+ 
+ function prevpage(){
+	 page_id = document.getElementById('pagination').value;	 
+	document.getElementById('pagination').value = parseInt(page_id) - 1;
     $("#search_form").submit(); 
  }
              
@@ -102,6 +121,6 @@ $("#search_form").submit(function(event) {
 
 </div>
 
-<div class="drop-shadow-project"><img src="images/drop-shadow.png" alt="" border="0"></div>
+<div class="drop-shadow-project"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png" alt="" border="0"></div>
 <div class="clear"></div>
 </section>

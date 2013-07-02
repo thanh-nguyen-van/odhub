@@ -260,11 +260,11 @@ class Login extends MY_Controller
 			 
 			 
 			//--------- File Upload ------------------------			
-			   //DebugBreak();
-               
-               
-          // DebugBreak();    
-			$insert_id = $this->model_login->insert_prof_data($file_name,$file_name2,$file_name3);
+			
+			
+			$activation_code = md5($this->input->request('email'));
+			
+			$insert_id = $this->model_login->insert_prof_data($file_name,$file_name2,$file_name3,$activation_code);
           //  $this->model_login->insert_serv_data($insert_id);
             // Commission setup
             
@@ -313,6 +313,8 @@ class Login extends MY_Controller
 			$email = inputEscapeString($this->input->request('email'));
 			$passd = inputEscapeString($this->input->request('passd'));
 			$fname = inputEscapeString($this->input->request('fname'));
+			
+			
 			
 			$message   = "Welcome to OD Hub";
 			$message  .= "Hi ".$fname."<br><br>";

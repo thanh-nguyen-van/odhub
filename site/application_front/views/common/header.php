@@ -27,6 +27,14 @@
         	<span><a href="<?php echo site_url('login/signup'); ?>">Sign  up</a></span>  for  a  free  account  today
         <?php } ?>
         </div>
+        <?php
+		if(isset($_SESSION['user_session_type'])){
+		$user_session_type = $_SESSION['user_session_type'];
+		}
+		else{
+			$user_session_type = "";
+		}
+		?>
         
         <nav class="main-menu">
                 <ul>
@@ -34,8 +42,21 @@
                 <li><a href="<?php if(isset($content_menu['howit_works'])) echo site_url('static_content/index/'.$content_menu['howit_works']['StaticPageId']); ?>">
 						<?php if(isset($content_menu['howit_works']['StaticPageName'])) echo $content_menu['howit_works']['StaticPageName'] ?>
                     </a></li>
-                <li><a href="#">For Clients</a></li>
-                <li><a href="#">For OD Professionals</a></li>
+                 <?php
+				 if($user_session_type == 'Professional'){
+				?>	 
+                <li><a href="<?php echo site_url('project'); ?>">For Clients</a></li>
+				<?php	 
+				 }
+				 if($user_session_type == 'Client'){
+				?>	 
+                <li><a href="<?php echo site_url('search'); ?>">For OD Professionals</a></li>
+				<?php	 
+				 }
+				 
+				 ?>
+                
+                
                 <li class="sign-in">
                 <?php if(isset($_SESSION[USER_SESSION_ID]) and $_SESSION[USER_SESSION_ID] != ""){ ?>
                   <a href="<?php echo site_url('login/signout'); ?>" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','<?php echo css_images_js_base_url();?>images/logout-h.jpg',1)"><img src="<?php echo css_images_js_base_url();?>images/logout.jpg" name="Image15" width="66" height="24" border="0"></a></li>

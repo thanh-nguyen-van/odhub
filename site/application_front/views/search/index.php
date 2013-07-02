@@ -24,7 +24,8 @@
     <div class="inner-sec-1">Start browsing profiles to find your perfect fit. Use the filters on the left to select Professionals based on your region or need. If you prefer 
 to describe your needs and be contacted, <a href="#">click here</a>.
 </div>
- <form action="<?php echo $this->config->base_url();?>search/index_left/" id="search_form" method="post">   
+ <form action="<?php echo $this->config->base_url();?>search/index_left/" id="search_form" method="post"> 
+ <input  type="hidden" name="pagination" id="pagination" value="0" />  
 <div id="left_content">    
 
 
@@ -47,12 +48,28 @@ Search::search_result();
  
 <script>
 /* attach a submit handler to the form */
-
+ function set_page(page_id){
+	// alert(page_id);
+	document.getElementById('pagination').value = page_id; 
+	submit_search_form();
+ }
+ 
  function submit_search_form(){
-     
+	 //alert("tet");
+   //  document.getElementById('pagination').value = page_id;
     $("#search_form").submit(); 
  }
-             
+ function nextpage(){
+	 page_id = document.getElementById('pagination').value;
+	document.getElementById('pagination').value = parseInt(page_id) + 1;
+    $("#search_form").submit(); 
+ }
+ 
+ function prevpage(){
+	 page_id = document.getElementById('pagination').value;	 
+	document.getElementById('pagination').value = parseInt(page_id) - 1;
+    $("#search_form").submit(); 
+ }            
    
 $("#search_form").submit(function(event) {
     
@@ -71,7 +88,7 @@ $("#search_form").submit(function(event) {
         url: url,
          data: param
          }).done(function( msg ) {
-         $( "#left_content" ).empty().append( msg );  
+        $( "#left_content" ).empty().append( msg );  
           });
           
       $.ajax({

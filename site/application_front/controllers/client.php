@@ -18,6 +18,7 @@ class Client extends MY_Controller
 		$this->load->model('model_searchcustom');
 		$this->load->model('model_conversation');
         $this->load->model('model_home');
+        $this->load->model('model_message');
         $this->initData();
 	}
 	
@@ -42,6 +43,7 @@ class Client extends MY_Controller
                 
                  $this->middle_data['client_invoice'] = $this->model_client->getClientInvoices($client_id);
                  $this->middle_data['nr_client_invoice'] = $this->model_client->getClientInvoices($client_id)->num_rows();
+				 $this->middle_data['number_of_unread_message']= $this->model_message->getMessageSet($_SESSION[USER_SESSION_ID],'unread','client');
                  $invoiceProjectArray = $this->middle_data['client_invoice']->row_array();
                  if(!empty($invoiceProjectArray))
 				 $invoiceProjectId = $invoiceProjectArray['project_id'];
@@ -270,6 +272,17 @@ class Client extends MY_Controller
          
                 
     }
+	public function message(){
+        $this->model_message->UpdateMessageView($_SESSION[USER_SESSION_ID]);
+		$this->middle_data['message_data_set']= $this->model_message->getMessageSet($_SESSION[USER_SESSION_ID],'','client');
+			
+			$this->load->view('common/head',		 	$this->header_data);
+			$this->load->view('common/header',			$this->header_data);
+			$this->load->view('client/message', $this->middle_data);
+			$this->load->view('common/footer',		 	$this->footer_data);
+			$this->load->view('common/foot',		 	$this->footer_data);
+		
+		}
     
 	
     

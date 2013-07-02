@@ -6,10 +6,14 @@ foreach($data_result as $result){
 
 <section class="rightCol-R">
 <div class="box-head-proR">
-        <h1><?php echo $result->project_name; ?>
-        
+        <h1><?php echo $result->project_name; 
+        $awardstatus  = $this->model_project->checkProjectAward($result->project_id);
+		if(empty($awardstatus)){
+		?>
         <span><a href="<?php echo site_url('project/details?projectid='.$result->project_id); ?>">Bid Here<?php //echo $result->project_type_txt; ?></a></span>
-        
+        <?}else{?>
+		 <span style="text-decoration:none;">Project Awarded</span>
+		 <? }?>
         </h1>
     
     </div>
@@ -71,3 +75,49 @@ foreach($data_result as $result){
 <?php
 }
 ?>
+<?php
+//echo $present_selection;
+$number_of_pagination =floor($number_of_project/25);
+$remaining = $number_of_project%5;
+if($remaining>0){
+	$number_of_pagination = $number_of_pagination + 1;
+}
+?>
+<div id="tnt_pagination">
+<?php
+if($present_selection == NULL){
+	$present_selection = 0;
+}
+?>
+<?php
+if($present_selection != 0){
+?>
+<a href="#previous" onclick="return prevpage();">Prev</a>
+<!--<span class="disabled_tnt_pagination" onclick="return prevpage();">Prev</span>-->
+<?php
+}
+?>
+<?php
+for($i=0;$i<$number_of_pagination;$i++){
+	if($i==$present_selection){
+?>		
+<span class="active_tnt_link"><?php echo $i+1;?></span>
+<?php
+	}
+	else{
+?>
+
+	<a href="#<?php echo $i+1;?>" onclick="return set_page(<?php echo $i;?>)"><?php echo $i+1;?></a>
+<?php
+	}
+}
+?>
+
+<?php
+if($present_selection != $i-1){
+?>
+<a href="#forwaed" onclick="return nextpage();">Next</a>
+<?php
+}
+?>
+</div>

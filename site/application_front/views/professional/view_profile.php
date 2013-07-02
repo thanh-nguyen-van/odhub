@@ -10,7 +10,7 @@ $professional_id = $this->input->get('professional_id');
 if(!$professional_id){ ?>
     <nav class="clearfix">
         <ul class="clearfix">
-		 <li><a href="<?php echo $this->config->base_url(); ?>professional/view_profile">My Profile</a></li>
+		 <li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
 		
