@@ -23,7 +23,7 @@ foreach($data_result as $key=>$val){
         
         </div>
         <div class="pic-p-right">
-        <h1><?php echo $val->ProfessionalFirstname.' '.$val->ProfessionalLastname; ?> More</h1>
+        <h1><?php echo $val->ProfessionalFirstname.' '.$val->ProfessionalLastname; ?> </h1>
         <p>Location   -  <?php echo $val->ProfessionalCity; ?></p>
         
         

@@ -21,7 +21,6 @@ if((!empty($_POST))&&(isset($_POST['submit'])))
  }
 
      
-     
 
 ?>
 <script src="<?php echo $siteURL;?>public/ckeditor/ckeditor.js" type="application/javascript" ></script>
@@ -37,7 +36,7 @@ if((!empty($_POST))&&(isset($_POST['submit'])))
     </TR>
     <TR>
 
-        <TD><INPUT TYPE="submit" NAME="submit" VALUE="Update"></TD>
+        <TD><INPUT TYPE="submit" NAME="submit" VALUE="Update"><a href="SiteContent.php" style="margin-left:80%; text-decoration:none; color:black;">Back To Content List</a></TD>
     </TR>
     </TABLE>
 </div>

@@ -25,9 +25,10 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">Account</a></li>
-            <li class="last"><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
+<li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+			 <li><a href="<?php echo $this->config->base_url(); ?>search">Search Professionals</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">
@@ -35,7 +36,7 @@
             <div class="pro-pic1">
 
                 <img src="<?php if ($client_data['ClientImage']) {
-    echo file_upload_base_url() . 'userimages/' . $prof_data['ClientImage'];
+    echo file_upload_base_url() . 'userimages/' . $client_data['ClientImage'];
 } else {
     echo css_images_js_base_url() . 'images/pro-pic.png';
 } ?>"   alt="" border="0">
@@ -47,7 +48,7 @@
             </div>
             <div class="editSection1">
                 <div class="editSec2">
-                    <h3> Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?> </h3>
+                    <h3> Welcome <?php echo strtoupper($_SESSION[USER_SESSION_FULLNAME]); ?> </h3>
                     
                     From your home page, you can Search OD Hub Professionals to find the right person for your career development needs by clicking SEARCH PROFESSIONALS. If you'd rather the professionals find you, POST A PROJECT. Once you've started looking, you can track who you like, who you've worked with before, and your invoices.  Remember, we're always here to help. Just shoot us an email.
                     

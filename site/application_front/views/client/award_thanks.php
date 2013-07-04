@@ -8,7 +8,7 @@
         	<div class="dp-blue">
             <div class="login-im"></div>
              <p style="font-size:14px; color:#FFF; font-weight:bold">Congratulations, your project has been awarded</p>
-             <p style="font-size:14px; color:#FFF; font-weight:bold">You can expect to hear from the professional shortly.  Click here to return to return to your account</p>
+             <p style="font-size:14px; color:#FFF; font-weight:bold">You can expect to hear from the professional shortly.  Click <a href="<?php echo $this->config->base_url(); ?>client/show_home">here</a> to return to return to your account</p>
              <div class="clear"></div>
             </div>
         </div>

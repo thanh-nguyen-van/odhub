@@ -108,15 +108,13 @@
             <li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
             <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
             <li ><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
-            <li ><a href="<?php echo $this->config->base_url(); ?>professional/invoice">Create Invoices</a></li>
-			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>			
+            <li ><a href="<?php echo $this->config->base_url(); ?>invoice">Create Invoices</a></li>
+<!--			<li><a href="<?php echo $this->config->base_url(); ?>professional/review/">Realistic Previews</a></li>	-->		
             <li><a target="_blank" href="<?php echo $this->config->base_url(); ?>../forum/">OD Hub Forums</a></li>
             <li class="last"><a href="<?php echo $this->config->base_url('professional/message'); ?>" <? if($number_of_unread_message>0){ ?>style="color:red;" <?}?>>Inbox(<?=$number_of_unread_message?>)</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
-        <div class="clear"></div>
-                <div class="menu-bot-Btn"><a href="<?php echo $this->config->base_url(); ?>project/">EXPLORE POSTED PROJECTS</a></div>
-        <div class="clear"></div>
+        
 
     <div class="Total-Div-Box">
         <div class="box-head">
@@ -242,6 +240,53 @@
                 <ul>
                     <li><a href="#">Show more</a></li>
                     <li><a href="#">Manually Add Clients</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    </div>
+	<div class="Total-Div-Box">
+        <div class="box-head1">
+            <h1>Previews <span></h1>
+            <div class="clear"></div>
+        </div>
+        <div class="tableDiv">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="15%">Project Name</th>
+                        
+
+                        <th width="15%">Client</th>
+      
+                        
+                         <th width="15%">Description </th>
+                        <th width="15%" style="border-right:0;">Date </th>
+                    </tr>
+                </thead>
+                <tbody> <?php 
+				if(!empty($review_details)){
+				for($i=0;$i<3;$i++){?>
+                       <tr>
+                        <td class="pdng"><? echo $review_details[$i]['project_name'];?></td>
+							<td class="pdng"><? echo $review_details[$i]['client_name'];?></td> 
+					 <td class="pdng"><? echo substr($review_details[$i]['review'],0,50);?></td>
+					 <td class="pdng"><? echo $review_details[$i]['rv_date'];?></td>
+	           
+                    </tr>
+					<?php
+					} 
+
+						}
+					?>
+                </tbody>
+            </table>
+            <div class="clear"></div>
+            <div class="showmore">
+                <ul>
+                    <li><a href="<?=base_url('professional/review')?>">Show more</a></li>
+                   
                 </ul>
             </div>
             <div class="clear"></div>

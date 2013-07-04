@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = 'home/my_404';
+$route['invoice'] = 'professional/invoice';
 
 
 /* End of file routes.php */

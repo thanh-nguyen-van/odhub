@@ -1,13 +1,14 @@
- 
+<div class="brk-line"></div>
+</header> 
 <section class="container">
 
 
 <div class="Total-Div-Box">
 <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">Account</a></li>
-            <li class="last"><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
+           <li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="box-head3">

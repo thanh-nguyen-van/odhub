@@ -40,6 +40,18 @@ class Static_content extends MY_Controller
 		$this->template->write_view('footer',	 'common/footer',$this->footer_data);
 		$this->template->render();
 	}
+	public function learnmore()
+	{
+		$this->load->helper('url');
+	
+		$this->middle_data['content'] = $this->model_content->get_content($this->uri->segment(3));
+		$this->template->write_view('header',	 'common/header',$this->header_data);
+		$this->template->write_view('content',	 'static/learn_more',$this->middle_data); 
+		$this->template->write_view('footer',	 'common/footer',$this->footer_data);
+		$this->template->render();
+	}
+	
+	
 }
 
 /* End of file login.php */

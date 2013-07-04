@@ -24,7 +24,7 @@ class Model_login extends CI_Model
         }
     
     
-	public function insert_client_data()
+	public function insert_client_data($activation_code)
 	{
         $email		= inputEscapeString($this->input->request('email'));
 		$username	= inputEscapeString($this->input->request('email'));
@@ -39,8 +39,7 @@ class Model_login extends CI_Model
 		$referral_code		= inputEscapeString($this->input->request('referral_code'));
         
        
-		
-		$data  = array(
+			$data  = array(
 						 'ClientEmail'		=> $email ,
 						 'ClientPassword'	=> $passd ,
 						 'ClientFirstname'	=> $fname ,
@@ -48,6 +47,7 @@ class Model_login extends CI_Model
                          'ClientZipcode'    => $zip   ,
                          'ClientUsername'   => $username   ,
 						 'referral_prof_code'	=> $referral_code   ,
+						 'ClientActivationcode'	=> $activation_code   ,
 						 'ClientJoinDate'	=> date("Y-m-d H:i:s")
 					  );
 		$this->db->insert('lm_clientdetail_tbl', $data); 
@@ -227,19 +227,24 @@ class Model_login extends CI_Model
 		//if($usertype == "Client"){		previous code-------changed By manish
 			
 			$table_name  = "lm_clientdetail_tbl";
-			$select_flds = "ClientId, ClientUsername, ClientFirstname, ClientLastname, ClientEmail";
+			$select_flds = "ClientId, ClientUsername, ClientFirstname, ClientLastname, ClientEmail, ClientStatus";
 			$condition	 = "(ClientUsername = '".$username."' OR ClientEmail = '".$username."') AND ClientPassword = '".$password."'";
 		//Next 4 line of code added by manish
 			$this->db->select($select_flds);
 			$this->db->where($condition);
 			$query	= $this->db->get($table_name);
+			
 			$result = $query->row_array();
 			
+			if(!empty($result) && $result['ClientStatus']==0){
+				$status = 'inactive';
+					return $status;
+				}
 		//}elseif($usertype == "Professional"){			previous code-------changed By manish
 		
 		if(empty($result)){					//added By manish
 				$table_name	 = 'lm_professionaldetail_tbl';
-				$select_flds = "ProfessionalId, ProfessionalUsername, ProfessionalFirstname, ProfessionalLastname, ProfessionalEmail";
+				$select_flds = "ProfessionalId, ProfessionalUsername, ProfessionalFirstname, ProfessionalLastname, ProfessionalEmail, ProfessionalStatus, linkedin_url";
 				$condition	 = "(ProfessionalUsername = '".$username."' OR ProfessionalEmail = '".$username."') AND ProfessionalPassword = '".$password."'";
 		
 		//}		previous code-------changed By manish
@@ -247,8 +252,15 @@ class Model_login extends CI_Model
 				$this->db->where($condition);
 				$query	= $this->db->get($table_name);
 				$result = $query->row_array();
+				
+				if($result['ProfessionalStatus']==0){
+				$status = 'inactive';
+					return $status;
+				}
 			}
-		
+			
+		// print_r($result);
+		// die;
 		if($result){
 			//if($usertype=="Client"){      	previous code-------changed By manish
 			if(isset($result['ClientId'])){		//added by Manish
@@ -259,6 +271,7 @@ class Model_login extends CI_Model
 				$_SESSION[USER_SESSION_EMAIL]	 = $result['ClientEmail'];
 				$_SESSION[USER_SESSION_TYPE]	 = "Client";
 				
+				
 			//}elseif($usertype=="Professional"){             previous code-------changed By manish
 			}elseif(isset($result['ProfessionalId'])){		  //added by Manish
 				
@@ -267,7 +280,10 @@ class Model_login extends CI_Model
 				$_SESSION[USER_SESSION_FULLNAME] = $result['ProfessionalFirstname']." ".$result['ProfessionalLastname'];
 				$_SESSION[USER_SESSION_EMAIL]	 = $result['ProfessionalEmail'];
 				$_SESSION[USER_SESSION_TYPE]	 = "Professional";
+				if( $result['linkedin_url']!='')
+				$_SESSION[USER_SESSION_LINKED_IN]	 = $result['linkedin_url'];
 			}
+		
 			//return true;     previous code-------changed By manish
 			return $_SESSION[USER_SESSION_TYPE];
 		}else{
@@ -305,6 +321,30 @@ class Model_login extends CI_Model
 		unset($_SESSION[USER_SESSION_FULLNAME]);
 		unset($_SESSION[USER_SESSION_EMAIL]);
 		unset($_SESSION[USER_SESSION_TYPE]);
+	}
+	public function activation_update($activation_code)
+	{		
+			$data = array('ProfessionalStatus'=>'1');	
+			$this->db->where('ProfessionalActivationcode', $activation_code);
+			$result = $this->db->update('lm_professionaldetail_tbl', $data); 
+			
+			if($this->db->affected_rows()>0){
+				return true;
+			}else{
+				return false;
+			}
+	}
+	public function clientactivation_update($activation_code)
+	{		
+			$data = array('ClientStatus'=>'1');	
+			$this->db->where('ClientActivationcode', $activation_code);
+			$result = $this->db->update('lm_clientdetail_tbl', $data); 
+			
+			if($this->db->affected_rows()>0){
+				return true;
+			}else{
+				return false;
+			}
 	}
 }
 

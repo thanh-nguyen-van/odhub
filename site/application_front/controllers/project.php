@@ -87,14 +87,15 @@ class Project extends MY_Controller
         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
         $final_qry_str_2 = $this->model_all->project_search_rq($this->request_data);
          
-        
+    
         $data['category_details']	= $this->model_searchproject->getCategoryInfo($final_qry_str);
         $data['projecttypeInfo']	= $this->model_searchproject->getProjecttypeInfo($final_qry_str);
         $data['project_leadership_coaching']	= $this->model_searchproject->project_leadership_coaching($final_qry_str);
 		$data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
 		$data['pr_cat_name'] = $this->input->post('pr_cat_name');
-        
-     
+      // echo "<pre>";  
+     // print_r($data);
+	
         $this->load->view('project/project_left',$data);  
     } 
     

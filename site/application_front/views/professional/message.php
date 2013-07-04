@@ -1,3 +1,5 @@
+<div class="brk-line"></div>
+</header>
 <script>
 function messagereply(receiverid){
 window.open("<?=base_url('professional/sendmessage')?>/"+receiverid,'sendmessage','height=200,width=350,top=200,left=400,toolbar=0,titlebar=0,resizable=0');

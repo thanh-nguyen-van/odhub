@@ -15,9 +15,9 @@ if(!$client){ ?>
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_profile">Profile</a></li>
-            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">Account</a></li>
-            <li class="last"><a href="<?php echo $this->config->base_url(); ?>client/project_list">Projects</a></li>
+<li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
@@ -28,17 +28,23 @@ if(!$client){ ?>
 		
     <div class="Total-Div-Box">
         <div class="listingDiv1">
-            <div class="pro-pic1">
-
+          <div class="pro-pic chng_img">
+				<div class="hoverstyle">
                 <img src="<?php if ($client_data['ClientImage']) {
-    echo file_upload_base_url() . 'userimages/' . $prof_data['ClientImage'];
+    echo file_upload_base_url() . 'userimages/' . $client_data['ClientImage'];
 } else {
     echo css_images_js_base_url() . 'images/pro-pic.png';
 } ?>"   alt="" border="0">
-
+<div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('ClientImage').click();" /></div>
 
 
             </div>
+			<div style="display:none;">
+                  <form name="client_img_up" id="client_img_up" action="<?php echo site_url('client/edit_profile_save/client_img_up');?>" method="post" enctype="multipart/form-data">
+                      <input type="file" name="ClientImage" id="ClientImage" onchange="document.getElementById('client_img_up').submit();">
+                </form>
+              </div>
+			  </div>
             <div class="editSection1">
                 <div class="editSec2">
                     <h3> Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?> </h3>
@@ -69,14 +75,14 @@ if(!$client){ ?>
            	  <div id="TabbedPanels1" class="TabbedPanels">
             	  <ul class="TabbedPanelsTabGroup">
             	    <li class="TabbedPanelsTab" tabindex="0">General Info</li>
-            	    <li class="TabbedPanelsTab" tabindex="0">More</li>
+            	
           	    </ul>
             	  <div class="TabbedPanelsContentGroup">
             	    <div class="TabbedPanelsContent">
                        <form name="general_info" id="general_info" action="<?php echo site_url('client/edit_profile_save/general_info');?>" method="post" enctype="multipart/form-data">
                     	<div class="edit-form">
                         	<div class="edit-name">UserName</div>
-                                <div class="edit-box"><input type="text" value="<?php echo $client_data['ClientUsername']; ?>" name="ClientUsername" class="input-field"/></div>
+                                <div class="edit-box"><input type="text" value="<?php echo $client_data['ClientUsername']; ?>" name="ClientUsername" class="input-field" readonly="readonly"/></div>
                             
                         </div>
 						<div class="edit-form">
@@ -151,19 +157,7 @@ if(!$client){ ?>
                         </div>
                       </form>  
                     </div>
-            	    <div class="TabbedPanelsContent">
-                       <div class="edit-form">
-                        	<div class="edit-name">more</div>
-                            <div class="edit-box">More</div>
-                            
-                        </div>
-                        <div class="edit-form">
-                        	<div class="edit-name">more</div>
-                            <div class="edit-box">More</div>
-                            
-                        </div>
-                    
-                    </div>
+            	  
                    
                    
                   

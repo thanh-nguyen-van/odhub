@@ -5,6 +5,7 @@
     </head>
     <body>
     <?php
+	
     if(isset($mail_send)){
 	?>
     <div>
@@ -18,14 +19,16 @@
 	
 		}
     ?>
-        <form name="form1" id="form1" method="post" action="<?php echo base_url().'professional/popUpEmail?code='.$_GET['code'];?>">
+        <form name="form1" id="form1" method="post" action="<?php echo base_url().'professional/popUpEmail/'.$_GET['code'];?>">
             <input type="hidden" name="code" value="<?php echo $_GET['code']?>"
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='padding:10px'>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:10px">
     	<tr>
         	<td>To : </td>
         	<td><input type="text" name="to" id="to"  value=""/>
-            <input type="hidden" name="url" id="url"  value="<?php echo $this->config->base_url();?>project/details/?projectid=<? echo $this->input->get('ProjectId');?>"/>
-            
+            <input type="hidden" name="pro_url" id="url"  value="<?php echo $this->config->base_url();?>login/prof_signup/?code=<? echo $_GET['code'];?>"/>
+
+			<input type="hidden" name="client_url" id="url"  value="<?php echo $this->config->base_url();?>login/signup/?code=<? echo $_GET['code'];?>"/>
+
             </td>
         </tr>
     	<tr>
@@ -37,10 +40,17 @@
         	<td>
             	<textarea name="content" id="content" rows="5" cols="30"></textarea>
             </td>
+        </tr> 
+		<tr>
+        	<td>Refferal Type  : </td>
+        	<td>
+            	<input type="radio" name="refferal_type" value="client" checked="checked">Client
+            	<input type="radio" name="refferal_type" value="professional">Professional
+            </td>
         </tr>
         <tr>
         	<td colspan="2" align="center">
-                <input type="submit" name="send_message" id="send_message" value="Send Message" onclick="validate();"/></td>
+                <input type="submit" name="send_message" id="send_message" value="Send Message" onclick="return validate();"/></td>
         </tr>
     </table>
     </form>

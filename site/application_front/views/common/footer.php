@@ -64,7 +64,7 @@ Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
       </div>
       <div class="f-right">
       <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','<?php echo css_images_js_base_url();?>images/s-icon1-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon1.png" name="Image17" width="24" height="30" border="0"></a>
-      <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','<?php echo css_images_js_base_url();?>images/s-icon2-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon2.png" name="Image18" width="24" height="30" border="0"></a>
+      <a href="<?if(isset($_SESSION['USER_SESSION_LINKED_IN'])){ print($_SESSION['USER_SESSION_LINKED_IN']);}?>" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','<?php echo css_images_js_base_url();?>images/s-icon2-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon2.png" name="Image18" width="24" height="30" border="0"></a>
       <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image19','','<?php echo css_images_js_base_url();?>images/s-icon3-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/s-icon3.png" name="Image19" width="24" height="30" border="0"></a></div>
       
       <div class="clear"></div>

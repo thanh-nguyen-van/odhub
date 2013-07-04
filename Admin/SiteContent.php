@@ -1,11 +1,12 @@
 <? include('include/adminheader.php');
 include('include/connect.php');
-DebugBreak();
-$arr_allow_content_type = array("'about_us'","'howit_works'","'terms_of_service'","'thank_you'","'for_client'");
+
+$arr_allow_content_type = array("'about_us'","'howit_works'","'terms_of_service'","'thank_you'","'for_client'","'for_professional'","'need_help'");
 $allow_content_type_str = implode(',',$arr_allow_content_type);
 
  $dataQuery="SELECT `StaticPageText`,`StaticPageType` FROM ".$table['staticpage']." WHERE StaticPageType in (".$allow_content_type_str.")";
- 	$dataResult=mysql_query($dataQuery);
+ 	
+	$dataResult=mysql_query($dataQuery);
 	while($row=mysql_fetch_assoc($dataResult)){
 		$data[$row['StaticPageType']] = $row['StaticPageText'];	
 	}
@@ -53,9 +54,28 @@ $allow_content_type_str = implode(',',$arr_allow_content_type);
       <tr>
 		<td align="center" valign="middle">4 . </td>
 		<td align="left" valign="middle">Thank You</td>
-        <td align="left" valign="middle"><? echo substr($data['terms_of_service'],0,75)."...";?></td>
+        <td align="left" valign="middle"><? echo substr($data['thank_you'],0,75)."...";?></td>
         <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=thank_you" class="edit">Edit</a> 
-     </tr>  
+     </tr>
+	 <tr>
+		<td align="center" valign="middle">5 . </td>
+		<td align="left" valign="middle">For Clients</td>
+        <td align="left" valign="middle"><? echo substr($data['for_client'],0,75)."...";?></td>
+        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=for_client" class="edit">Edit</a> 
+     </tr>
+	 <tr>
+		<td align="center" valign="middle">6 . </td>
+		<td align="left" valign="middle">For Professionals</td>
+        <td align="left" valign="middle"><? echo substr($data['for_professional'],0,75)."...";?></td>
+        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=for_professional" class="edit">Edit</a> 
+     </tr>
+	 <tr>
+		<td align="center" valign="middle">7 . </td>
+		<td align="left" valign="middle">Need Help</td>
+        <td align="left" valign="middle"><? echo substr($data['need_help'],0,75)."...";?></td>
+        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=need_help" class="edit">Edit</a> 
+     </tr> 
+	   
 	
 
 </table>

@@ -101,20 +101,27 @@ class Login extends MY_Controller
 				}
 			else
 				{	
-	
-				$this->model_login->insert_client_data();
+				$activation_code = md5($this->input->request('email'));
+				$this->model_login->insert_client_data($activation_code);
 				
 				$email = inputEscapeString($this->input->request('email'));
 				$passd = inputEscapeString($this->input->request('passd'));
 				$fname = inputEscapeString($this->input->request('fname'));
-				
-				$message   = "Hi ".$fname."<br><br>";
-				$message  .= "Thank you for registering with us. Your Login Details as follows : -  <br>";
+
+				$activationURL = base_url('login/Clientactivation').'/'.base64_encode($activation_code);
+				$message   = "Welcome to OD Hub<br>";
+				$message  .= "Hi ".$fname."<br><br>";
+				$message  .= "Thank you for registering with OD Hub. Looking to develop your business or network? Please click on the link below to verify your account and get started. : -  <br>";
+				$message  .= "URL : <a href='".$activationURL."' target='_blank'>".$activationURL."</a>    <br>";
 				$message  .= "Username : ".$email."    <br>";
 				$message  .= "Password : ".$passd." <br><br>";						
 				$message  .= "Thanks, <br>";
-				$message  .= "Od Hub Team";
+				$message  .= "OD Hub Team";
+				echo $message; die; 
 				$this->model_email->sendEmail(FROM_EMAIL_ADDR, $email, 'Thanks For Registration', $message);
+				
+				
+			
 				
 				$this->template->write_view('header',  'common/header',$this->header_data);
 				$this->template->write_view('content', 'login/client_signup_submit',$this->middle_data); 
@@ -264,6 +271,9 @@ class Login extends MY_Controller
 			
 			$activation_code = md5($this->input->request('email'));
 			
+		
+			
+			
 			$insert_id = $this->model_login->insert_prof_data($file_name,$file_name2,$file_name3,$activation_code);
           //  $this->model_login->insert_serv_data($insert_id);
             // Commission setup
@@ -314,11 +324,11 @@ class Login extends MY_Controller
 			$passd = inputEscapeString($this->input->request('passd'));
 			$fname = inputEscapeString($this->input->request('fname'));
 			
-			
-			
-			$message   = "Welcome to OD Hub";
+			$activationURL = base_url('login/activation').'/'.base64_encode($activation_code);
+			$message   = "Welcome to OD Hub<br>";
 			$message  .= "Hi ".$fname."<br><br>";
-			$message  .= "Thank you for registering with OD Hub. You are on your way to building your business and developiing your network. Please click the link below to verify your account and get started. : -  <br>";
+			$message  .= "Thank you for registering with OD Hub. You are on your way to building your business and developiing your network. Please click on the link below to verify your account and get started. : -  <br>";
+			$message  .= "URL : <a href='".$activationURL."' target='_blank'>".$activationURL."</a>    <br>";
 			$message  .= "Username : ".$email."    <br>";
 			$message  .= "Password : ".$passd." <br><br>";						
 			$message  .= "Thanks, <br>";
@@ -362,7 +372,7 @@ class Login extends MY_Controller
 		{
 			//$usertype = inputEscapeString($this->input->request('usertype'));     //commented by manish
 			$usertype = $this->model_login->get_user_data();
-			
+		
 			if($usertype=="Client" || $usertype == "Professional"){
 				if ($usertype == "Client")
 				  redirect('client/show_home');
@@ -371,6 +381,9 @@ class Login extends MY_Controller
 				
 				$this->template->render();
 			
+			}elseif($usertype=='inactive'){
+				$this->nsession->set_userdata('errmsg', 'Your account is not activated yet.Please check you mail and activate your account first. ');
+				redirect('login/signin');
 			}else{
 			
 				$this->nsession->set_userdata('errmsg', 'Wrong username/password');
@@ -413,6 +426,28 @@ class Login extends MY_Controller
             exit();
             
         }
+		public function activation(){
+			$this->load->helper('url');
+			$activation_code = base64_decode($this->uri->segment(3, 0));
+			if($this->model_login->activation_update($activation_code)){
+				$this->nsession->set_userdata('errmsg', 'Your account is activated. ');
+				redirect('login/signin');
+			}else{
+				$this->nsession->set_userdata('errmsg', 'Sorry something goes wrong.Please try again. ');
+				redirect('login/signin');
+			}
+		}
+		public function Clientactivation(){
+			$this->load->helper('url');
+			$activation_code = base64_decode($this->uri->segment(3, 0));
+			if($this->model_login->clientactivation_update($activation_code)){
+				$this->nsession->set_userdata('errmsg', 'Your account is activated. ');
+				redirect('login/signin');
+			}else{
+				$this->nsession->set_userdata('errmsg', 'Sorry something goes wrong.Please try again. ');
+				redirect('login/signin');
+			}
+		}
 }
 
 /* End of file login.php */

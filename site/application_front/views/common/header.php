@@ -3,7 +3,7 @@
 <header>
 <div class="top-header_bg">
 <div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','<?php echo css_images_js_base_url();?>images/fdbk-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
-<div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','<?php echo css_images_js_base_url();?>images/nd-hlp-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
+<div class="nd-hlp"><a href="<?=base_url('static_content/learnmore/NeedHelp')?>" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','<?php echo css_images_js_base_url();?>images/nd-hlp-h.png',1)"><img src="<?php echo css_images_js_base_url();?>images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
 	<div class="container">
         <div class="top-left-sign">
         <?php if(isset($_SESSION[USER_SESSION_ID]) and $_SESSION[USER_SESSION_ID] != ""){ ?>
@@ -42,19 +42,11 @@
                 <li><a href="<?php if(isset($content_menu['howit_works'])) echo site_url('static_content/index/'.$content_menu['howit_works']['StaticPageId']); ?>">
 						<?php if(isset($content_menu['howit_works']['StaticPageName'])) echo $content_menu['howit_works']['StaticPageName'] ?>
                     </a></li>
-                 <?php
-				 if($user_session_type == 'Professional'){
-				?>	 
-                <li><a href="<?php echo site_url('project'); ?>">For Clients</a></li>
-				<?php	 
-				 }
-				 if($user_session_type == 'Client'){
-				?>	 
-                <li><a href="<?php echo site_url('search'); ?>">For OD Professionals</a></li>
-				<?php	 
-				 }
-				 
-				 ?>
+                
+                <li><a href="<?php echo site_url('static_content/learnmore/Client'); ?>">For Clients</a></li>
+				
+                <li><a href="<?php echo site_url('static_content/learnmore/Professional'); ?>">For OD Professionals</a></li>
+				
                 
                 
                 <li class="sign-in">

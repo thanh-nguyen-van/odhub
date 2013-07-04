@@ -78,6 +78,8 @@ class Professional extends MY_Controller {
 		$this->middle_data['Account_history'] = $this->model_professional->Account_history($_SESSION[USER_SESSION_ID]);
 		//review part
 		$review_details = $this->model_professional->get_review($_SESSION[USER_SESSION_ID]);
+		$this->middle_data['review_details'] = $review_details;
+		
 		$temp_review = 0;
 		for($i=0;$i<count($review_details);$i++){
 		
@@ -492,11 +494,33 @@ class Professional extends MY_Controller {
     
     
     public function popUpEmail(){
-        //echo $professional_id = $_SESSION[USER_SESSION_ID];
-        //echo '<pre>';print_r($_POST);
-        //$this->template->write_view('header', 'common/header', $this->header_data);
-        $this->template->write_view('content', 'professional/popup_referal', $this->middle_data);
-       // $this->template->write_view('footer', 'common/footer', $this->footer_data);
+		$this->load->helper('url');
+		$client_id = $this->uri->segment(3);
+        $post_data = $this->input->post();
+		if(isset($post_data['send_message'])){
+		
+			$to  = $post_data['to'];
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			if($post_data['refferal_type']=='client'){
+			$url = $post_data['client_url'];
+			}else{
+			$url = $post_data['pro_url'];
+			}
+            //Additional headers
+            $headers .= 'To: '.$to . "\r\n";
+            $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
+            $subject = "New Message From Professional";
+			$content = "Sir,<br/> You have a new message from Professional <br/>.Please login to OD Hub to view message.Here is the refferal URL:-<br><a href='".$url."' target='_blank'>".$url."</a><br/>Please click on the above link for join OD hub.";
+
+           // Mail it
+           
+			@mail($to, $subject, $content, $headers); 
+           $data['mail_send'] = '1';
+           
+		}
+		$data['blank']='';
+		$this->template->write_view('content', 'professional/popup_referal',  $data);
         $this->template->render();
     } 
 	public function updateLookingstatus(){     //ajax call

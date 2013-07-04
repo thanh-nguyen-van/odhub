@@ -9,7 +9,7 @@
         <div class="login-im"><img src="<?php echo css_images_js_base_url();?>images/login-im.png" alt=""></div>
         <form action="<?php echo $signin_submit_link ?>" method="post">
          <div class="log-main">
-          <h4>Login to Od hub</h4>
+          <h4>Login to OD hub</h4>
           <?php if(isset($errmsg) && $errmsg != "") { ?>
               <div class="msg failure"><?php echo $errmsg; ?></div>
           <?php }?>

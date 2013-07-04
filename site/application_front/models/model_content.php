@@ -42,6 +42,24 @@ class Model_content extends CI_Model
 		$query  = $this->db->get('lm_staticpage_tbl');
 		$result = $query->row_array();
 		return $result;
+	}	
+	public function get_content($page_name)
+	{
+	
+		if($page_name == 'Client')
+		$page_type = 'for_client';
+		elseif($page_name=='Professional')
+		$page_type = 'for_professional';
+		else
+		$page_type = 'need_help';
+		
+		$this->db->select('*');
+		$this->db->where('StaticPageType',$page_type);
+		$query  = $this->db->get('lm_staticpage_tbl');
+		
+		$result = $query->row_array();
+		
+		return $result;
 	}
 }
 

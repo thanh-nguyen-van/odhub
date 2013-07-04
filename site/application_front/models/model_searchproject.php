@@ -37,9 +37,10 @@ class Model_searchproject extends CI_Model
     public function getProjecttypeInfo($final_qry_str = 1){
         $table_ref_name = 'project_type';
       
-        $sql_projecttype_info = "select `pd`.`project_type_id`,`pt`.`project_type_txt` from `".$this->table_name."` `pd` left join 
+        $sql_projecttype_info = "select `pd`.`project_type_id`,`pt`.`project_type_txt` from `".$this->table_name."` `pd` right join 
 `".$table_ref_name."` `pt` on `pd`.`project_type_id` = `pt`.`project_type_id` where ".$final_qry_str." group by `pd`.`project_type_id`;";
        
+	   
        $result = $this->db->query($sql_projecttype_info);
           
        $data_result = $result->result();  

@@ -269,8 +269,42 @@ class Client extends MY_Controller
                         }
                     }
                 }
-         
-                
+			if($formName=='client_img_up'){
+			 if($_FILES['ClientImage']['name']!=''){
+					$field = 'ClientImage';
+					$cut_pdf = explode(".",$_FILES['ClientImage']['name']);
+					$file_name = explode(" ",$cut_pdf[0]);
+					$array_count = count($file_name);
+					if($array_count>0){
+					for($i=0;$i<$array_count;$i++){
+						$file_name_pdf = implode("_",$file_name);
+						}
+					}else{
+						$file_name_pdf = $cut_pdf;
+					}
+					
+					$randdom_no = rand('0000','9999');
+					$config['file_name'] = $file_name_pdf.$randdom_no;
+					$config['upload_path'] = file_upload_absolute_path().'userimages/';
+					$config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
+					$config['max_size']	= '999999999999';
+					
+					$isUploaded = $this->model_upload->fileUpload($uploadFileData,$field,$config);
+                     if($isUploaded)
+                      {
+                   		 $ClientImage = $uploadFileData[$field];                        
+					 }
+				}else{
+				 $ClientImage = '';
+				}
+				if($this->model_client->update_info(array("ClientImage"=>$ClientImage)))
+                        {
+                       	 $_SESSION['succ_msg'] = "Information updated successfully !"; 
+   
+                            redirect(site_url('client/edit_profile'));
+                        }
+                    }
+			    
     }
 	public function message(){
         $this->model_message->UpdateMessageView($_SESSION[USER_SESSION_ID]);
@@ -283,6 +317,7 @@ class Client extends MY_Controller
 			$this->load->view('common/foot',		 	$this->footer_data);
 		
 		}
+		
     
 	
     
