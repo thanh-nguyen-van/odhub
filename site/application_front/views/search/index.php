@@ -6,9 +6,10 @@
 <div class="Total-Div-Box">
 <nav class="clearfix">
         <ul class="clearfix">
-           <li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+          
             <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
       <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+	   <li class="rightalign"> <a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
     <div class="box-head3">
@@ -45,7 +46,7 @@ Search::search_result();
 ?>
 </div>
 
- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>          
+ <script src="<?php echo css_images_js_base_url();?>/js/jquery-1.9.0.min.js"></script>          
  
 <script>
 /* attach a submit handler to the form */

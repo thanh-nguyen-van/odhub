@@ -1,12 +1,15 @@
+
 <div class="clear"></div>
 <div class="brk-line"></div>
 </header>
 <section class="container">
   <nav class="clearfix">
     <ul class="clearfix">
-      <li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+
             <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+			 <li><a href="<?php echo $this->config->base_url(); ?>search">Search Professionals</a></li>
       <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+	   <li class="rightalign"> <a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
       <!--<li class="last"><a href="#">Realistic Previews</a></li>-->
     </ul>
     <a href="#" id="pull">Menu</a> </nav>
@@ -27,10 +30,10 @@
     	<div class="l-iconR">Posted: <?=$project_details[0]->post_date?> </div>
         <div class="clear"></div>
         <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon2.png" width="19" height="20" alt="" border="0"></div>
-        <div class="l-iconR">Location: INDIA</div>
+        <div class="l-iconR">Location: <? if(isset($country)){ echo $country; }?></div>
         <div class="clear"></div>
         <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon3.png" width="20" height="19" alt="" border="0"></div>
-        <div class="l-iconR">Start: Immediately </div>
+        <div class="l-iconR">Start: <? if($project_details[0]->project_start=='I'){echo " Immediate ";}else{ echo "Not Immediate";} ?></div>
             
             
             <div class="clear"></div>
@@ -45,8 +48,8 @@
             <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon5.png" width="16" height="20" alt="" border="0"></div>
             <div class="l-iconR"><?=$project_details[0]->job_type;?></div>
             <div class="clear"></div>
-            <div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon6.png" width="18" height="20" alt="" border="0"></div>
-            <div class="l-iconR"><?=$project_details[0]->w9_status;?></div>
+            <!--<div class="l-icon"><img src="<?php echo css_images_js_base_url();?>images/pro-icon6.png" width="18" height="20" alt="" border="0"></div>
+            <div class="l-iconR"><?=$project_details[0]->w9_status;?></div>-->
                 
                 
                 <div class="clear"></div>

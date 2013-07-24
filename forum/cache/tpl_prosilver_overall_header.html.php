@@ -1,28 +1,3 @@
-<?php 
-session_start();
-if($_SESSION['header_section']==1){
-	//unset($_SESSION['first_redirect']);
-	//$_SESSION['bb_sess_key'] = $user->session_id;
-	//header("location: /mufon/dashboard/");
-}
-?>
-<?php
-session_start();
-if($_SESSION['first_redirect']==1){
-	unset($_SESSION['first_redirect']);
-	$_SESSION['bb_sess_key'] = $user->session_id;
-	$_SESSION['sid']		 = substr($this->_rootref['U_LOGIN_LOGOUT'],strpos($this->_rootref['U_LOGIN_LOGOUT'],'sid=')+4);
-	header("location: /odhub/odhub/site/professional/show_home");
-}
-
-if($_SESSION['ci_click_logout']==1){
-	
-	unset($_SESSION['ci_click_logout']);
-	
-	header("location: /odhub/odhub/");
-}
-?>
-
 <?php if (!defined('IN_PHPBB')) exit; ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo (isset($this->_rootref['S_CONTENT_DIRECTION'])) ? $this->_rootref['S_CONTENT_DIRECTION'] : ''; ?>" lang="<?php echo (isset($this->_rootref['S_USER_LANG'])) ? $this->_rootref['S_USER_LANG'] : ''; ?>" xml:lang="<?php echo (isset($this->_rootref['S_USER_LANG'])) ? $this->_rootref['S_USER_LANG'] : ''; ?>">
 <head>
@@ -105,11 +80,6 @@ if($_SESSION['ci_click_logout']==1){
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/new-css.css" type="text/css" media="screen">
 
 <style type="text/css">
-	.logo {
-    float: left;
-    padding-top: 15px;
-    width: auto;	
-}
 
 .realize {
     float: right!important;
@@ -321,8 +291,28 @@ if($_SESSION['ci_click_logout']==1){
 .headerspace h3 { font-size:14px!important; 
 }
 
+/*//////////////////////17_7_13/////////////////////////////////////////////*/
+#wrap,body{
+		padding:0 !important;
+	}
+	.logo {
+    float: left;
+    padding-top: 15px;
+    width: auto;	
+}
 
-
+.fdbk{
+		left: 0;
+    margin-top: 170px;
+    position: fixed;
+    top: 0;
+    z-index: 99;
+	}
+.container{
+		margin: 0 auto;
+    width: 1004px;
+	border:none !important;
+	}
 
 </style>
 <link href="<?php echo (isset($this->_rootref['T_THEME_PATH'])) ? $this->_rootref['T_THEME_PATH'] : ''; ?>/normal.css" rel="stylesheet" type="text/css" title="A" />
@@ -343,29 +333,34 @@ if($_SESSION['ci_click_logout']==1){
 	<a id="top" name="top" accesskey="t"></a>
 	<div id="page-header">
     
-    <div class="top-header_bg" style="background-color: #2B2B2B; height: 42px; width: 100%;">
-  <div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','images/fdbk-h.png',1)"><img src="images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
-  <div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','images/nd-hlp-h.png',1)"><img src="images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
-  <div class="container">
-    <div class="top-left-sign" style="    color: #E0C304;
+    <div class="top-header_bg" style="    background-color: #2B2B2B;
+    height: 42px;
+    width: 100%;
+">
+
+
+<div class="fdbk"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image17','','images/fdbk-h.png',1)"><img src="images/fdbk.png" name="Image17" width="56" height="196" border="0"></a></div>
+<div class="nd-hlp"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image18','','images/nd-hlp-h.png',1)"><img src="images/nd-hlp.png" name="Image18" width="69" height="227" border="0"></a></div>
+	<div class="container">
+        <div class="top-left-sign" style="    color: #E0C304;
     font-family: Arial,Helvetica,sans-serif;
     font-size: 13px;
     margin: 0;
     padding: 11px 0 0;
     position: absolute;
     text-transform: uppercase;
-"><span><?php if($this->_rootref['LOGGED_IN_USER_LIST'] != ''){ ?><span>Welcome <?php echo $_SESSION['user_session_fullname'] ?>, <a href="../professional/show_home">My Account</a><?php }else{ ?><a href="../login/signup">Sign  up</a></span> for  a  free  account  today<?php } ?></div>
-    <nav class="main-menu">
-      <ul>
-        <li><a href="../">Home</a></li>
-        <li><a href="../site/static_content/index/3">How it Works</a></li>
-        <li><a href="../">For Clients</a></li>
-        <li><a href="../">For OD Professionals</a></li>
-        <li class="sign-in"><?php if($this->_rootref['LOGGED_IN_USER_LIST'] == ''){ ?><a href="../login/signin" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','../site/public/images/sign-h.jpg',1)"><img src="../site/public/public/images/sign.jpg" name="Image15" width="66" height="24" border="0"></a><? }else{ ?><a href="../login/signout" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','../site/public/images/logout-h.jpg',1)"><img src="../site/public/images/logout.jpg" name="Image15" width="66" height="24" border="0"></a> <?php } ?></li>
-      </ul>
-    </nav>
-  </div>
-  <div class="clear"></div>
+"><span><a href="#">Sign  up</a></span>  for  a  free  account  today</div>
+        <nav class="main-menu">
+                <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="#">For Clients</a></li>
+                <li><a href="#">For OD Professionals</a></li>
+                <li class="sign-in"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','http://192.168.1.50/odhub/site/public/images/sign-h.jpg',1)"><img src="http://192.168.1.50/odhub/site/public/images/sign.jpg" name="Image15" width="66" height="24" border="0"></a></li>
+                </ul>
+      </nav>
+    </div>
+    <div class="clear"></div>
 </div>
     
  
@@ -392,9 +387,6 @@ if($_SESSION['ci_click_logout']==1){
     <div class="clear"></div>
     
 </div>
-
-<div class="brk-line"></div>
-
 
 	<a name="start_here"></a>
 	<div id="page-body">

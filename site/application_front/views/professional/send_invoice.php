@@ -94,6 +94,7 @@
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
                     <p>Country :	<span> <?php
                             if ($country_data) {
+								if(isset($country_data['Country']))
                                 echo $country_data['Country'];
                             }
                 ?> </span></p>
@@ -106,10 +107,14 @@
                 </div>
                 <div class="editSec1">
                     <p>REFERRAL CODE: <span><?php echo $prof_data['referral_code']; ?></span></p>
-                    <p>Unique Referral Code Link : <span><a href="<?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
-                    <p>Upload Your W - 9 : <span>
-                            <input name="" type="file" >
-                        </span> </p>
+                    <p>Unique Referral Code Link For Professional : <span><a href="<?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/prof_signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
+                    
+                    <p>Unique Referral Code Link For Client : <span><a href="<?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
+                    
+                    <p>Send email: <span><a href="javascript:void(0);" onclick='window.open("<?php echo base_url("professional/popUpEmail/?code=".$prof_data['referral_code']);?>","_blank","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=400, height=400");'>Click</a></p>
+                    
+                    <p><a target="_blank" href="<?php echo file_upload_base_url().'professionalw9/'.$prof_data['w9Image'];?>">Download file W-9</a></p>
+                    <p>&nbsp;</p>
                 </div>
                 <div class="company-im"><a href="#"><img src="<?php echo css_images_js_base_url(); ?>images/comp-im.jpg" width="134" height="134" alt="" border="0"></a></div>
                 <div class="clear"> </div>

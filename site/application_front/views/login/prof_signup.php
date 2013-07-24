@@ -6,10 +6,10 @@
   <div class="shdw-left"></div>
   <p class="reg-h">Create an OD Hub Account as a Professional</p>
         	
-      <!--<div class="linkd">
+      <div class="linkd">
         <div class="left bold">Use my info from : </div>
         <div class="left"> <a href="#"><img src="<?php echo css_images_js_base_url();?>images/lnkd.jpg" alt="" width="71" height="24" border="0"></a></div></div>
-	  -->
+	  
 	  <div>
           <div class="left-reg">
     
@@ -107,14 +107,15 @@
                     <p class="p-txt">Country</p>
                     <div>
                         <?php
-                        $countryList = $this->model_countrystate->getAllCountry();
-                    
+                        $countryList = $this->model_location->get_country_data();
+                  
                         ?>
                         <select name="custom_country" id="custom_country" class="input-r">
                         	<option value="0">--Select Country--</option>
                         <?php
+                       // CountryId, Country, FIPS104, ISO2, ISO3, ISON, Internet, Capital, MapReference, NationalitySingular, NationalityPlural, Currency, CurrencyCode, Population, Title, Comment
                             foreach($countryList as $country){ ?>
-                                <option value="<?php echo $country->c_country_id;?>"><?php echo $country->c_country_name;?></option>		
+                                <option value="<?php echo $country['CountryId'];?>"><?php echo $country['Country'];?></option>		
                             <?php
                             }
                         ?>
@@ -123,19 +124,10 @@
                  
                  	<p class="p-txt">State</p>
                     <div>
-                        <?php
-                        $stateList = $this->model_countrystate->getAllState(0);
-                        ?>
-                        <span id="generate_state_options">
+                                             <span id="generate_state_options">
                         <select name="state" id="state" class="input-r">
                         	<option value="0">--Select State--</option>
-							<?php
-                               /* foreach($stateList as $state){ ?>
-                                    <option value=""><?php echo $state->c_state_name;?></option>		
-                                <?php
-                                }*/
-                            ?>
-                        </select>
+					               </select>
                         </span>
                  </div>
                 </div>
@@ -148,7 +140,9 @@
 					});
 					
                 	function getStateList(countryId){
+
 						var pageUrl = '<?php echo base_url().'/'.$this->router->fetch_class();?>/ajaxGenerateStatelist'
+        
 						$.ajax({
 							url: pageUrl,
 							type: "POST",
@@ -207,8 +201,8 @@
 				<p class="p-txt">Company Name </p>
                 <div><input type="text" name="company_name" id="company_name" class="input-r" ></div>
                 
-                <p class="dnld"><a href="#">Download Form </a></p>
-               <!-- <p class="bold1">Account Type<br>How do you want to represent yourself to clients on Elance?</p>
+                <!-- <p class="dnld"><a href="#">Download Form </a></p>
+               <p class="bold1">Account Type<br>How do you want to represent yourself to clients on Elance?</p>
                 <div class="left"><input name="" type="radio" value=""></div><div class="left bold">Individual&nbsp;</div>
                 <div class="left"><input name="" type="radio" value=""></div><div class="left bold">Company&nbsp;</div>
                 <div class="clear"></div>                

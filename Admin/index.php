@@ -38,17 +38,8 @@
 
                     </tr>
                     
-                    <tr>
-                    	<td align="left" valign="top" style="background:#c5c5c5;"><a href="#">Country State</a></td>
-
-                    </tr>
-                     <tr>
-                    	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>CustomCountryListing.php">Country Management</a></td>
-                    </tr>
+                   
                     
-                     <tr>
-                    	<td   align="left" valign="top" style="background:#e6e6e6;"><a href="<?php echo $siteURL;?>CustomStateListing.php">State Management</a></td>
-                    </tr>
                     
                     
                     <tr>

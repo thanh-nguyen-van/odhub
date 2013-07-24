@@ -15,9 +15,11 @@ if(!$client){ ?>
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-<li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+
             <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+			 <li><a href="<?php echo $this->config->base_url(); ?>search">Search Professionals</a></li>
       <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+	  <li class="rightalign"> <a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
 <!--            <li class="last"><a href="#">Realistic Previews</a></li>-->
         </ul>
         <a href="#" id="pull">Menu</a> </nav>
@@ -48,14 +50,15 @@ if(!$client){ ?>
             <div class="editSection1">
                 <div class="editSec2">
                     <h3> Welcome <?php echo $_SESSION[USER_SESSION_FULLNAME] ?> </h3>
-                    <p>Country :	<span> <?php if ($country_data != NULL) {  echo $country_data['Country'];} ?> </span> </p>
+                    <!--<p>Country :	<span> <?php if ($country_data != NULL) {  //echo $country_data['Country'];
+					} ?> </span> </p>-->
                     <p>Email :	<span> <?php echo $_SESSION[USER_SESSION_EMAIL] ?> </span> </p>
                     <p>Location : <span> <?php if ($state_data != NULL) { echo $state_data['StateName'];} ?>, Postalcode / Zipcode - <?php echo $client_data['ClientZipcode'] ?> </span> </p>
                 </div>
                  <div class="editSec3">
                     <ul>
-                        <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/show_profile">Your Public Profile </a></li>
-                       <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
+                        <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Your Public Profile </a></li>
+        
                     </ul>
                 </div>
                 <div class="clear"> </div>

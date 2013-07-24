@@ -1,4 +1,5 @@
 <?php
+
 foreach($data_result as $result){
 	
 ?>
@@ -21,8 +22,9 @@ foreach($data_result as $result){
  <div class="box-head-grey">
  <ul>
      <li><span><?php echo $result->job_type; ?>:</span> <p>$<?php echo $result->start_price; ?></p></li>
- <li>Posted:20 minutes ago</li>
- <li>0 Proposals
+	 
+ <li>Posted: <?=date("d-M-Y", strtotime($result->post_date));?></li>
+ <li><? $proposal = $this->model_project->projectlist($result->project_id); if(!empty($proposal)) echo $proposal['proposal']." Proposal"; else "0 Proposal";?>
  </li>
  </ul>
  

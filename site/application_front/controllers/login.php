@@ -14,6 +14,7 @@ class Login extends MY_Controller
         $this->load->model('model_payment_calc');
         $this->load->model('model_proposal');
         $this->load->model('model_professional');
+        $this->load->model('model_location');
 		$this->load->model('model_home');
                 $this->load->model('model_countrystate');   
 		
@@ -109,20 +110,20 @@ class Login extends MY_Controller
 				$fname = inputEscapeString($this->input->request('fname'));
 
 				$activationURL = base_url('login/Clientactivation').'/'.base64_encode($activation_code);
-				$message   = "Welcome to OD Hub<br>";
-				$message  .= "Hi ".$fname."<br><br>";
-				$message  .= "Thank you for registering with OD Hub. Looking to develop your business or network? Please click on the link below to verify your account and get started. : -  <br>";
+				$message  = "Hi ".$fname."<br><br>";
+				$message  .= "Welcome to OD Hub<br>";
+				$message  .= "Thank you for registering with OD Hub. You are on your way to further developiing your career. Please click the link below to verify your account and get started. : -  <br>";
 				$message  .= "URL : <a href='".$activationURL."' target='_blank'>".$activationURL."</a>    <br>";
 				$message  .= "Username : ".$email."    <br>";
 				$message  .= "Password : ".$passd." <br><br>";						
 				$message  .= "Thanks, <br>";
-				$message  .= "OD Hub Team";
-				echo $message; die; 
+				$message  .= "The OD Hub Team";
+
 				$this->model_email->sendEmail(FROM_EMAIL_ADDR, $email, 'Thanks For Registration', $message);
 				
 				
 			
-				
+				$this->middle_data['client_sugnup'] = "client_signup_thanks";
 				$this->template->write_view('header',  'common/header',$this->header_data);
 				$this->template->write_view('content', 'login/client_signup_submit',$this->middle_data); 
 				$this->template->write_view('footer',  'common/footer',$this->footer_data);
@@ -372,7 +373,7 @@ class Login extends MY_Controller
 		{
 			//$usertype = inputEscapeString($this->input->request('usertype'));     //commented by manish
 			$usertype = $this->model_login->get_user_data();
-		
+
 			if($usertype=="Client" || $usertype == "Professional"){
 				if ($usertype == "Client")
 				  redirect('client/show_home');
@@ -407,17 +408,21 @@ class Login extends MY_Controller
         
         //added by sk
         public function ajaxGenerateStatelist(){
-            $htmlString = '<select name="state" id="state" class="input-r">
-                       <option value="0">--Select State--</option>';
+			if(isset($_POST['param']) && $_POST['param'] == 'from_post_project')
+           		 $htmlString = '<select name="state" id="state" ><option value="0">--Select State--</option>';
+           	elseif(isset($_POST['param']) && $_POST['param'] == 'from_filter')
+           		$htmlString = '<select name="state" id="state"  onchange="submit_search_form();"><option value="0">--Select State--</option>';
+			else
+				$htmlString = '<select name="state" id="state" class="input-r" ><option value="0">--Select State--</option>';
             if(isset($_POST['c_country_id']) && !empty($_POST['c_country_id'])){
                 
                $c_country_id = addslashes($_POST['c_country_id']);
-               $stateList = $this->model_countrystate->getAllState($c_country_id);
+               $stateList = $this->model_location->get_state_data('',$c_country_id);
                
                if($stateList!=false){
                    
                    foreach($stateList as $states){
-                       $htmlString .= '<option value="'.$states->c_state_name.'">'.$states->c_state_name.'</option>';
+                       $htmlString .= '<option value="'.$states['StateId'].'">'.$states['StateName'].'</option>';
                    }
                }
                $htmlString .='</select>';
@@ -426,6 +431,7 @@ class Login extends MY_Controller
             exit();
             
         }
+
 		public function activation(){
 			$this->load->helper('url');
 			$activation_code = base64_decode($this->uri->segment(3, 0));

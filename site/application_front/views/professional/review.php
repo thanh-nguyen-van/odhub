@@ -4,13 +4,13 @@
 <section class="container">
 
 <?php $client = $this->input->get('professional_id');
-		if($client!=''){ ?>
+		if($client==''){ ?>
         
   <nav class="clearfix">
     <ul class="clearfix">
-      <li><a href="<?php echo $this->config->base_url();?>professional/edit_profile">Profile</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>professional/show_home">Account</a></li>
-      <li class="last"><a href="<?php echo $this->config->base_url();?>project/aword_project">Projects</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/edit_profile">My Profile</a></li>
+            <li><a href="<?php echo $this->config->base_url(); ?>professional/show_home">My Account</a></li>
+            <li class="last"><a href="<?php echo $this->config->base_url(); ?>project/aword_project">My Projects</a></li>
 
     </ul>
     <a href="#" id="pull">Menu</a> </nav>

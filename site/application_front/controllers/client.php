@@ -35,9 +35,12 @@ class Client extends MY_Controller
                 $client_id = $_SESSION[USER_SESSION_ID];
         
 				$this->middle_data['client_data']	= $this->model_client->get_client_data($client_id);
-				$this->middle_data['country_data']	= $this->model_location->get_country_data($this->middle_data['client_data']['ClientCountry']);
-				$this->middle_data['state_data']	= $this->model_location->get_state_data($this->middle_data['client_data']['ClientState']);
-                $this->middle_data['fab_prof']      = $this->model_searchcustom->get_fab_professional($client_id);
+				
+				if($this->middle_data['client_data']['ClientCountry']!=''){				
+					$this->middle_data['country_data']	= $this->model_location->get_country_data($this->middle_data['client_data']['ClientCountry']);
+					$this->middle_data['state_data']	= $this->model_location->get_state_data($this->middle_data['client_data']['ClientState']);
+                }
+				$this->middle_data['fab_prof']      = $this->model_searchcustom->get_fab_professional($client_id);
                
                 
                 
@@ -122,9 +125,11 @@ class Client extends MY_Controller
 	{
 		$project_id								 = $this->input->get('projectid');
 		$this->middle_data['project_details']	 = $this->model_project->get_project_data($project_id);
+
 		$this->middle_data['project_skill_data'] = $this->model_searchproject->getProjectSkillDetails($project_id);		
-		
-		
+		$country = $this->model_location->get_country_data($this->middle_data['project_details'][0]->country);
+		if(!empty($country))
+		$this->middle_data['country'] = $country['Country'];
 		$this->load->view('common/head',			$this->header_data);
         $this->load->view('common/header',			$this->header_data);
         $this->load->view('client/project_details',	$this->middle_data);

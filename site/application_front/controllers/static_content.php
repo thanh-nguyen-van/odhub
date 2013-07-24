@@ -24,6 +24,7 @@ class Static_content extends MY_Controller
 		$page_id = $this->uri->segment(3,0);
 		$this->leftmenu_data['page_id']		= $page_id;
 		$this->middle_data['menu_content']	= $this->model_content->get_menu_content($page_id);
+		$this->middle_data['page_id']	= $page_id;
 		
 		$this->template->write_view('header',	 'common/header',$this->header_data);
 		$this->template->write_view('leftmenu',  'common/left_menu',$this->leftmenu_data); 
@@ -45,10 +46,24 @@ class Static_content extends MY_Controller
 		$this->load->helper('url');
 	
 		$this->middle_data['content'] = $this->model_content->get_content($this->uri->segment(3));
-		$this->template->write_view('header',	 'common/header',$this->header_data);
-		$this->template->write_view('content',	 'static/learn_more',$this->middle_data); 
-		$this->template->write_view('footer',	 'common/footer',$this->footer_data);
-		$this->template->render();
+		if($this->middle_data['content']['StaticPageType']=='for_client'){
+			$this->middle_data['client']	= $this->model_home->get_for_client();
+			$this->template->write_view('header',	 'common/header',$this->header_data);
+			$this->template->write_view('content','static/index-client',$this->middle_data);
+			$this->template->write_view('footer',	 'common/footer',$this->footer_data);
+			$this->template->render();
+		}elseif($this->middle_data['content']['StaticPageType']=='for_professional'){
+			$this->middle_data['professional']	= $this->model_home->get_for_professional();
+			$this->template->write_view('header',	 'common/header',$this->header_data);
+			$this->template->write_view('content','static/index-prof',$this->middle_data);
+			$this->template->write_view('footer',	 'common/footer',$this->footer_data);
+			$this->template->render();
+		}else{
+			$this->template->write_view('header',	 'common/header',$this->header_data);
+			$this->template->write_view('content',	 'static/learn_more',$this->middle_data); 
+			$this->template->write_view('footer',	 'common/footer',$this->footer_data);
+			$this->template->render();
+		}
 	}
 	
 	

@@ -25,7 +25,7 @@
                 } else {
                     echo css_images_js_base_url() . 'images/pro-pic.png';
                 }
-                ?>"   alt="" border="0">
+                ?>"   alt="" border="0" height="120" width="120">
                 
                         <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('ProfessionalImage').click();" /></div>              
                 </div>
@@ -44,6 +44,7 @@
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
                     <p>Country :	<span> <?php
                             if ($country_data) {
+								if(isset($country_data['Country']))
                                 echo $country_data['Country'];
                             }
                 ?> </span></p>
@@ -66,8 +67,8 @@
                 } else {
                     echo css_images_js_base_url() . 'images/comp-im.jpg';
                 }
-                ?>"  alt="Company Logo" />
-                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('company_logo').click();"/></div>
+                ?>"  alt="Company Logo" height="120" width="120"/>
+                <div class="pen"><img src="<?php echo site_url('public/images/pen.png'); ?>"  alt="Edit" title="Edit" onclick="document.getElementById('company_logo').click(); " /></div>
 				
                 <div style="display:none;">
                   <form name="company_logo_up" id="company_logo_up" action="<?php echo site_url('professional/edit_profile_save/company_logo_up');?>" method="post" enctype="multipart/form-data">

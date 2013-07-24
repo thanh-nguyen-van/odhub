@@ -13,7 +13,9 @@ class Project extends MY_Controller
         $this->load->model('model_all');
         $this->load->model('model_proposal');  
         $this->load->model('model_professional');  
-         $this->load->model('model_home');
+        $this->load->model('model_home');
+        $this->load->model('model_location');
+        $this->load->model('model_countrystate');
         $this->initData();
         
         //$this->load->model('model_searchcustom');		
@@ -83,13 +85,14 @@ class Project extends MY_Controller
        
         //DebugBreak();
         
-        
+       
         $final_qry_str = $this->model_all->project_search_rq($this->request_data);
         $final_qry_str_2 = $this->model_all->project_search_rq($this->request_data);
          
-    
+    	
         $data['category_details']	= $this->model_searchproject->getCategoryInfo($final_qry_str);
         $data['projecttypeInfo']	= $this->model_searchproject->getProjecttypeInfo($final_qry_str);
+       // print_r($data['projecttypeInfo']); die;
         $data['project_leadership_coaching']	= $this->model_searchproject->project_leadership_coaching($final_qry_str);
 		$data['projectstate']		= $this->model_searchproject->getFilterState($final_qry_str);
 		$data['pr_cat_name'] = $this->input->post('pr_cat_name');
@@ -106,9 +109,9 @@ class Project extends MY_Controller
          $pagination_value = $this->request_data['pagination'];
         //DebugBreak();
         
-        
-        $final_qry_str = $this->model_all->project_search_rq($this->request_data);
-        
+       
+       $final_qry_str = $this->model_all->project_search_rq($this->request_data);
+       //  echo $final_qry_str;
         
          $data_result = $this->model_searchproject->getProjectDetails_short($final_qry_str,$pagination_value);
          $data['data_result'] = $data_result;
@@ -428,6 +431,8 @@ class Project extends MY_Controller
            return $checkStatusReferer = $this->model_project->checkIfReferred($project_id);
             
         }       
+
+
 }
 
 /* End of file home.php */

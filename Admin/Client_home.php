@@ -1,4 +1,6 @@
-<? include('include/adminheader.php');
+<? 
+
+include('include/adminheader.php');
 include('include/connect.php');
 
 $home=$_REQUEST['home_id'];

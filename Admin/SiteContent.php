@@ -61,13 +61,13 @@ $allow_content_type_str = implode(',',$arr_allow_content_type);
 		<td align="center" valign="middle">5 . </td>
 		<td align="left" valign="middle">For Clients</td>
         <td align="left" valign="middle"><? echo substr($data['for_client'],0,75)."...";?></td>
-        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=for_client" class="edit">Edit</a> 
+        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Client_for_client.php" class="edit">Edit</a> 
      </tr>
 	 <tr>
 		<td align="center" valign="middle">6 . </td>
 		<td align="left" valign="middle">For Professionals</td>
         <td align="left" valign="middle"><? echo substr($data['for_professional'],0,75)."...";?></td>
-        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>Cms.php?page=for_professional" class="edit">Edit</a> 
+        <td align="left" valign="middle"><a href="<?php echo $siteURL;?>For_professional.php" class="edit">Edit</a> 
      </tr>
 	 <tr>
 		<td align="center" valign="middle">7 . </td>

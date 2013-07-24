@@ -6,10 +6,13 @@ $data='';
 
 if((!empty($_POST))&&(isset($_POST['submit'])))
 {
-    $pagedata=$_REQUEST['pagetext'];
-    $query="UPDATE ".$table['staticpage']." SET StaticPageText='".$pagedata."' WHERE StaticPageType='".$_REQUEST['page']."'";
+   $pagedata=$_REQUEST['pagetext'];
+   
+$query="UPDATE ".$table['staticpage']." SET StaticPageText='".$pagedata."' WHERE StaticPageType='".$_REQUEST['page']."'";
+
     $result=mysql_query($query);
-    $msg="<font color=red>Successfully Updated</font>";
+   
+   $msg="<font color=red>Successfully Updated</font>";
     
  }
  else

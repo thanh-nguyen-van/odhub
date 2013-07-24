@@ -48,6 +48,7 @@ class Model_professional extends CI_Model {
         $sql_getAllProfessional = "select * from `" . $_tablename . "` `lpt` where " . $final_qry_str.$limit_sql;
         $result = $this->db->query($sql_getAllProfessional);
 
+       // echo $this->db->last_query();
         $data_result = $result->result();
 
         return $data_result;
@@ -181,6 +182,7 @@ class Model_professional extends CI_Model {
 
     public function update_info($postdata) {
 	
+	if($postdata['skills']!=''){
 	$this->db->delete('professional_skill_map', array('professional_id' => $_SESSION[USER_SESSION_ID])); 
 		for($i=0;$i<count($postdata['skills']);$i++){
 			$data = array(
@@ -191,6 +193,7 @@ class Model_professional extends CI_Model {
 			$this->db->insert('professional_skill_map', $data); 
 		}
 		unset($postdata['skills']);
+	}
         //foreach($postdata as $postdata){$data["$postdata"] = $postdata;}
        $this->db->where('ProfessionalId', $_SESSION[USER_SESSION_ID]);
        $this->db->update('lm_professionaldetail_tbl', $postdata); 
@@ -255,6 +258,41 @@ l.project_id = pd.project_id left join lm_clientdetail_tbl cl on l.client_id = c
 	
 		return $query->row_array();
 	}
+    public function SearchableSave($post_array){
+    
+        $object = array(  'ProfessionalCharges' =>$post_array['hourly_rate'] ,
+                            's_professional_coaching_credential_id' =>$post_array['coaching_credential'] ,
+                             's_professional_coaching_style_id' =>$post_array['coaching_style'] ,
+                             's_professional_coaching_focus_id' =>$post_array['coaching_focus'] ,   
+        );
+        $this->db->where('ProfessionalId', $_SESSION[USER_SESSION_ID]);
+        if($this->db->update('lm_professionaldetail_tbl', $object)) 
+        return true;
+    }
+	public function SearchableSaveskill($post_array){
+		//professional_skill_map_id, professional_id, skill_id
+		$this->db->where('professional_id', $_SESSION[USER_SESSION_ID]);
+		$this->db->delete('professional_skill_map');
+		
+        for($i=0;$i<count($post_array['skill']);$i++){
+				$data = array(
+					'professional_id' => $_SESSION[USER_SESSION_ID] ,
+					'skill_id' => $post_array['skill'][$i] ,
+					
+				);
+			$this->db->insert('professional_skill_map', $data); 
+		}
+		$object = array(  's_professional_contract_charge' =>$post_array['max_contract_value']);
+        $this->db->where('ProfessionalId', $_SESSION[USER_SESSION_ID]);
+		if($this->db->update('lm_professionaldetail_tbl', $object)) 
+        return true;
+    }
+	public function getProfessionalSearchstatus($professionalId){
+		$this->db->select('*');
+		$this->db->from('professional_skill_map');
+		$this->db->where('professional_id',$professionalId);
+		return $this->db->get()->result();
+    }
 
 }
 

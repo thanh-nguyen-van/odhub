@@ -9,7 +9,7 @@
 <title>Untitled Document</title>
 </head>
 
-<body onload="document.getElementById('login').submit();"> <!--onload="document.getElementById('').submit();"-->
+<body onloadi="document.getElementById('login').submit();"> <!--onload="document.getElementById('').submit();"-->
 
 
 <form action="<?php echo $this->config->base_url();?>../forum/ucp.php?mode=login" method="post" id="login">

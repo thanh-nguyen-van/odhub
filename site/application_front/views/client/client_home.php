@@ -25,11 +25,13 @@
 <section class="container">
     <nav class="clearfix">
         <ul class="clearfix">
-<li><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
+			
             <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
 			 <li><a href="<?php echo $this->config->base_url(); ?>search">Search Professionals</a></li>
-      <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+			<li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+			<li class="rightalign"> <a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
         </ul>
+        
         <a href="#" id="pull">Menu</a> </nav>
     <div class="Total-Div-Box">
         <div class="listingDiv1">
@@ -48,22 +50,22 @@
             </div>
             <div class="editSection1">
                 <div class="editSec2">
-                    <h3> Welcome <?php echo strtoupper($_SESSION[USER_SESSION_FULLNAME]); ?> </h3>
+                    <h3> Welcome <?php echo ucwords($_SESSION[USER_SESSION_FULLNAME]); ?> </h3>
                     
                     From your home page, you can Search OD Hub Professionals to find the right person for your career development needs by clicking SEARCH PROFESSIONALS. If you'd rather the professionals find you, POST A PROJECT. Once you've started looking, you can track who you like, who you've worked with before, and your invoices.  Remember, we're always here to help. Just shoot us an email.
                     
-                    <p>Country :	<span> <?php if ($country_data != NULL) {
-    echo $country_data['Country'];
-} ?> </span> </p>
+                 <!--   <p>Country :	<span> <?php if (!empty($country_data)) {
+    //echo $country_data['Country'];
+} ?> </span> </p>-->
                     <p>Email :	<span> <?php echo $_SESSION[USER_SESSION_EMAIL] ?> </span> </p>
-                    <p>Location : <span> <?php if ($state_data != NULL) {
-    echo $state_data['StateName'];
-} ?>, Postalcode / Zipcode - <?php echo $client_data['ClientZipcode'] ?> </span> </p>
+                    <p>Location : <span> <?php if (!empty($state_data)) {
+    //echo $state_data['StateName'];
+} ?> Postalcode / Zipcode - <?php echo $client_data['ClientZipcode'] ?> </span> </p>
                 </div>
                 <div class="editSec3">
                     <ul>
-                        <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/show_profile/">Your Public Profile </a></li>
-                         <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile">Edit Your Profile </a></li>
+                        <li class="aa"><a href="<?php echo $this->config->base_url(); ?>client/edit_profile/">Your Public Profile </a></li>
+           
                          <li class="bb"><a href="<?php echo $this->config->base_url(); ?>client/message" <?if($number_of_unread_message>0){?> style="color:red;"<?}?>>Inbox(<? echo $number_of_unread_message ?>) </a></li>
                     </ul>
                 </div>
@@ -270,5 +272,6 @@ foreach ($fab_prof as $key => $val) {
         <!--</div>
         <div class="drop-shadow"><img src="<?php echo css_images_js_base_url(); ?>images/drop-shadow.png"  height="11" alt="" border="0" /></div>
     </div>-->
+
 </section>
 <div class="clear"></div>

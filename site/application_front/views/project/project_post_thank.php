@@ -8,7 +8,7 @@
         	<div class="dp-blue">
             <div class="login-im"></div>
              <p style="font-size:14px; color:#FFF; font-weight:bold">Thank You, Project posted successfully</p><br/>
-			<a href="<?=base_url('project/details?projectid=')?><?=$last_project_id?>" target="_blank" style="font-size:14px; color:#FFF; font-weight:bold text-decoration:none;">Click here to view your project</a>
+			<a href="<?=base_url('client/project_details?projectid=')?><?=$last_project_id?>" target="_blank" style="font-size:14px; color:#FFF; font-weight:bold text-decoration:none;">Click here to view your project</a>
              <div class="clear"></div>
             </div>
         </div>

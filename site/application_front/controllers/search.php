@@ -11,6 +11,7 @@ class Search extends MY_Controller
         $this->load->model('model_searchcustom');
 		$this->load->model('model_home');
 		$this->load->model('model_message');
+    $this->load->model('model_location');
 	   $this->initData();
 	}
 	
@@ -47,7 +48,7 @@ class Search extends MY_Controller
 	}  
      
     function index_left(){ 
-    
+   
         $this->request_data = $this->input->post();
 		$looking_for = $this->input->post('looking_for');
          
@@ -59,7 +60,7 @@ class Search extends MY_Controller
             $arr_cond_arr = array();
             
             
-            if($this->request_data['state']!='all'){
+            if($this->request_data['state']!=''){
                 $cond_str = "`lpt`.`ProfessionalState`='".$this->request_data['state']."'";
                 array_push($arr_cond_arr,$cond_str);
             }
@@ -71,6 +72,12 @@ class Search extends MY_Controller
             if(isset($this->request_data['coaching_focus'])){
                $tmp_str = implode(',',$this->request_data['coaching_focus']);
                $cond_str = "`lpt`.`s_professional_coaching_focus_id` in(".$tmp_str.")";
+               array_push($arr_cond_arr,$cond_str);                 
+            }
+            if(isset($this->request_data['skill_details'])){
+               $tmp_str = implode(',',$this->request_data['skill_details']);
+               $cond_str = "`psm`.`professional_id` in(select `professional_id` from `professional_skill_map` where `skill_id` in(".$tmp_str."))";
+              // $cond_str = "`lpt`.`s_professional_coaching_focus_id` in(".$tmp_str.")";
                array_push($arr_cond_arr,$cond_str);                 
             }
             if(isset($this->request_data['coaching_style'])){
@@ -125,14 +132,14 @@ class Search extends MY_Controller
             }
             if(isset($this->request_data['looking_for'])){
                $tmp_str = $this->request_data['looking_for'];
-               $cond_str = "`lpt`.`s_professional_looking_status_id` in(".$tmp_str.")";
+			   $cond_str = "`lpt`.`s_professional_looking_status_id` in(".$tmp_str.")";
                array_push($arr_cond_arr,$cond_str); 
             }
             
             $final_qry_str = '('.implode(') and (',$arr_cond_arr).')';
         }
         
-        
+      
         
        if(!isset($final_qry_str)){
            $final_qry_str = 1; 
@@ -145,22 +152,23 @@ class Search extends MY_Controller
        
          }    
         
-        $this->final_qry_str = $final_qry_str;
+       $this->final_qry_str = $final_qry_str;
         
        // echo $final_qry_str;
         // DebugBreak();
    
-        $data['state_details'] = $this->model_searchcustom->getFilterState($final_qry_str);
-        $data['lookingfor_details'] = $this->model_searchcustom->getFilterLookingfor($final_qry_str);
-		$data['type_details'] = $this->model_searchcustom->getFiltertype($final_qry_str);
-		
-		$data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus($final_qry_str);
-        $data['coatchstyle_details'] = $this->model_searchcustom->getFiltercoatchstyle($final_qry_str);
-		
-        $data['hourlyrate_details'] = $this->model_searchcustom->getFilterhourlyrate($final_qry_str);
-        $data['contractval_details'] = $this->model_searchcustom->getFiltercontractval($final_qry_str);
-        
-        
+			$data['state_details'] = $this->model_searchcustom->getFilterState($final_qry_str);
+			$data['lookingfor_details'] = $this->model_searchcustom->getFilterLookingfor($final_qry_str);
+			$data['type_details'] = $this->model_searchcustom->getFiltertype($final_qry_str);
+			$data['skill_details'] = $this->model_searchcustom->getFilterskill($final_qry_str);    
+
+			$data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus($final_qry_str);
+			$data['coatchstyle_details'] = $this->model_searchcustom->getFiltercoatchstyle($final_qry_str);
+
+			$data['hourlyrate_details'] = $this->model_searchcustom->getFilterhourlyrate($final_qry_str);
+			$data['contractval_details'] = $this->model_searchcustom->getFiltercontractval($final_qry_str);
+
+
         
         
      
@@ -225,7 +233,7 @@ class Search extends MY_Controller
     function search_result(){  
         
         
-        
+       
         $this->request_data = $this->input->post();
          $pagination_value = $this->request_data['pagination'];   
          
@@ -237,7 +245,7 @@ class Search extends MY_Controller
             $arr_cond_arr = array();
             
             
-            if($this->request_data['state']!='all'){
+            if($this->request_data['state']!=''){
                 $cond_str = "`lpt`.`ProfessionalState`='".$this->request_data['state']."'";
                 array_push($arr_cond_arr,$cond_str);
             }
@@ -252,6 +260,18 @@ class Search extends MY_Controller
                $cond_str = "`lpt`.`s_professional_coaching_focus_id` in(".$tmp_str.")";
                array_push($arr_cond_arr,$cond_str);                 
             }
+			if(isset($this->request_data['coaching_credential'])){
+               $tmp_str = implode(',',$this->request_data['coaching_credential']);
+               $cond_str = "`lpt`.`s_professional_coaching_credential_id` in(".$tmp_str.")";
+               array_push($arr_cond_arr,$cond_str);                 
+            }
+            if(isset($this->request_data['skill_details'])){
+               $tmp_str = implode(',',$this->request_data['skill_details']);
+               $cond_str = "`lpt`.`ProfessionalId` in(select `professional_id` from `professional_skill_map` where `skill_id` in(".$tmp_str."))";
+              // $cond_str = "`lpt`.`s_professional_coaching_focus_id` in(".$tmp_str.")";
+               array_push($arr_cond_arr,$cond_str);                 
+            }
+            
             if(isset($this->request_data['coaching_style'])){
                $tmp_str = implode(',',$this->request_data['coaching_style']);
                $cond_str = "`lpt`.`s_professional_coaching_style_id` in(".$tmp_str.")";
@@ -323,7 +343,7 @@ class Search extends MY_Controller
          }    
          
  
-        $this->final_qry_str = $final_qry_str;
+      $this->final_qry_str = $final_qry_str;
         
         
         

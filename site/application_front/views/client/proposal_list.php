@@ -11,9 +11,11 @@ return false;
 <section class="container">
   <nav class="clearfix">
     <ul class="clearfix">
-      <li><a href="<?php echo $this->config->base_url();?>client/edit_profile">My Account</a></li>
-      <li><a href="<?php echo $this->config->base_url();?>client/show_home">My Home</a></li>
+
+            <li><a href="<?php echo $this->config->base_url(); ?>client/show_home">My Home</a></li>
+			 <li><a href="<?php echo $this->config->base_url(); ?>search">Search Professionals</a></li>
       <li class="last"><a href="<?php echo $this->config->base_url();?>client/project_list">My Projects</a></li>
+	   <li class="rightalign"> <a href="<?php echo $this->config->base_url(); ?>client/edit_profile">My Account</a></li>
 
 <!--      <li class="last"><a href="#">Realistic Previews</a></li>-->
     </ul>
@@ -77,7 +79,7 @@ return false;
         </ul>
       </div>
     </div>
-    <div class="drop-shadow"><img src="images/drop-shadow.png"  height="11" alt="" border="0"></div>
+    <div class="drop-shadow"><img src="<?php echo css_images_js_base_url();?>images/drop-shadow.png"  height="11" alt="" border="0"></div>
   </div>
 </section>
 <div class="clear"></div>

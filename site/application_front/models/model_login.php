@@ -253,14 +253,12 @@ class Model_login extends CI_Model
 				$query	= $this->db->get($table_name);
 				$result = $query->row_array();
 				
-				if($result['ProfessionalStatus']==0){
+				if(!empty($result) && $result['ProfessionalStatus']==0){
 				$status = 'inactive';
 					return $status;
 				}
 			}
 			
-		// print_r($result);
-		// die;
 		if($result){
 			//if($usertype=="Client"){      	previous code-------changed By manish
 			if(isset($result['ClientId'])){		//added by Manish

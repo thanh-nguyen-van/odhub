@@ -8,34 +8,50 @@ class Model_location extends CI_Model
 		parent::__construct();	
 	}
 	
-	public function get_country_data($country_id)
+	public function get_country_data($country_id='')
 	{
-		$table_name  = "lm_country_tbl";
-		$select_flds = "*";
-		$condition	 = "CountryId = '".$country_id."'";
-				
-		
-		$this->db->select($select_flds);
-		$this->db->where($condition);
-		
-		$query	= $this->db->get($table_name);
-		$result = $query->row_array();
+		if($country_id!=''){
+			$table_name  = "lm_country_tbl";
+			$select_flds = "*";
+			$condition	 = "CountryId = '".$country_id."'";
+			$this->db->select($select_flds);
+			$this->db->where($condition);
+			$query	= $this->db->get($table_name);
+			$result = $query->row_array();
+		}else{
+			$table_name  = "lm_country_tbl";
+			$query	= $this->db->get($table_name);
+			$result = $query->result_array();
+
+		}		
 		
 		return $result;
 	}
 	
-	public function get_state_data($state_id)
+	public function get_state_data($state_id='',$country_id='')
 	{
 		$table_name  = "lm_state_tbl";
 		$select_flds = "*";
-		$condition	 = "StateId = '".$state_id."'";
-				
 		
-		$this->db->select($select_flds);
-		$this->db->where($condition);
+		if($state_id!=''){
+			$condition	 = "StateId = '".$state_id."'";
+			$this->db->select($select_flds);
+			$this->db->where($condition);
+			
+			$query	= $this->db->get($table_name);
+			$result = $query->row_array();
+		}
+		else{
+			$condition	 = "CountryId = '".$country_id."'";
+			$this->db->select($select_flds);
+			$this->db->where($condition);
+			
+			$query	= $this->db->get($table_name);
+			$result = $query->result_array();
+			
+	}
 		
-		$query	= $this->db->get($table_name);
-		$result = $query->row_array();
+		
 		
 		return $result;
 	}

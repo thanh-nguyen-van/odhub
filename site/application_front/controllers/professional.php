@@ -18,7 +18,7 @@ class Professional extends MY_Controller {
 		$this->load->model('model_home');
 		$this->load->model('model_message');
 		$this->load->model('model_client');
-		
+		$this->load->model('model_searchcustom');
         $this->initData();
     }
 
@@ -47,7 +47,7 @@ class Professional extends MY_Controller {
 
         $this->middle_data['prof_data'] = $this->model_professional->get_professional_data($_SESSION[USER_SESSION_ID]);
         $prof_data = $this->middle_data['prof_data'];
-
+		
         $this->middle_data['country_data'] = $this->model_location->get_country_data($this->middle_data['prof_data']['ProfessionalCountry']);
         $this->middle_data['state_data'] = $this->model_location->get_state_data($this->middle_data['prof_data']['ProfessionalState']);
 
@@ -93,7 +93,8 @@ class Professional extends MY_Controller {
 		
 		$this->middle_data['number_of_unread_message']= $this->model_message->getMessageSet($_SESSION[USER_SESSION_ID],'unread','professional');
 		
-	
+		 $this->middle_data['search_status'] = $this->model_professional->getProfessionalSearchstatus($_SESSION[USER_SESSION_ID]);
+		
         $this->template->write_view('header', 'common/header', $this->header_data);
         $this->template->write_view('content', 'professional/professional_home', $this->middle_data);
         $this->template->write_view('footer', 'common/footer', $this->footer_data);
@@ -494,6 +495,7 @@ class Professional extends MY_Controller {
     
     
     public function popUpEmail(){
+	
 		$this->load->helper('url');
 		$client_id = $this->uri->segment(3);
         $post_data = $this->input->post();
@@ -510,9 +512,14 @@ class Professional extends MY_Controller {
             //Additional headers
             $headers .= 'To: '.$to . "\r\n";
             $headers .= 'From: OdHub <odhub@odhub.com>' . "\r\n";
-            $subject = "New Message From Professional";
-			$content = "Sir,<br/> You have a new message from Professional <br/>.Please login to OD Hub to view message.Here is the refferal URL:-<br><a href='".$url."' target='_blank'>".$url."</a><br/>Please click on the above link for join OD hub.";
-
+            $subject = "New Message From ".$_SESSION['user_session_fullname'];
+			if($post_data['refferal_type']=='client'){
+			$content = " Dear Friend, <br> I am a member of OD Hub and I'd like to refer you to the site. This is an online network for networking Organizational Development professionals, clients, and the community. I hope that you will accept my referral as I think you may find what you need on the site via searching the professional profiles or posting a project. Please join by clicking the link below.<br><a href='".$url."' target='_blank'>".$url."</a><br>".$_SESSION['user_session_fullname'];
+			}else{
+			$content = "Dear Friend, <br> I just joined OD Hub and I'd like to refer you to the site. This is an online network for networking Organizational Development professionals, clients, and the community. I hope that you will accept my referral and join by clicking the link below.<br><a href='".$url."' target='_blank'>".$url."</a><br> ".$_SESSION['user_session_fullname'];
+			}
+			
+		
            // Mail it
            
 			@mail($to, $subject, $content, $headers); 
@@ -523,12 +530,8 @@ class Professional extends MY_Controller {
 		$this->template->write_view('content', 'professional/popup_referal',  $data);
         $this->template->render();
     } 
-	public function updateLookingstatus(){     //ajax call
 	
-        if($this->model_professional->update_lookng(array("s_professional_looking_status_id"=>$this->uri->segment(3, 0))))
-		echo true;
-		exit;
-    }
+	
 	
 	public function sendmessage(){
 		$this->load->helper('url');
@@ -571,7 +574,38 @@ class Professional extends MY_Controller {
        $data['client_details'] = $this->model_client->get_client_data($client_id);
        $this->load->view('professional/send_message_client',$data); 
 	   }
-       
+       public function Searchable(){
+	    $this->load->helper('url');
+        $this->middle_data['type'] = $this->uri->segment('3');
+        $this->middle_data['coatchfocus_details'] = $this->model_searchcustom->getFiltercoatchfocus();
+        $this->middle_data['coatchstyle_details'] = $this->model_searchcustom->getFiltercoatchstyle();
+        $this->middle_data['coatchcredential_details'] = $this->model_searchcustom->getFiltercoatchcredential();
+        $this->middle_data['hourlyrate_details'] = $this->model_searchcustom->getFilterhourlyrate();
+		$this->middle_data['skill_details'] = $this->model_searchcustom->getFilterskill();    
+        //print_r($this->middle_data['hourlyrate_details']);
+        //die;
+    	$this->template->write_view('header', 'common/header', $this->header_data);
+        $this->template->write_view('content', 'professional/searchable', $this->middle_data);
+        $this->template->write_view('footer', 'common/footer', $this->footer_data);
+        $this->template->render();
+	}	
+
+    public function SearchableSave(){
+		$this->load->helper('url');
+        $this->middle_data['type'] = $this->uri->segment('3');
+		if($this->middle_data['type']==1){
+			if($this->model_professional->SearchableSave($this->input->post()))
+			redirect('professional/show_home', 'refresh');
+			else
+			redirect('professional/show_home', 'refresh');
+		}else{
+			if($this->model_professional->SearchableSaveskill($this->input->post()))
+			redirect('professional/show_home', 'refresh');
+			else
+			redirect('professional/show_home', 'refresh');
+		}
+        
+    }   
 
 }
 

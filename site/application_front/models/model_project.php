@@ -10,7 +10,9 @@ class Model_project extends CI_Model
     
     
 	public function insert_project_data($project_filename)
+
 	{
+		
 		$project_id			 = $this->input->request('project_id') != '' ? $this->input->request('project_id') : '';
 		
         $project_name		 = inputEscapeString($this->input->request('project_name'));
@@ -25,6 +27,7 @@ class Model_project extends CI_Model
 		//$post_by			 = inputEscapeString($this->input->request('post_by'));
         $skills              = $this->input->request('skills');
         $project_visibility  = $this->input->request('project_visibility');
+        $country               = $this->input->request('custom_country');
         $state               = $this->input->request('state');
 		$project_type_id	 = $this->input->request('project_type_id');
 		$project_start 		 = $this->input->request('project_start');
@@ -52,6 +55,7 @@ class Model_project extends CI_Model
 						 'project_visibility'	=> $project_visibility	,
 						 'project_start'		=> $project_start		,
                          'project_start_date'   => $project_start_date  ,
+                         'country'				=> $country				,
                          'state'				=> $state				,
 						 'project_type_id'		=> $project_type_id		,
 						 'post_date'			=> $post_date,
@@ -127,7 +131,7 @@ class Model_project extends CI_Model
 	public function get_project_data($project_id)
 	{
         $sql_get_project_data = "select `pd`.`project_id`,`pd`.`project_filename`,`pd`.`post_by`,`pd`.`project_name`,`pd`.`project_category`,`pd`.`project_description`,`pd`.`job_type`,`pd`.`price_type`,
-if(`pd`.`w9_required`=1,'W9 Required','W9 Not Required') `w9_status`,`pd`.`start_price`,`pd`.`end_price`,`pd`.`project_filename`,`pd`.`project_visibility`,`pd`.`project_start`,`pd`.`project_start_date`,`pd`.`project_status`,
+if(`pd`.`w9_required`=1,'W9 Required','W9 Not Required') `w9_status`,`pd`.`start_price`,`pd`.`end_price`,`pd`.`project_filename`,`pd`.`project_visibility`,`pd`.`project_start`,`pd`.`project_start_date`,`pd`.`project_status`,`pd`.`country`,`pd`.`state`,
 concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_format(`pd`.`post_date`,'%M %d, %Y') `post_date`,date_format(`pd`.`project_start_date`,'%M %D, %Y') `job_st_dt` from `project_details` as `pd` left join `lm_clientdetail_tbl` `lct` on `pd`.`post_by` = `lct`.`ClientId` where `pd`.`project_id` = '".$project_id."'";
 
 //echo $sql_get_project_data; exit;
@@ -250,6 +254,13 @@ concat(`lct`.`ClientFirstname`,' ',`lct`.`ClientLastname`) `client_name`,date_fo
 			$this->db->where('project_id',$projectId);
            return $this->db->get()->row_array();
         }
+		public function projectlist($projectId){
+            $this->db->select("count(project_id) as proposal");    
+            $this->db->from("proposal");
+			$this->db->where('project_id',$projectId);
+           return $this->db->get()->row_array();
+        }
+		
     
 }
 

@@ -58,8 +58,10 @@
 	$table['userstatus'] 			= 'lm_userstatus_tbl';
 	$table['testimonials'] 			= 'lm_testimonials_tbl';
 	$table['home'] 			        = 'im_home_page';
+	$table['for_client'] 			= 'lm_for_client';
+	$table['for_professional'] 	    = 'lm_for_professional';
 	$table['services'] 			    = 'im_service_list';
-	$table['homevideo'] 			    = 'im_home_video';
+	$table['homevideo'] 		    = 'im_home_video';
 
 
 

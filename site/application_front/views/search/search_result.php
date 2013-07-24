@@ -54,7 +54,7 @@ foreach($data_result as $key=>$val){
     
     
     <div class="div-3">
-<!--        <div class="btnB"><a href="#">Realistic Preview</a></div>-->
+        <div class="btnB"><a href="<? echo base_url('professional/review/?professional_id=').$ProfessionalId;?>">Realistic Preview</a></div>
         
         <div class="btnC"><a href="#" onclick="return contact_professional('<?php echo $ProfessionalId;?>');">Contact</a></div>
     

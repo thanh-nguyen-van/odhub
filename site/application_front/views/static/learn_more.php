@@ -1,7 +1,14 @@
 <div class="brk-line"></div>
 </header> 
-<div style="margin-left:30%; margin:150px 150px 150px 150px;  display:block;"> 
-<?
-print($content['StaticPageText']);
+<section class="container">
+<div class="con-heading"><? print($content['StaticPageName']); ?></div>
+<div class="con-wrap">
+
+	<?
+	print($content['StaticPageText']);
+
  ?>
+
+
  </div>
+</section>

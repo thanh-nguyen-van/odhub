@@ -10,6 +10,7 @@ class Model_searchcustom extends CI_Model
         $this->table_name = "lm_professionaldetail_tbl";	
 	}
 	public function getFilterState($final_qry_str=1){
+	$final_qry_str = 1;
         $sql_getCountry = "select * from `".$this->table_name."` `lpt` where ".$final_qry_str." group by `ProfessionalCountry` ";
         
         $sql_getCountry = "select `lpt`.`ProfessionalState`,`lst`.`StateName` `StateName` from `".$this->table_name."` `lpt` left join `lm_state_tbl` `lst` on `lpt`.`ProfessionalState` = `lst`.`StateId` where `lpt`.`ProfessionalState` !='' group by `lpt`.`ProfessionalState`";
@@ -23,15 +24,10 @@ class Model_searchcustom extends CI_Model
     }
     
     public function getFilterLookingfor($final_qry_str = 1){
-        
+        $final_qry_str = 1;
         $table_ref_name = 's_professional_looking_status';
         
-        // $sql_filterlookingfor = "select `lpt`.`s_professional_looking_status_id`,
-                // `spls`.`s_professional_looking_status_val` 
-                // from `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spls` on 
-                // `lpt`.`s_professional_looking_status_id`=`spls`.`s_professional_looking_status_id` where ".$final_qry_str." and  
-                // `lpt`.`s_professional_looking_status_id` is not null 
-                // group by `lpt`.`s_professional_looking_status_id`;";
+      
 				
 		//Query change By manish		
          $sql_filterlookingfor = "select `lpt`.`s_professional_looking_status_id`,
@@ -40,7 +36,7 @@ class Model_searchcustom extends CI_Model
                 `lpt`.`s_professional_looking_status_id`=`spls`.`s_professional_looking_status_id` where ".$final_qry_str." and  
                 `lpt`.`s_professional_looking_status_id` is not null 
                 group by `lpt`.`s_professional_looking_status_id`;";
-        
+      
         $result = $this->db->query($sql_filterlookingfor);
           
         $data_result = $result->result();  
@@ -49,7 +45,7 @@ class Model_searchcustom extends CI_Model
     }
     
     public function getFiltertype($final_qry_str = 1){
-        
+        $final_qry_str = 1;
           $table_ref_name = 's_professional_type';
         
         // $sql_filtertype = "select `lpt`.`s_professional_type_id`,`spt`.`s_professional_type_val` from 
@@ -71,9 +67,8 @@ class Model_searchcustom extends CI_Model
         
         
     }
-    
-    public function getFiltercoatchfocus($final_qry_str = 1){
-        
+     public function getFiltercoatchfocus($final_qry_str = 1){
+        $final_qry_str = 1;
           $table_ref_name = 's_professional_coaching_focus';
         
         // $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
@@ -81,8 +76,8 @@ class Model_searchcustom extends CI_Model
                     // on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
                     // `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
           // 
-		  //query change by manish
-		  $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
+          //query change by manish
+          $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
                     `".$this->table_name."` `lpt` join `".$table_ref_name."` `spcf` 
                     on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
                     `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
@@ -95,9 +90,49 @@ class Model_searchcustom extends CI_Model
         
         
     }
-    
-    public function getFiltercoatchstyle($final_qry_str = 1){
+   
+     public function getFilterskill($final_qry_str = 1){
+        $final_qry_str = 1;
+
+        $table_ref_name = 'project_skill';
+      
+       // $sql_projectskill_info = "select `pt`.`pr_skill_id`,`pt`.`skill_name` from `".$this->table_name."` `pd` right join `".$table_ref_name."` `pt` on `pd`.`project_type_id` = `pt`.`pr_skill_id` where ".$final_qry_str." group by `pt`.`pr_skill_id`;";
+       
+       $sql_projectskill_info = "select `psm`.`professional_id`,`ps`.`skill_name`,`ps`.`pr_skill_id` from `professional_skill_map` `psm` right join `".$table_ref_name."` `ps` on `psm`.`skill_id`=`ps`.`pr_skill_id` where ".$final_qry_str." group by `ps`.`pr_skill_id`";
+       
+       $result = $this->db->query($sql_projectskill_info);
+          
+       $data_result = $result->result();  
         
+       return $data_result;
+
+
+
+
+
+         /* $table_ref_name = 'project_skill';
+        
+        // $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
+                    // `".$this->table_name."` `lpt` left join `".$table_ref_name."` `spcf` 
+                    // on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
+                    // `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
+          // 
+          //query change by manish
+          $sql_filtercoatchfocus = "select `lpt`.`s_professional_coaching_focus_id`,`spcf`.`s_professional_coaching_focus_val` from 
+                    `".$this->table_name."` `lpt` join `".$table_ref_name."` `spcf` 
+                    on `lpt`.`s_professional_coaching_focus_id`=`spcf`.`s_professional_coaching_focus_id` where ".$final_qry_str." and 
+                    `lpt`.`s_professional_coaching_focus_id` is not null group by `lpt`.`s_professional_coaching_focus_id`;";
+        
+        $result = $this->db->query($sql_filtercoatchfocus);
+          
+        $data_result = $result->result();  
+        
+        return $data_result;*/
+        
+        
+    }
+    public function getFiltercoatchstyle($final_qry_str = 1){
+        $final_qry_str = 1;
           $table_ref_name = 's_professional_coaching_style';
         
         // $sql_filtercoatchstyle = "select `lpt`.`s_professional_coaching_style_id`,`spcs`.`s_professional_coaching_style_val` from 
@@ -119,16 +154,40 @@ class Model_searchcustom extends CI_Model
         
         
     }
-    
-    public function getFilterhourlyrate($final_qry_str = 1){
+    public function getFiltercoatchcredential($final_qry_str = 1){
+	$final_qry_str = 1;
+        $table_ref_name = 's_professional_coaching_credential';
+        if($final_qry_str!=1){
+
+          $sql_filtercoatchcredential = "select `lpt`.`s_professional_coaching_credential_id`,`spcs`.`credential` from 
+                    `".$this->table_name."` `lpt` join `".$table_ref_name."` `spcs` 
+                    on `lpt`.`s_professional_coaching_credential_id`=`spcs`.`id` where ".$final_qry_str." and 
+                    `lpt`.`s_professional_coaching_credential_id` is not null group by `lpt`.`s_professional_coaching_credential_id`;";
+        }else{
+
+
+            $sql_filtercoatchcredential = "select * from `".$table_ref_name."`;";
+        }
+
+
+
+        $result = $this->db->query($sql_filtercoatchcredential);
+          
+        $data_result = $result->result();  
         
+        return $data_result;
+        
+        
+    }
+    public function getFilterhourlyrate($final_qry_str = 1){
+        $final_qry_str = 1;
         $sql_filterhourrate = "select count(*) ct,
              CASE
-                WHEN `ProfessionalCharges` < 100 THEN '1-100'
-                WHEN `ProfessionalCharges` < 200 THEN '100-200'
-                WHEN `ProfessionalCharges` < 300 THEN '200-300'
-                WHEN `ProfessionalCharges` < 400 THEN '300-400'
-                WHEN `ProfessionalCharges` < 500 THEN '400-500'
+                WHEN `ProfessionalCharges` < 100 THEN '1-99'
+                WHEN `ProfessionalCharges` < 200 THEN '100-199'
+                WHEN `ProfessionalCharges` < 300 THEN '200-299'
+                WHEN `ProfessionalCharges` < 400 THEN '300-399'
+                WHEN `ProfessionalCharges` < 500 THEN '400-499'
                 ELSE '1000+'
              END AS grp
              FROM `".$this->table_name."` `lpt` where ".$final_qry_str." AND `ProfessionalCharges` !='' group by `grp`";
@@ -145,7 +204,7 @@ class Model_searchcustom extends CI_Model
     }
     
     public function getFiltercontractval($final_qry_str = 1){
-        
+        $final_qry_str = 1;
         $sql_filtercontractval = "select count(*) ct,
              CASE
                 WHEN `s_professional_contract_charge` < 1000 THEN '1-1000'

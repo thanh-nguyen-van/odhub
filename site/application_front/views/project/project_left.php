@@ -8,7 +8,7 @@
 	<span><a href="<?=base_url('project/')?>">Reset</a></span>
 </div>
 <div class="selc-projects">
-    <h1>category</h1>
+    <h2>I am looking for: </h2>
 
 
 
@@ -35,42 +35,7 @@ foreach($category_details as $category){
 <?php
 }
 ?>
-<? if($pr_cat_name!=2){?>
-<h2>Coaching Type:</h2>
-<div class="totaBoxD-pro"><span>
-  <input name="coaching_type" id="pr_cat_name" type="radio"  value="inperson" onclick="submit_search_form();"/>
-</span>
-  <p>In person</p>
-  <span>
-  <input name="coaching_type" id="pr_cat_name" type="radio"  value="inphone" onclick="submit_search_form();"/>
-</span>
-  <p>Phone</p>
-<div class="clear"></div>
-</div>
 
-<? } ?> 
-<? if($pr_cat_name!=1){?>
-<h2>Skills:</h2>
-
-<?php
-
-$type_arr = array();
-if(isset($post_data['projecttype'])){
-   $type_arr = $post_data['projecttype'];
-}
-
-
-foreach($projecttypeInfo as $projecttype){
-?>
-<div class="totaBoxD-pro">
-<span><input name="projecttype[]" id="projecttype" type="checkbox" value="<?php echo $projecttype->project_type_id; ?>" <?php if(in_array($projecttype->project_type_id,$type_arr)){echo "checked";}?> onclick="submit_search_form();"></span><p><?php echo $projecttype->project_type_txt; ?></p>
-<div class="clear"></div>
-</div>
-<?php
-}
-?>
-<!-- Project Leader ship -->
-<? } ?>
 <? if($pr_cat_name!=2){?>
 <h2>Coaching Focus:</h2>
 
@@ -92,6 +57,31 @@ foreach($project_leadership_coaching as $projecttype){
 }
 ?>
 <? } ?>
+
+ 
+<? if($pr_cat_name!=1){?>
+<h2>Skills:</h2>
+
+<?php
+
+$type_arr = array();
+if(isset($post_data['projecttype'])){
+   $type_arr = $post_data['projecttype'];
+}
+
+
+foreach($projecttypeInfo as $projecttype){
+?>
+<div class="totaBoxD-pro">
+<span><input name="projecttype[]" id="projecttype" type="checkbox" value="<?php echo $projecttype->project_type_id; ?>" <?php if(in_array($projecttype->project_type_id,$type_arr)){echo "checked";}?> onclick="submit_search_form();"></span><p><?php echo $projecttype->skill_name; ?></p>
+<div class="clear"></div>
+</div>
+<?php
+}
+?>
+<!-- Project Leader ship -->
+<? } ?>
+
 </div>
 
 
@@ -117,6 +107,7 @@ foreach($project_leadership_coaching as $projecttype){
 <div class="mid-sec">
 
     <div class="mid-cont-pro">
+       <? if($pr_cat_name!=2){?>
     <span><input name="pricing_type[]" type="checkbox" value="Hourly" border="0"></span>
     
     <p>Hourly</p>
@@ -132,10 +123,11 @@ foreach($project_leadership_coaching as $projecttype){
 <div class="inputBoxR"><input name="hourly_rate_end" type="text" placeholder="Max"></div>
 <div class="clear"></div>
 </div>
-
+<?}?>
 <div class="mid-cont-pro">
-    <span><input name="pricing_type[]" type="checkbox" value="Fixed Price Job" border="0"></span>
-    
+   
+    <? if($pr_cat_name!=1){?>
+ <span><input name="pricing_type[]" type="checkbox" value="Fixed Price Job" border="0"></span>
     <p>Maximum Contract Value</p>
 
 <div class="clear"></div>
@@ -150,7 +142,7 @@ foreach($project_leadership_coaching as $projecttype){
 <div class="clear"></div>
 </div>
 
-
+<? } ?>
 </div>
 
 
@@ -171,25 +163,63 @@ foreach($project_leadership_coaching as $projecttype){
 
 <div class="mid-cont-Box">
 
-<select name="location" id="location" onchange="submit_search_form();">
-<option value="all">-All-</option>
-<?php
-
-	$state_selected_state = 0; 
-	  if(isset($post_data['location'])){
-		  $state_selected_state = $post_data['location'];
-	  }
-
-
-	foreach($projectstate as $state){
-?>
-<option value="<?php echo $state->state?>" <?php if($state_selected_state == $state->state){echo "selected";}?>><?php echo $state->StateName;?></option><?php
-	}
-?>
-</select>
+ 
+        <?php
+                        $countryList = $this->model_location->get_country_data();
+                  
+                        ?> <div class="dollarG"><span >
+                        <select name="custom_country" id="custom_country" >
+                          <option value="0">--Select Country--</option>
+                        <?php
+                     
+                            foreach($countryList as $country){ ?>
+                                <option value="<?php echo $country['CountryId'];?>"><?php echo $country['Country'];?></option>    
+                            <?php
+                            }
+                        ?>
+                        </select>
+                      </span></div>
+                      <div class="clear"></div>
+       
+        <br />
+         <br />
+       
+       <div class="dollarG">
+                     <span id="generate_state_options">
+                        <select name="location" id="location"  onchange="submit_search_form();" >
+                          <option value="0">--Select State--</option>
+                         </select>
+                        </span>
+                        </div>
+                        <div class="clear"></div>
+                  <br/>
 <div class="clear"></div>
 </div>
-
+ <script>
+          $('#custom_country').change(function()
+          {
+           
+              var countryId = $(this).val();
+            
+             getStateList(countryId)
+          });
+          
+          function getStateList(countryId){
+            var pageUrl = '<?php echo base_url('login/ajaxGenerateStatelist')?>';
+        
+            $.ajax({
+              url: pageUrl,
+              type: "POST",
+              data: {page_action : 'ajax_edit', c_country_id: countryId , param:'from_filter' },
+              dataType: "html",
+              success: function(msg) {
+               
+                $("#generate_state_options").html('');
+                $("#generate_state_options").html(msg);
+              }
+            }); 
+          }
+                </script> 
 
 <div class="start-Date">
 

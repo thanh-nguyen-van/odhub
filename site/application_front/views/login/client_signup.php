@@ -5,10 +5,10 @@
   <div class="reg_b">
     <div class="shdw-left"></div>
     <p class="reg-h">Create an OD Hub Account as a Client</p>
-    <!--<div class="linkd2">
+    <div class="linkd2">
       <div class="left bold">Use my info from : </div>
-      <div class="left"> <a href="#"><img src="<?php echo css_images_js_base_url();?>images/lnkd.jpg" alt="" width="71" height="24" border="0"></a></div>
-    </div>-->
+      <div class="left"> <a href="<?php echo base_url(); ?>linkedinauth"><img src="<?php echo css_images_js_base_url();?>images/lnkd.jpg" alt="" width="71" height="24" border="0"></a></div>
+    </div>
     <div>
       <div class="left-reg">
         <div class="reg-orng">
@@ -32,18 +32,18 @@
 					if($referral_code != ''){
 						
 				?>		
-					<p class="p-txt">Referral User</p>		 
+				<!--	<p class="p-txt">Referral User</p>		 
                 	<div><?php echo $ref_professional[0]->ProfessionalFirstname.' '.$ref_professional[0]->ProfessionalLastname;?></div>
                     
-                    <p class="p-txt">REFERRAL CODE</p>		 
-                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o" readonly="readonly"/><span>*</span></div>
+                  <p class="p-txt">REFERRAL CODE</p>		 
+                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o" readonly="readonly"/><span>*</span></div>-->
                     
 				<?php		
 					}
 					else{
 				?>		
-					<p class="p-txt">REFERRAL CODE</p>		 
-                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o"/><span>*</span></div>		
+				  	<!--<p class="p-txt">REFERRAL CODE</p>		 
+                	<div><input type="text" name="referral_code" id="referral_code" value="<?php echo $referral_code;?>" class="input-r in-o"/><span>*</span></div>		-->
 				<?php		
 					}
 				?>

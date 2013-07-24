@@ -52,6 +52,7 @@ if(!$professional_id){ ?>
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
                     <p>Country :	<span> <?php
                             if ($country_data) {
+								if(isset($country_data['Country']))
                                 echo $country_data['Country'];
                             }
                 ?> </span></p>

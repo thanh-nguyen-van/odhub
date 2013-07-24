@@ -139,13 +139,15 @@
 
                     <p>Username : <span> <?php echo $_SESSION[USER_SESSION_NAME] ?> </span></p>
                     <p>Address :	<span> <?php echo $prof_data['ProfessionalAddress']; ?> </span></p>
-                    <p>Country :	<span> <?php
+                    <p>Country :	<span> <?php 
                             if ($country_data) {
+								if(isset($country_data['Country']))
                                 echo $country_data['Country'];
                             }
                 ?> </span></p>
                     <p>State :	<span> <?php
                             if ($state_data != NULL) {
+								if(isset($country_data['Country']))
                                 echo $state_data['StateName'];
                             }
                 ?> </span></p>
@@ -157,7 +159,7 @@
                     
                     <p>Unique Referral Code Link For Client : <span><a href="<?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?>"><?php echo base_url("login/signup/?code=" . $prof_data['referral_code']); ?></a></span> </p>
                     
-                    <p>Send email: <span><a href="javascript:void(0);" onclick='window.open("<?php echo base_url("professional/popUpEmail/?code=".$prof_data['referral_code']);?>","_blank","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=400, height=400");'>Click</a></p>
+                    <p>Send email: <span class="send-btn"><a href="javascript:void(0);" onclick='window.open("<?php echo base_url("professional/popUpEmail/?code=".$prof_data['referral_code']);?>","_blank","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=350, height=400");'>Click</a></p>
                     
                     <p><a target="_blank" href="<?php echo file_upload_base_url().'professionalw9/'.$prof_data['w9Image'];?>">Download file W-9</a></p>
                     <p>&nbsp;</p>
@@ -178,10 +180,10 @@
             <div class="clear"></div>
             
             
-           <? if($prof_data['s_professional_looking_status_id'] ==''){?> 
+           <? if($prof_data['s_professional_looking_status_id'] =='' && empty($search_status)){?> 
           <div class="total-2btns">
-            	<div class="left-Btn"><a href="#" onclick="UpdateLookingStatus(1);">BECOME SEARCHABLE AS A COACH</a></div>
-                <div class="right-Btn"><a href="#" onclick="UpdateLookingStatus(2);">BECOME SEARCHABLE FOR YOUR OD EXPERTISE</a></div>
+            	<div class="left-Btn"><a href="<?=base_url('professional/Searchable/1')?>" >BECOME SEARCHABLE AS A COACH</a></div>
+                <div class="right-Btn"><a href="<?=base_url('professional/Searchable/2')?>" >BECOME SEARCHABLE FOR YOUR OD EXPERTISE</a></div>
                 
                 <div class="clear"></div>
           </div>

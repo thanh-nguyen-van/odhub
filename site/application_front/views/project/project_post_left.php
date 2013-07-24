@@ -47,6 +47,7 @@ else
         }
     }
 </script>
+
 <aside class="leftCol-post">
   <form name="projectPostForm" id="projectPostForm" action="<?php echo $post_project_submit_link ?>" enctype="multipart/form-data" method="post">
   	<?php if($project_id != ''){ ?>
@@ -102,20 +103,62 @@ else
           <div class="ic-pG">Hourly</div> <div class="dollarG" id="rad2">$ <span><input type="text" name="start_price2" id="start_price2" value="<?=$start_price2?>" disabled="true" />Minimum Price : <?=$minimum_amount['minimum_project_amount_hourly']?></span></div>
           <div class="clear"></div>
         </div>
-        Statename : 
-        <select id="state" name="state">
-		<?php
-        
-			for($i=0;$i<count($state_data);$i++){
-		?>
-        <option value="<?php echo $state_data[$i]->StateId;?>"><?php echo $state_data[$i]->StateName;?></option>
+        <div class="ic-pG">Country : </div>
         <?php
-			}
-		?>
-        </select>
+                        $countryList = $this->model_location->get_country_data();
+                  
+                        ?> <div class="dollarG"><span >
+                        <select name="custom_country" id="custom_country" >
+                          <option value="0">--Select Country--</option>
+                        <?php
+                       // CountryId, Country, FIPS104, ISO2, ISO3, ISON, Internet, Capital, MapReference, NationalitySingular, NationalityPlural, Currency, CurrencyCode, Population, Title, Comment
+                            foreach($countryList as $country){ ?>
+                                <option value="<?php echo $country['CountryId'];?>"><?php echo $country['Country'];?></option>    
+                            <?php
+                            }
+                        ?>
+                        </select>
+                      </span></div>
+                      <div class="clear"></div>
+       
         <br />
-          Project Type : 
-        <select id="project_type_id" name="project_type_id">
+       <div class="ic-pG">State:</div>
+       <div class="dollarG">
+                     <span id="generate_state_options">
+                        <select name="state" id="state" >
+                          <option value="0">--Select State--</option>
+                         </select>
+                        </span>
+                        </div>
+                        <div class="clear"></div>
+                  <br/>
+       <script>
+          $('#custom_country').change(function()
+          {
+           
+              var countryId = $(this).val();
+            
+             getStateList(countryId)
+          });
+          
+          function getStateList(countryId){
+            var pageUrl = '<?php echo base_url('login/ajaxGenerateStatelist')?>';
+        
+            $.ajax({
+              url: pageUrl,
+              type: "POST",
+              data: {page_action : 'ajax_edit', c_country_id: countryId , param:'from_post_project' },
+              dataType: "html",
+              success: function(msg) {
+               
+                $("#generate_state_options").html('');
+                $("#generate_state_options").html(msg);
+              }
+            }); 
+          }
+                </script> 
+         <div class="ic-pG"> Project Type : </div>
+      <div class="dollarG">  <select id="project_type_id" name="project_type_id">
 		<?php
         
 			for($i=0;$i<count($projecttype);$i++){
@@ -124,7 +167,7 @@ else
         <?php
 			}
 		?>
-        </select>
+        </select></div>
                 	
                 
         <div class="clear"></div>
@@ -132,7 +175,7 @@ else
           <div class="locationDivP">Location, Visibility and Other Options -</div>
           <div class="show-hide">
             <div class="layer1-a">
-              <p class="heading-a">Show</p>
+              <!--<p class="heading-a">Show</p>-->
               <div class="content-a">
                 <h3>Job Posting Visibility</h3>
                 <div class="publicTotal">

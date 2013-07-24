@@ -24,9 +24,11 @@ class testimonial extends MY_Controller
 	
 	public function Mytestimonial()
 	{
+		$this->leftmenu_data['left_menu']	= $this->model_content->get_left_menu("StaticPageType = 'left_menu'");
 		$this->middle_data['testimonial']	= $this->model_testimonial->get_testimonial();
 		
 		$this->template->write_view('header', 'common/header',$this->header_data);
+		$this->template->write_view('leftmenu',  'common/left_menu',$this->leftmenu_data); 
 		$this->template->write_view('content', 'testimonial/testimonial',$this->middle_data); 
 		$this->template->write_view('footer', 'common/footer',$this->footer_data);
 		$this->template->render();

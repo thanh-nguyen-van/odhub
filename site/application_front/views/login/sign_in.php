@@ -11,7 +11,7 @@
          <div class="log-main">
           <h4>Login to OD hub</h4>
           <?php if(isset($errmsg) && $errmsg != "") { ?>
-              <div class="msg failure"><?php echo $errmsg; ?></div>
+              <div class="forgot failure yellow_field"><?php echo $errmsg; ?></div>
           <?php }?>
 		  <!--  Commented the code by Manish just removing the type of the clients.    -->
           <!--<div class="usrtpe">As a :</div>
@@ -26,12 +26,15 @@
           
           <br /><br />
           
-          <div><input type="text"	  name="username" id="username" value="<?php echo set_value('username') ?>" placeholder="User name . . ." class="input1" />
-               <span>*</span><?php echo form_error('username') ?></div>
-          <div><input type="password" name="password" id="password" value="<?php echo set_value('password') ?>" placeholder="* * * * * * * *" class="input1" />
-          	   <span>*</span><?php echo form_error('password') ?></div>
+          <div class="blank_field"><input type="text"	  name="username" id="username" value="<?php echo set_value('username') ?>" placeholder="User name . . ." class="input1" />
+               <?php echo form_error('username') ?>
+			   
+               </div>
+          <div class="blank_field"><input type="password" name="password" id="password" value="<?php echo set_value('password') ?>" placeholder="* * * * * * * *" class="input1" />
+          	   <?php echo form_error('password') ?></div>
           <div class="forgot" align="right"><a href="#">Did you forget your password ?</a></div>
           <div class="btn1"><input type="submit" class="buttn" value="Login"></div>
+		<div class="clear"></div>  
           <div class="btn1"><a href="<?php echo site_url('login/signup'); ?>" class="buttn">Sign up</a></div>
          </div>
         </form>

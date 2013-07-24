@@ -12,8 +12,9 @@ class Model_all extends CI_Model
         if($this->request_data != NULL){       
            $arr_cond_arr = array();
            
-           if($this->request_data['location']!='all'){
-                $cond_str = "`pd`.`state`='".$this->request_data['location']."'";
+           if(isset($this->request_data['custom_country']) &&  isset($this->request_data['state'])){
+                $cond_str = "`pd`.`country`='".$this->request_data['custom_country']."' OR `pd`.`state`='".$this->request_data['state']."'";
+               // $cond_str = "";
                 array_push($arr_cond_arr,$cond_str);
             }
            
@@ -46,9 +47,12 @@ class Model_all extends CI_Model
             
             if(isset($this->request_data['projecttype'])){
                $tmp_str = implode(',',$this->request_data['projecttype']);
-               $cond_str = "`pd`.`project_type_id` in(".$tmp_str.")";
+              $cond_str = "`pd`.`project_id` in(select `project_id` from `project_skill_map` `ps` where `ps`.`skill_id` in(".$tmp_str."))";
+               // /$cond_str = "`pd`.`project_type_id` in(".$tmp_str.")";
                array_push($arr_cond_arr,$cond_str);
-            } 
+            }
+             // where project_id in(select project_id from project_skill_map where skil_id in $tmp_str)
+           // where professional_id in(select professional_id from professional_skill_map_tbl where skil_id in $tmp_str)
 			if(isset($this->request_data['projectcoachingtype'])){
                $tmp_str = implode(',',$this->request_data['projectcoachingtype']);
                $cond_str = "`pd`.`project_coaching_type_id` in(".$tmp_str.")";

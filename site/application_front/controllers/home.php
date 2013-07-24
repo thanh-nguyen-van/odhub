@@ -22,7 +22,8 @@ class Home extends MY_Controller
 	function index()
 	{
 		$this->middle_data['home']	= $this->model_home->get_home();
-		
+		// print_r($this->middle_data['home']);
+		// die;
 		$this->template->write_view('header', 'common/header',$this->header_data);
 		$this->template->write_view('content', 'home/index',$this->middle_data); 
 		$this->template->write_view('footer', 'common/footer',$this->footer_data);
@@ -36,7 +37,19 @@ class Home extends MY_Controller
 		$this->template->write_view('footer', 'common/footer',$this->footer_data);
 		$this->template->render();
 	}
-	
+	public function submit_feedback(){
+
+		$post_data = $this->input->post();
+		if(!empty($post_data)){
+			if($this->model_home->insert_feedback($post_data)){
+				
+			}else{
+				echo "Something goes wrong.";
+				die;
+			}
+
+		}
+	}
 }
 
 /* End of file home.php */
